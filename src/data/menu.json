@@ -1,0 +1,49 @@
+[
+    {
+        "to": "/orders",
+        "label": "Заказы",
+        "icon": "/assets/icons/chat.svg"
+    },
+    {
+        "to": "/wallet",
+        "label": "Кошелек",
+        "icon": "/assets/icons/chat.svg"
+    },
+    {
+        "to": "/profile",
+        "label": "Анкета",
+        "icon": "/assets/icons/chat.svg"
+    },
+    {
+        "to": "/support",
+        "label": "Поддержка",
+        "icon": "/assets/icons/chat.svg",
+        "children": [
+            {
+                "to": "/support",
+                "label": "Служба поддержки",
+                "icon": "/assets/icons/chat.svg"
+            },
+            {
+                "to": "/support",
+                "label": "Инструкция по оплате",
+                "icon": "/assets/icons/chat.svg"
+            },
+            {
+                "to": "/support",
+                "label": "Частые вопросы",
+                "icon": "/assets/icons/chat.svg"
+            },
+            {
+                "to": "/support",
+                "label": "Условия использования",
+                "icon": "/assets/icons/chat.svg"
+            }
+        ]
+    },
+    {
+        "to": "/bonus",
+        "label": "Бонусы",
+        "icon": "/assets/icons/chat.svg"
+    }
+]
