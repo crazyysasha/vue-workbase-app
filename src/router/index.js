@@ -15,9 +15,9 @@ const routes = [
     children: [
       {
 
-        path: '/:category',
-        name: 'makeOrderSearch',
-        component: () => import(/* webpackChunkName: "makeOrder" */ '../views/makeOrder/SearchView.vue'),
+        path: ':services',
+        name: 'SearchService',
+        component: () => import(/* webpackChunkName: "makeOrder" */ '../views/makeOrder/SearchServiceView.vue'),
         meta: { header: 'secondary' },
       },
     ],

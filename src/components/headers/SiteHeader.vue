@@ -1,119 +1,110 @@
 <template>
-    <header class="sticky top-0 z-50 bg-blue-900 text-white">
-        <div class="container mx-auto flex items-center">
-            <router-link to="/">
+    <header class="sticky top-0 z-50 bg-primary text-white">
+        <div class="container mx-auto flex items-center justify-between">
+            <router-link to="/" class="py-2">
                 <img src="@/assets/logo-white.svg" alt="" class="w-40" />
             </router-link>
-            <nav
-                class="flex flex-1 items-center"
-                :class="{ hidden: isLeftSideMenu }"
-            >
-                <router-link
-                    v-for="link in links"
-                    :key="link.to"
-                    :to="link.to"
+            <nav class="font-medium py-4 flex gap-4">
+                <button
+                    type="button"
                     class="
+                        flex
+                        items-center
+                        border-2 border-white
+                        rounded-full
+                        px-5
                         py-2
-                        px-4
-                        mx-3
-                        flex flex-col
-                        justify-center
-                        font-medium
-                        hover:bg-blue-800
+                        hover:bg-white hover:text-primary
+                        transition
+                        duration-200
                     "
-                    active-class="bg-blue-800"
                 >
-                    <img :src="link.icon" alt="" class="h-8" />
-                    {{ link.label }}
-                </router-link>
-                <dropdown-button class="ml-auto" :items="[]">
-                    <img
-                        src="@/assets/icons/profile.png"
-                        alt=""
-                        class="h-8 mx-auto"
-                    />
-                    <span> Я заказчик </span>
-                    <svg
-                        class="
-                            h-6
-                            w-6
-                            text-current
-                            -mb-1
-                            transform
-                            transition-transform
-                        "
-                        :class="{ 'rotate-y-180': isOpen }"
-                        viewBox="0 0 20 20"
-                        fill="currentColor"
-                        xmlns="http://www.w3.org/2000/svg"
-                        style=""
-                    >
-                        <path
-                            fill-rule="evenodd"
-                            d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
-                            clip-rule="evenodd"
-                        ></path>
-                    </svg>
-                </dropdown-button>
-                <dropdown-button
-                    class="ml-auto"
-                    :items="[]"
-                    @handler="dropdownClick"
+                    <h-location class="mr-2"></h-location>
+                    г. Ташкент
+                </button>
+                <button
+                    @click="showLoginModal = true"
+                    type="button"
+                    class="
+                        flex
+                        items-center
+                        border-2 border-white
+                        rounded-full
+                        px-5
+                        py-2
+                        hover:bg-white hover:text-primary
+                        transition
+                        duration-200
+                    "
                 >
-                    <img
-                        src="@/assets/icons/profile.png"
-                        alt=""
-                        class="h-8 mx-auto"
-                    />
-                    <span> Я заказчик </span>
-                    <svg
-                        class="
-                            h-6
-                            w-6
-                            text-current
-                            -mb-1
-                            transform
-                            transition-transform
-                        "
-                        :class="{ 'rotate-y-180': isOpen }"
-                        viewBox="0 0 20 20"
-                        fill="currentColor"
-                        xmlns="http://www.w3.org/2000/svg"
-                        style=""
-                    >
-                        <path
-                            fill-rule="evenodd"
-                            d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
-                            clip-rule="evenodd"
-                        ></path>
-                    </svg>
-                </dropdown-button>
+                    <h-enter class="mr-2"></h-enter>
+                    Вход
+                </button>
+                <button
+                    @click="showRegisterModal = true"
+                    type="button"
+                    class="
+                        flex
+                        items-center
+                        border-2 border-white
+                        rounded-full
+                        px-5
+                        py-2
+                        hover:bg-white hover:text-primary
+                        transition
+                        duration-200
+                    "
+                >
+                    <h-pencil class="mr-2"></h-pencil>
+                    Регистрация
+                </button>
             </nav>
         </div>
     </header>
+    <c-modal v-model="showLoginModal" v-slot="ctx">
+        <button
+            class="
+                absolute
+                top-3
+                right-3
+                bg-gray-300
+                hover:bg-primary hover:text-white
+                transition
+                duration-200
+                rounded-full
+                p-2
+            "
+            @click="ctx.close()"
+        >
+            <h-x class="w-3 h-3"></h-x>
+        </button>
+        <c-login></c-login>
+    </c-modal>
+    <c-modal v-model="showRegisterModal" v-slot="ctx">
+        <button
+            class="
+                absolute
+                top-3
+                right-3
+                bg-gray-300
+                hover:bg-primary hover:text-white
+                transition
+                duration-200
+                rounded-full
+                p-2
+            "
+            @click="ctx.close()"
+        >
+            <h-x class="w-3 h-3"></h-x>
+        </button>
+        <c-register></c-register>
+    </c-modal>
 </template>
-<script>
-import { useWindowSize } from "@vueuse/core";
-import { computed } from "vue";
-import DropdownButton from "@/components/dropdown/DropdownButton.vue";
-import menuData from "@/data/menu.json";
+<script setup>
+import { ref } from "vue";
+import CLogin from "@/components/auth/c-login";
+import cRegister from "@/components/auth/c-register";
 
-export default {
-    components: { DropdownButton },
-    setup() {
-        const { width } = useWindowSize();
-
-        const isLeftSideMenu = computed(() => {
-            return width.value < 1000;
-        });
-
-        const links = computed(() => menuData.map((item) => {item.icon = require(`@${item.icon}`)}));
-        
-        const dropdownClick = (item) => {
-            console.log(item);
-        };
-
-        return { links, isLeftSideMenu, dropdownClick };
-    },
-};
+const showLoginModal = ref(false);
+const showRegisterModal = ref(false);
 </script>
