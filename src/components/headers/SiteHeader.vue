@@ -4,7 +4,12 @@
             <router-link to="/" class="py-2">
                 <img src="@/assets/logo-white.svg" alt="" class="w-40" />
             </router-link>
-            <nav class="font-medium py-4 flex gap-4">
+
+            <nav v-if="isAuthentificated">
+                <span>{{ user.name }}</span>
+                <button @click="onLogout">logout</button>
+            </nav>
+            <nav class="font-medium py-4 flex gap-4" v-else>
                 <button
                     type="button"
                     class="
@@ -78,7 +83,7 @@
         >
             <h-x class="w-3 h-3"></h-x>
         </button>
-        <c-login></c-login>
+        <c-login @successful="ctx.close()"></c-login>
     </c-modal>
     <c-modal v-model="showRegisterModal" v-slot="ctx">
         <button
@@ -104,7 +109,9 @@
 import { ref } from "vue";
 import CLogin from "@/components/auth/c-login";
 import cRegister from "@/components/auth/c-register";
-
+import useAuth from "@/composables/auth";
 const showLoginModal = ref(false);
 const showRegisterModal = ref(false);
+const { isAuthentificated, user, onLogout } = useAuth();
+console.log(isAuthentificated.value);
 </script>
