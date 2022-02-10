@@ -19,6 +19,4 @@
 </template>
 <script setup>
 import SiteHeader from "@/components/headers/SiteHeader.vue";
-import user from "./composables/user/useUser";
-user;
 </script>

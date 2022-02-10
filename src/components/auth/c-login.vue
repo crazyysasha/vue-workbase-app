@@ -63,8 +63,7 @@
 import useVuelidate from "@vuelidate/core";
 import { required } from "@vuelidate/validators";
 import { reactive } from "vue";
-import { useLogin } from "@/composables/user/useLogin";
-
+import useAuth from "@/composables/auth";
 const state = reactive({
     type: "customer",
     phone: "",
@@ -76,15 +75,18 @@ const rules = {
     phone: { required },
     password: { required },
 };
-
+const { onLogin } = useAuth();
 const v$ = useVuelidate(rules, state);
-const { onLogin } = useLogin();
+const emit = defineEmits(["successful"]);
 const onLoginHandler = async () => {
     const isSuccess = await v$.value.$validate();
 
     if (!isSuccess) return;
     const { errors, data } = await onLogin(state);
-    console.log(errors, data);
+    if (errors != null) {
+        return;
+    }
+    emit("successful", data);
 };
 </script>
 

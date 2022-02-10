@@ -113,7 +113,7 @@
         >
             <h-x class="w-3 h-3"></h-x>
         </button>
-        <c-login></c-login>
+        <c-login @successful="ctx.close()"></c-login>
     </c-modal>
     <c-modal v-model="showRegisterModal" v-slot="ctx">
         <button
@@ -139,7 +139,9 @@
 import { ref } from "vue";
 import CLogin from "@/components/auth/c-login";
 import cRegister from "@/components/auth/c-register";
-
+import useAuth from "@/composables/auth";
 const showLoginModal = ref(false);
 const showRegisterModal = ref(false);
+const { isAuthentificated, user, onLogout } = useAuth();
+console.log(isAuthentificated.value);
 </script>
