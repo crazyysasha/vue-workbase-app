@@ -4,7 +4,12 @@
             <router-link to="/" class="py-2">
                 <img src="@/assets/logo-white.svg" alt="" class="w-40" />
             </router-link>
-            <nav class="font-medium py-4 flex gap-4">
+            <nav v-if="isAuthentificated">
+                <button @click="onLogout">
+                    {{user.name}} - logout
+                </button>
+            </nav>
+            <nav class="font-medium py-4 flex gap-4" v-else>
                 <!-- <button
                     type="button"
                     class="
