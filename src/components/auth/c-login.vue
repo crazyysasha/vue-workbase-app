@@ -7,17 +7,18 @@
             <c-radio-toggler
                 name="type"
                 v-model="state.type"
-                :value="'customer'"
-            >
-                Заказчик
-            </c-radio-toggler>
-            <c-radio-toggler
-                name="type"
-                v-model="state.type"
                 :value="'executor'"
             >
                 Исполнитель
             </c-radio-toggler>
+            <c-radio-toggler
+                name="type"
+                v-model="state.type"
+                :value="'customer'"
+            >
+                Заказчик
+            </c-radio-toggler>
+
         </div>
         <div class="flex flex-col">
             <c-input

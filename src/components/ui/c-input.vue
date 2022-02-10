@@ -11,9 +11,12 @@
                 rounded-sm
                 focus:border-orange-500
                 py-2
-                px-4
+                px-6
                 focus:outline-none
                 w-full
+                font-medium 
+                text-sm 
+                md:text-md   
             "
         />
     </label>

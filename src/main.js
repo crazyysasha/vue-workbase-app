@@ -3,11 +3,12 @@ import App from './App.vue'
 import './registerServiceWorker'
 import router from './router'
 import store from './store'
-import './assets/styles/tailwind.css';
 import CButton from "@/components/buttons/c-button";
 import CGrid from "@/components/c-grid";
 import CDropdown from "@/components/c-dropdown";
 import CDropdownItem from "@/components/c-dropdown-item";
+import './assets/styles/tailwind.css';
+import './assets/fonts/Aeroport/stylesheet.css';
 
 import * as HeroIcons from '@/components/icons/hero';
 import * as UI from '@/components/ui';

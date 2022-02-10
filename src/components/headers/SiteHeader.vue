@@ -5,7 +5,7 @@
                 <img src="@/assets/logo-white.svg" alt="" class="w-40" />
             </router-link>
             <nav class="font-medium py-4 flex gap-4">
-                <button
+                <!-- <button
                     type="button"
                     class="
                         flex
@@ -21,7 +21,7 @@
                 >
                     <h-location class="mr-2"></h-location>
                     г. Ташкент
-                </button>
+                </button> -->
                 <button
                     @click="showLoginModal = true"
                     type="button"
@@ -35,6 +35,7 @@
                         hover:bg-white hover:text-primary
                         transition
                         duration-200
+                        outline-0
                     "
                 >
                     <h-enter class="mr-2"></h-enter>
@@ -53,11 +54,45 @@
                         hover:bg-white hover:text-primary
                         transition
                         duration-200
+                        outline-0
                     "
                 >
                     <h-pencil class="mr-2"></h-pencil>
                     Регистрация
                 </button>
+                <button
+                    type="button" 
+                    class="
+                        flex
+                        items-center
+                        border-2 border-white
+                        rounded-full
+                        px-5
+                        py-2
+                        hover:bg-white hover:text-primary
+                        transition
+                        duration-200
+                        outline-0
+                " >
+                    Ru 
+                    <svg class="ml-1 w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                    </svg>
+                </button>
+                <div id="dropdown" class="hidden z-10 w-44 text-base list-none bg-white rounded divide-y divide-gray-100 shadow">
+                    <ul class="py-1" aria-labelledby="dropdownButton">
+                        <li>
+                            <a href="#" class="block text-center py-2 px-4 text-sm text-primary hover:bg-primary hover:rounded hover:mx-2 hover:text-white">
+                                Уз
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#" class="block text-center py-2 px-4 text-sm text-primary hover:bg-primary hover:rounded hover:mx-2 hover:text-white">
+                                O'z
+                            </a>
+                        </li>
+                    </ul>
+                </div>
             </nav>
         </div>
     </header>

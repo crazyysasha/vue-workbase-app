@@ -21,13 +21,13 @@
                     "
                 >
                     <transition
-                        enter-from-class="scale-90 -translate-y-full"
-                        enter-active-class="transition-all ease-out duration-200 transform"
+                        enter-from-class="scale-95 -translate-y-20"
+                        enter-active-class="transition-all ease-out duration-200 transform transform-gpu"
                         enter-to-class="scale-100 translate-y-0"
                         leave-from-class="scale-100 translate-y-0"
-                        leave-active-class="transition-all ease-in duration-200 transform"
-                        leave-to-class="scale-90 -translate-y-full"
-                        @after-leave="closeWrapper()"
+                        leave-active-class="transition-all ease-in duration-200 transform transform-gpu"
+                        leave-to-class="scale-95 -translate-y-20"
+                        @before-leave="closeWrapper()"
                     >
                         <div
                             v-if="isShownModal"
