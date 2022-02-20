@@ -5,6 +5,9 @@
                 <img src="@/assets/logo-white.svg" alt="" class="w-40" />
             </router-link>
             <nav v-if="isAuthentificated">
+                <router-link to="/orders" class="py-2">
+                    Заказы
+                </router-link>
                 <button @click="onLogout">
                     {{user.name}} - logout
                 </button>
