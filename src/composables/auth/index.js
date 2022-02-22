@@ -1,3 +1,4 @@
+import { login } from "@/api/auth";
 import { computed, ref, watch } from "vue";
 
 const tokenRef = ref(localStorage.getItem('token'));
@@ -31,26 +32,22 @@ export default function useAuth() {
 
     const isAuthentificated = computed(() => !!tokenRef.value);
 
-    const onLogin = (credentials) => {
-        const errors = {};
-        if (credentials.phone != '+998903297989') {
-            errors.phone = 'Неверный номер телефона!';
-            return { errors };
-        }
-        if (credentials.password != '123123123') {
-            errors.password = 'Неверный пароль!';
-            return { errors };
-        }
-        tokenRef.value = 'xzxzxzxzxzxzxzxzxzxzxz';
-        userRef.value = {
-            id: 1,
-            name: 'Sasha',
-            surname: 'Raimov',
-        };
+    const onLogin = async (credentials) => {
+        const { data, error } = await login(credentials);
 
-        return {
-            data: { user },
-        };
+        if (['validation', 'auth'].includes(error?.type)) {
+            return { error };
+        }
+
+        if ('token' in data) {
+            tokenRef.value = data.token;
+        }
+
+        if ('user' in data) {
+            userRef.value = data.user;
+        }
+
+        return { data };
     }
     const onLogout = () => {
         tokenRef.value = null;

@@ -14,10 +14,11 @@
                 px-6
                 focus:outline-none
                 w-full
-                font-medium 
-                text-sm 
-                md:text-md   
+                font-medium
+                text-sm
+                md:text-md
             "
+            :class="classes || {}"
         />
     </label>
 </template>
@@ -38,8 +39,14 @@ const props = defineProps({
         type: [String],
         default: "text",
     },
+    classes: {
+        type: Object,
+        default: function () {
+            return {};
+        },
+    },
 });
-const { value, modelValue, name: fieldName } = toRefs(props);
+const { value, classes, modelValue, name: fieldName } = toRefs(props);
 
 const emit = defineEmits(["update:modelValue"]);
 </script>

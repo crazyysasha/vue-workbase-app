@@ -1,9 +1,9 @@
 <template>
     <div class="min-h-screen bg-gray-100">
-        <site-header></site-header>
+        <app-header></app-header>
         <router-view></router-view>
     </div>
 </template>
 <script setup>
-import SiteHeader from "@/components/headers/SiteHeader.vue";
+import AppHeader from "@/components/headers/AppHeader.vue";
 </script>
