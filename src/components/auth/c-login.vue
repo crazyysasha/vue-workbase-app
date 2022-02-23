@@ -1,8 +1,11 @@
 <template>
-    <form @submit.prevent="onLoginHandler">
+    <form @submit.prevent="onLoginHandler" class="block w-72">
         <h3 class="font-semibold block text-xl md:text-xl text-center mb-6">
             Авторизация
         </h3>
+        <p v-if="errorMessage" class="mb-6 text-red-500 font-thin text-sm">
+            {{ errorMessage }}
+        </p>
         <div class="grid grid-cols-2 gap-4 mb-6">
             <c-radio-toggler
                 name="type"
@@ -18,22 +21,37 @@
             >
                 Заказчик
             </c-radio-toggler>
-
         </div>
         <div class="flex flex-col">
             <c-input
-                v-model="state.phone"
-                name="phone"
-                class="mb-3"
+                v-model="state.username"
+                name="username"
+                :classes="{ 'border-red-200': v$.username.$error }"
                 :placeholder="'Номер телефона'"
             />
+            <div class="mb-3 font-thin text-red-500">
+                <div
+                    v-for="error in v$.username.$errors"
+                    v-bind:key="error.$uid"
+                >
+                    {{ error.$message }}
+                </div>
+            </div>
             <c-input
                 v-model="state.password"
                 name="password"
-                class="mb-3"
+                :classes="{ 'border-red-200': v$.username.$error }"
                 :type="'password'"
                 :placeholder="'Пароль'"
             />
+            <div class="mb-3 font-thin text-red-500">
+                <div
+                    v-for="error in v$.password.$errors"
+                    v-bind:key="error.$uid"
+                >
+                    {{ error.$message }}
+                </div>
+            </div>
         </div>
         <div class="py-4">
             <button
@@ -51,9 +69,32 @@
                     transition
                     duration-200
                     text-center
+                    disabled:bg-opacity-50
                 "
+                :disabled="isLoading"
             >
-                Войти
+                <span v-if="!isLoading"> Войти </span>
+                <svg
+                    class="animate-spin h-5 w-5 text-white mx-auto"
+                    xmlns="http://www.w3.org/2000/svg"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    v-else
+                >
+                    <circle
+                        class="opacity-25"
+                        cx="12"
+                        cy="12"
+                        r="10"
+                        stroke="currentColor"
+                        stroke-width="4"
+                    ></circle>
+                    <path
+                        class="opacity-75"
+                        fill="currentColor"
+                        d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
+                    ></path>
+                </svg>
             </button>
         </div>
     </form>
@@ -61,34 +102,75 @@
 
 <script setup>
 import useVuelidate from "@vuelidate/core";
-import { required } from "@vuelidate/validators";
-import { reactive } from "vue";
+import { required, helpers } from "@vuelidate/validators";
+import { reactive, watch, ref } from "vue";
 import useAuth from "@/composables/auth";
+
+const rules = {
+    type: {
+        required: helpers.withMessage(
+            "Вы должны указать кем вы являетесь",
+            required
+        ),
+    },
+    username: {
+        required: helpers.withMessage("Номер телефона обязателен", required),
+    },
+    password: {
+        required: helpers.withMessage("Пароль обязателен", required),
+    },
+};
+
 const state = reactive({
     type: "customer",
-    phone: "",
+    username: "",
     password: "",
 });
 
-const rules = {
-    type: { required },
-    phone: { required },
-    password: { required },
-};
-const { onLogin } = useAuth();
-const v$ = useVuelidate(rules, state);
-const emit = defineEmits(["successful"]);
-const onLoginHandler = async () => {
-    const isSuccess = await v$.value.$validate();
+const $externalResults = reactive({});
 
-    if (!isSuccess) return;
-    const { errors, data } = await onLogin(state);
-    if (errors != null) {
+const v$ = useVuelidate(rules, state, { $externalResults });
+
+const emit = defineEmits(["successful"]);
+
+watch(
+    () => state.username,
+    () => ($externalResults.username = [])
+);
+watch(
+    () => state.password,
+    () => ($externalResults.password = [])
+);
+watch(state, () => {
+    errorMessage.value = null;
+});
+
+const { onLogin } = useAuth();
+
+const isLoading = ref(false);
+
+const errorMessage = ref(null);
+
+const onLoginHandler = async () => {
+    const isLocalValidateSuccess = await v$.value.$validate();
+
+    if (!isLocalValidateSuccess) return;
+
+    isLoading.value = true;
+
+    const { error, data } = await onLogin(state);
+
+    isLoading.value = false;
+
+    if (error?.type == "validation") {
+        Object.assign($externalResults, error.fields);
         return;
     }
+    if (error?.type == "auth") {
+        errorMessage.value = error.message;
+        return;
+    }
+
     emit("successful", data);
 };
 </script>
-
-<style>
-</style>
