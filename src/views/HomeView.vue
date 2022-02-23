@@ -24,7 +24,7 @@
         </div>
     </section>
     <section class="flex w-full items-center justify-center pt-12">
-        <div class="container">
+        <div class="container  px-4 sm:px-0">
             <div class="text-center sm:text-left pb-8">
                 <h2 class="text-xl md:text-3xl text-gray-900 font-medium">
                     В <span class="text-blue-800">Ташкенте работает</span> 325 779 специалистов, 205 469 дистанционно
