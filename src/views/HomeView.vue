@@ -20,7 +20,7 @@
                 Работа в Узбекистане
             </h1>
             <p class="text-md md:text-2xl font-normal md:my-10 my-5 text-white">
-                538 603 клиента доверили дела WorkBase
+                Вы ищите, мы находим
             </p>
             <ul class="flex flex-wrap mt-10 text-white text-sm text-xl">
                 <li class="mr-5 my-2 md:text-xl text-sm">
