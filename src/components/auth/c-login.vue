@@ -158,7 +158,7 @@ const onLoginHandler = async () => {
 
     isLoading.value = true;
 
-    const { error, data } = await onLogin(state);
+    const { error, user } = await onLogin(state);
 
     isLoading.value = false;
 
@@ -171,6 +171,6 @@ const onLoginHandler = async () => {
         return;
     }
 
-    emit("successful", data);
+    emit("successful", user);
 };
 </script>

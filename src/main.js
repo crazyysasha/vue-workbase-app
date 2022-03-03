@@ -24,6 +24,8 @@ for (const component in UI) {
     app.component(component, UI[component].default);
 }
 
+console.log(process.env.API_URL);
+
 app.component('c-button', CButton)
 
     .component('c-grid', CGrid)

@@ -84,5 +84,3 @@ watch(isShownWrapper, (val) => {
     }
 });
 </script>
-<style>
-</style>

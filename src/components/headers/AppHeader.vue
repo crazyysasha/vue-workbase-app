@@ -1,27 +1,12 @@
 <template>
     <header class="sticky top-0 z-50 bg-primary text-white">
-        <div class="container px-4 sm:px-0 mx-auto">
-            <nav
-                v-if="isAuthentificated"
-                class="
-                    flex
-                    w-full
-                    items-center
-                    flex-wrap
-                    bg-teal
-                    py-4
-                    justify-between
-                "
-            >
-                <div class="flex items-center flex-no-shrink text-white mr-6">
-                    <router-link to="/" class="py-2 mr-12">
-                        <img
-                            src="@/assets/logo-white.svg"
-                            alt=""
-                            class="w-40"
-                        />
-                    </router-link>
-                </div>
+        <div class="container px-4 mx-auto flex items-stretch">
+            <div class="flex">
+                <router-link to="/" class="py-2 my-auto w-40">
+                    <img src="@/assets/logo-white.svg" alt="" class="" />
+                </router-link>
+            </div>
+            <nav class="font-medium py-3 flex gap-4 justify-between ml-auto">
                 <div class="block xl:hidden">
                     <button
                         @click="toggle"
@@ -59,10 +44,17 @@
                     </button>
                 </div>
                 <div
-                    :class="open ? 'block' : 'hidden'"
+                    :class="'block'"
                     class="w-full flex-grow xl:flex xl:items-center xl:w-auto"
                 >
-                    <div class="text-sm xl:flex-grow">
+                    <div class="text-sm xl:flex-grow"></div>
+                    <div></div>
+                    <div></div>
+                </div>
+            </nav>
+            <nav class="font-medium justify-between items-stretch flex ml-auto">
+                <ul v-if="isAuthentificated">
+                    <li>
                         <router-link
                             to="/orders"
                             class="
@@ -79,6 +71,8 @@
                             <h-order></h-order>
                             Заказы
                         </router-link>
+                    </li>
+                    <li>
                         <router-link
                             to="/orders"
                             class="
@@ -95,6 +89,8 @@
                             <h-wallet></h-wallet>
                             Кошелёк
                         </router-link>
+                    </li>
+                    <li>
                         <router-link
                             to="/orders"
                             class="
@@ -111,6 +107,8 @@
                             <h-account></h-account>
                             Анкета
                         </router-link>
+                    </li>
+                    <li>
                         <router-link
                             to="/orders"
                             class="
@@ -127,6 +125,8 @@
                             <h-support></h-support>
                             Поддержка
                         </router-link>
+                    </li>
+                    <li>
                         <router-link
                             to="/orders"
                             class="
@@ -143,28 +143,17 @@
                             <h-bonus></h-bonus>
                             Бонусы
                         </router-link>
-                    </div>
-                    <div>
+                    </li>
+                    <li>
                         <c-user-menu></c-user-menu>
-                    </div>
-                    <div>
+                    </li>
+                    <li>
                         <c-language></c-language>
-                    </div>
-                </div>
-            </nav>
-            <nav class="font-medium py-4 flex gap-4 justify-between" v-else>
-                <div
-                    class="flex items-center flex-no-shrink text-white mr-auto"
-                >
-                    <router-link to="/" class="py-2 mr-12">
-                        <img
-                            src="@/assets/logo-white.svg"
-                            alt=""
-                            class="w-40"
-                        />
-                    </router-link>
-                </div>
-                <!-- <button
+                    </li>
+                </ul>
+                <ul class="flex items-center py-3 gap-4">
+                    <!--<li>
+                         <button
                     type="button"
                     class="
                         flex
@@ -180,133 +169,62 @@
                 >
                     <h-location class="mr-2"></h-location>
                     г. Ташкент
-                </button> -->
-                <button
-                    @click="showLoginModal = true"
-                    type="button"
-                    class="
-                        flex
-                        items-center
-                        border-2 border-white
-                        rounded-full
-                        px-5
-                        py-2
-                        hover:bg-white hover:text-primary
-                        transition
-                        duration-200
-                        outline-0
-                    "
-                >
-                    <h-enter class="mr-2"></h-enter>
-                    Вход
-                </button>
-                <button
-                    @click="showRegisterModal = true"
-                    type="button"
-                    class="
-                        flex
-                        items-center
-                        border-2 border-white
-                        rounded-full
-                        px-5
-                        py-2
-                        hover:bg-white hover:text-primary
-                        transition
-                        duration-200
-                        outline-0
-                    "
-                >
-                    <h-pencil class="mr-2"></h-pencil>
-                    Регистрация
-                </button>
-                <button
-                    type="button"
-                    class="
-                        flex
-                        items-center
-                        border-2 border-white
-                        rounded-full
-                        px-5
-                        py-2
-                        hover:bg-white hover:text-primary
-                        transition
-                        duration-200
-                        outline-0
-                    "
-                >
-                    Ru
-                    <svg
-                        class="ml-1 w-3 h-3"
-                        fill="none"
-                        stroke="currentColor"
-                        viewBox="0 0 24 24"
-                        xmlns="http://www.w3.org/2000/svg"
-                    >
-                        <path
-                            stroke-linecap="round"
-                            stroke-linejoin="round"
-                            stroke-width="2"
-                            d="M19 9l-7 7-7-7"
-                        ></path>
-                    </svg>
-                </button>
-                <div
-                    id="dropdown"
-                    class="
-                        hidden
-                        z-10
-                        w-44
-                        text-base
-                        list-none
-                        bg-white
-                        rounded
-                        divide-y divide-gray-100
-                        shadow
-                    "
-                >
-                    <ul class="py-1">
-                        <li>
-                            <a
-                                href="#"
-                                class="
-                                    block
-                                    text-center
-                                    py-2
-                                    px-4
-                                    text-sm text-primary
-                                    hover:bg-primary
-                                    hover:rounded
-                                    hover:mx-2
-                                    hover:text-white
-                                "
-                            >
-                                Уз
-                            </a>
-                        </li>
-                        <li>
-                            <a
-                                href="#"
-                                class="
-                                    block
-                                    text-center
-                                    py-2
-                                    px-4
-                                    text-sm text-primary
-                                    hover:bg-primary
-                                    hover:rounded
-                                    hover:mx-2
-                                    hover:text-white
-                                "
-                            >
-                                O'z
-                            </a>
-                        </li>
-                    </ul>
-                </div>
+                </button>                    </li> -->
+
+                    <li>
+                        <button
+                            @click="showLoginModal = true"
+                            type="button"
+                            class="
+                                flex
+                                items-center
+                                border-2 border-white
+                                rounded-full
+                                px-5
+                                py-2
+                                hover:bg-white hover:text-primary
+                                transition
+                                duration-200
+                                outline-0
+                            "
+                        >
+                            <h-enter class="mr-2"></h-enter>
+                            Вход
+                        </button>
+                    </li>
+                    <li>
+                        <button
+                            @click="showRegisterModal = true"
+                            type="button"
+                            class="
+                                flex
+                                items-center
+                                border-2 border-white
+                                rounded-full
+                                px-5
+                                py-2
+                                hover:bg-white hover:text-primary
+                                transition
+                                duration-200
+                                outline-0
+                            "
+                        >
+                            <h-pencil class="mr-2"></h-pencil>
+                            Регистрация
+                        </button>
+                    </li>
+                    <li>
+                        <c-language></c-language>
+                    </li>
+                </ul>
             </nav>
         </div>
     </header>
-    <c-modal v-model="showLoginModal" v-slot="ctx">
+    <c-modal
+        v-model="showLoginModal"
+        v-slot="{ close }"
+        v-if="!isAuthentificated"
+    >
         <button
             class="
                 absolute
@@ -319,13 +237,17 @@
                 rounded-full
                 p-2
             "
-            @click="ctx.close()"
+            @click="close"
         >
             <h-x class="w-3 h-3"></h-x>
         </button>
-        <c-login @successful="ctx.close()"></c-login>
+        <c-login @successful="close"></c-login>
     </c-modal>
-    <c-modal v-model="showRegisterModal" v-slot="ctx">
+    <c-modal
+        v-model="showRegisterModal"
+        v-slot="{ close }"
+        v-if="!isAuthentificated"
+    >
         <button
             class="
                 absolute
@@ -338,7 +260,7 @@
                 rounded-full
                 p-2
             "
-            @click="ctx.close()"
+            @click="close"
         >
             <h-x class="w-3 h-3"></h-x>
         </button>
@@ -354,6 +276,6 @@ import cUserMenu from "@/components/userMenu/c-user-menu";
 import cLanguage from "@/components/userMenu/c-language";
 const showLoginModal = ref(false);
 const showRegisterModal = ref(false);
-const { isAuthentificated, user, onLogout } = useAuth();
-console.log(isAuthentificated.value);
+const { isAuthentificated, user } = useAuth();
+
 </script>

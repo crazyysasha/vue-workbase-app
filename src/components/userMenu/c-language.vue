@@ -11,7 +11,7 @@
                 <router-link to="/" class="flex justify-center px-4 py-2 text-base text-indigo-100 hover:bg-indigo-100 hover:mx-2 hover:px-2 hover:rounded hover:text-primary">
                     UZ
                 </router-link>
-                <router-link @click="onLogout" to="/" class="flex justify-center px-4 py-2 text-base text-indigo-100 hover:bg-indigo-100 hover:mx-2 hover:px-2 hover:rounded hover:text-primary">
+                <router-link to="/" class="flex justify-center px-4 py-2 text-base text-indigo-100 hover:bg-indigo-100 hover:mx-2 hover:px-2 hover:rounded hover:text-primary">
                     En
                 </router-link>
             </div>
