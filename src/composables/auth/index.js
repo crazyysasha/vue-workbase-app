@@ -1,4 +1,4 @@
-import { login } from "@/api/auth";
+import { login, logout, refresh, register } from "@/api/auth";
 import { computed, ref, watch } from "vue";
 
 const tokenRef = ref(localStorage.getItem('token'));
@@ -47,13 +47,50 @@ export default function useAuth() {
             userRef.value = data.user;
         }
 
-        return { data };
+        return data;
     }
-    const onLogout = () => {
-        tokenRef.value = null;
-        userRef.value = null;
+    const onLogout = async () => {
+        try {
+
+            const data = await logout({ token: token.value });
+        } catch (error) {
+
+        } finally {
+            tokenRef.value = null;
+            userRef.value = null;
+        }
+        return data;
     }
-    const onRegister = () => { }
+
+    const onRefresh = async () => {
+        try {
+            const { token } = await refresh({ token: token.value });
+            tokenRef.value = token;
+        } catch (error) {
+            tokenRef.value = null;
+            userRef.value = null;
+        }
+    }
+
+    const onRegister = async (credentials) => {
+
+        const { data, error } = await register(credentials);
+
+        if (['validation', 'auth'].includes(error?.type)) {
+            return { error };
+        }
+
+        if ('token' in data) {
+            tokenRef.value = data.token;
+        }
+
+        if ('user' in data) {
+            userRef.value = data.user;
+        }
+
+        return data;
+    }
+
     return {
         isAuthentificated,
         token,

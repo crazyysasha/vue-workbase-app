@@ -87,7 +87,7 @@
 import useAuth from "@/composables/auth";
 import { ref } from "vue";
 
-const { onLogout } = useAuth();
+const { onLogout, user } = useAuth();
 
 const show = ref(false);
 </script>

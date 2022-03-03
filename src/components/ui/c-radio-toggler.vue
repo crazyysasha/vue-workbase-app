@@ -7,19 +7,21 @@
             border
             py-2
             px-6
-            text-gray-400
-            text-center
+            text-gray-400 text-center
             transition-all
             duration-200
-            font-medium 
-            text-sm 
-            md:text-md  
-            rounded-sm   
+            font-medium
+            text-sm
+            md:text-md
+            rounded-sm
             justify-center
             items-center
             flex
             mb-3
+            focus:outline-orange-500
         "
+        tabindex="0"
+        @keypress.enter.space="emit('update:modelValue', value)"
         :class="{ 'border-orange-500 text-orange-500': modelValue == value }"
     >
         <input
