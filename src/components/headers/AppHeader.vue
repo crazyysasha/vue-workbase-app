@@ -1,5 +1,11 @@
 <template>
-    <header class="sticky top-0 z-50 bg-primary text-white">
+    <header
+        class="sticky top-0 z-50 text-white"
+        :class="{
+            'bg-primary': headerType == 'secondary',
+            'bg-white': headerType == 'primary',
+        }"
+    >
         <div class="container px-4 mx-auto flex items-stretch">
             <div class="flex">
                 <router-link to="/" class="py-2 my-auto w-40">
@@ -271,13 +277,17 @@
     </c-modal>
 </template>
 <script setup>
-import { ref } from "vue";
+import { computed, ref } from "vue";
 import CLogin from "@/components/auth/c-login";
 import cRegister from "@/components/auth/c-register";
 import useAuth from "@/composables/auth";
 import cUserMenu from "@/components/userMenu/c-user-menu";
 import cLanguage from "@/components/userMenu/c-language";
+import { useRoute } from "vue-router";
 const showLoginModal = ref(false);
 const showRegisterModal = ref(false);
 const { isAuthentificated, user } = useAuth();
+const route = useRoute();
+const headerType = computed(() => route.meta?.header || "secondary");
+console.log(headerType);
 </script>
