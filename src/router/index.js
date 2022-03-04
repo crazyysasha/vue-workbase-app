@@ -8,21 +8,30 @@ const routes = [
     component: HomeView,
     meta: { header: 'primary' }
   },
-  {
-    path: '/:category',
-    name: 'makeOrder',
-    component: () => import(/* webpackChunkName: "makeOrder" */ '../views/makeOrder/IndexView.vue'),
-    meta: { header: 'secondary' },
-    children: [
-      {
+  // {
+  //   path: '/:category',
+  //   name: 'makeOrder',
+  //   component: () => import(/* webpackChunkName: "makeOrder" */ '../views/makeOrder/IndexView.vue'),
+  //   meta: { header: 'secondary' },
+  //   props: true,
+  //   children: [
+  //     {
 
-        path: ':services',
-        name: 'SearchService',
-        component: () => import(/* webpackChunkName: "makeOrder" */ '../views/makeOrder/SearchServiceView.vue'),
-        meta: { header: 'secondary' },
-      },
-    ],
-  },
+  //       path: '/',
+  //       name: 'SearchService',
+  //       component: () => import(/* webpackChunkName: "makeOrder" */ '../views/makeOrder/SearchServiceView.vue'),
+  //       meta: { header: 'secondary' },
+  //     },
+  //     {
+
+  //       path: '/:services+',
+  //       name: 'SearchService',
+  //       props: true,
+  //       component: () => import(/* webpackChunkName: "makeOrder" */ '../views/makeOrder/SearchServiceView.vue'),
+  //       meta: { header: 'secondary' },
+  //     },
+  //   ],
+  // },
   {
     path: '/help',
     name: 'help',
@@ -43,6 +52,7 @@ const routes = [
 const router = createRouter({
   history: createWebHistory(process.env.BASE_URL),
   routes
+  
 })
 
 export default router
