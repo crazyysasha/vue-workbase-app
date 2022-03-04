@@ -53,7 +53,10 @@
                 </div>
             </nav>
             <nav class="font-medium justify-between items-stretch flex ml-auto">
-                <ul v-if="isAuthentificated">
+                <ul
+                    v-if="isAuthentificated"
+                    class="flex items-center py-3 gap-4"
+                >
                     <li>
                         <router-link
                             to="/orders"
@@ -151,7 +154,7 @@
                         <c-language></c-language>
                     </li>
                 </ul>
-                <ul class="flex items-center py-3 gap-4">
+                <ul class="flex items-center py-3 gap-4" v-else>
                     <!--<li>
                          <button
                     type="button"
@@ -277,5 +280,4 @@ import cLanguage from "@/components/userMenu/c-language";
 const showLoginModal = ref(false);
 const showRegisterModal = ref(false);
 const { isAuthentificated, user } = useAuth();
-
 </script>

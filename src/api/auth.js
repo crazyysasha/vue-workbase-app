@@ -3,9 +3,9 @@ import axios from "axios";
 
 export const login = async (credentials) => {
     let { data } = await axios.post(
-        process.env.API_URL + 'crazy/workbase/v1.0.1/login',
+        'http://api.workbase.uz/api/crazy/workbase/v1.0.1/login',
         credentials,
-        { validateStatus: (status) => status < 500, },
+        { validateStatus: (status) => status < 500, headers: { 'Accept-Language': 'ru' } },
     );
 
     return data;
@@ -13,9 +13,9 @@ export const login = async (credentials) => {
 
 export const register = async (credentials) => {
     let { data } = await axios.post(
-        'http://october.loc/api/crazy/workbase/v1.0.1/register',
+        'http://api.workbase.uz/api/crazy/workbase/v1.0.1/register',
         credentials,
-        { validateStatus: (status) => status < 500, },
+        { validateStatus: (status) => status < 500, headers: { 'Accept-Language': 'ru' } },
     );
 
     return data;
@@ -23,7 +23,7 @@ export const register = async (credentials) => {
 
 export const getMe = async () => {
     try {
-        const { data } = await axios.get('http://october.loc/api/crazy/workbase/v1.0.1/getMe',);
+        const { data } = await axios.get('http://api.workbase.uz/api/crazy/workbase/v1.0.1/getMe', { headers: { 'Accept-Language': 'ru' } });
 
     } catch (error) {
         return error.response.data;
@@ -33,7 +33,7 @@ export const getMe = async () => {
 
 
 export const logout = async ({ token }) => {
-    let { data } = await axios.get('http://october.loc/api/crazy/workbase/v1.0.1/logout', { headers: { 'Authorization': `Bearer ${token}` } });
+    let { data } = await axios.get('http://api.workbase.uz/api/crazy/workbase/v1.0.1/logout', { headers: { 'Authorization': `Bearer ${token}`, 'Accept-Language': 'ru' } });
 
     return data;
 }
@@ -41,7 +41,7 @@ export const logout = async ({ token }) => {
 
 // refresh token API method 
 export const refresh = async ({ token }) => {
-    let { data } = await axios.get('http://october.loc/api/crazy/workbase/v1.0.1/refresh', { headers: { 'Authorization': `Bearer ${token}` } });
+    let { data } = await axios.get('http://api.workbase.uz/api/crazy/workbase/v1.0.1/refresh', { headers: { 'Authorization': `Bearer ${token}`, 'Accept-Language': 'ru' } });
 
     return data;
 }
