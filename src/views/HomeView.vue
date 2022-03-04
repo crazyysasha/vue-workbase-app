@@ -32,7 +32,7 @@
                             duration-500
                         "
                         href="#"
-                        ># создание сайтов</a
+                        ># русский онлайн</a
                     >
                 </li>
                 <li class="mr-5 my-2 md:text-xl text-sm">
@@ -44,7 +44,7 @@
                             duration-500
                         "
                         href="#"
-                        ># выгул собак</a
+                        ># Ielts</a
                     >
                 </li>
                 <li class="mr-5 my-2 md:text-xl text-sm">
@@ -56,7 +56,7 @@
                             duration-500
                         "
                         href="#"
-                        ># ремонт под ключ</a
+                        ># создать сайт</a
                     >
                 </li>
                 <li class="mr-5 my-2 md:text-xl text-sm">
@@ -68,7 +68,7 @@
                             duration-500
                         "
                         href="#"
-                        ># математика дистанционно</a
+                        ># матыё ковров</a
                     >
                 </li>
             </ul>
@@ -78,11 +78,10 @@
     <section class="bg-gray-50 py-5">
         <div
             class="
-                container
+                container px-4 sm:px-0
                 md:flex
                 items-center
                 justify-between
-                px-2
                 md:px-4
                 2xl:px-20
                 mx-auto
@@ -90,15 +89,7 @@
         >
             <div class="">
                 <h2
-                    class="
-                        text-sm
-                        md:text-md
-                        lg:text-2xl
-                        text-center
-                        md:text-left
-                        font-medium
-                        mb-8
-                    "
+                    class="text-xl text-center md:text-left md:text-3xl font-medium pb-4 md:pb-8"
                 >
                     Для максимального <br />
                     удобства, скачайте <br />
@@ -118,7 +109,7 @@
                             hover:scale-110
                         "
                         href="#"
-                        ><img class="w-30 h-10" src="" alt=""
+                        ><img class="w-30 h-10" src="../assets/temp/apple.png" alt=""
                     /></a>
                     <a
                         class="
@@ -128,34 +119,40 @@
                             hover:scale-110
                         "
                         href="#"
-                        ><img class="w-30 h-10" src="" alt=""
+                        ><img class="w-30 h-10" src="../assets/temp/android.png" alt=""
                     /></a>
                 </div>
             </div>
             <div class="relative mx-auto w-5/12 mt-5 lg:my-0">
-                <div class="swiper mySwiper w-full">
+                <!-- <div class="swiper mySwiper w-full">
                     <div class="swiper-wrapper mx-auto">
                         <div class="swiper-slide"><img src="" alt="" /></div>
                         <div class="swiper-slide"><img src="" alt="" /></div>
                         <div class="swiper-slide"><img src="" alt="" /></div>
                     </div>
-                </div>
+                </div> -->
                 <swiper
                     :modules="modules"
                     :slides-per-view="1"
-                    :space-between="50"
-                    :autoplay="1000"
-                    :effect="fade"
-                    navigation
-                    :pagination="{ clickable: true }"
-                    :scrollbar="{ draggable: true }"
-                    @swiper="onSwiper"
+                    :space-between="0"
+                    :loop="1"
+                    :effect="'fade'"
+                    :autoplay="{
+                        delay: 2500,
+                        disableOnInteraction: false,
+                    }"
+                    @swiper="onSwiper2"
                     @slideChange="onSlideChange"
                 >
-                    <swiper-slide>Slide 1</swiper-slide>
-                    <swiper-slide>Slide 2</swiper-slide>
-                    <swiper-slide>Slide 3</swiper-slide>
-                    ...
+                    <swiper-slide>
+                        <img src="../assets/temp/sw-1.png" alt="" />
+                    </swiper-slide>
+                    <swiper-slide>
+                        <img src="../assets/temp/sw-2.png" alt="" />
+                    </swiper-slide>
+                    <swiper-slide>
+                        <img src="../assets/temp/sw-3.png" alt="" />
+                    </swiper-slide>
                 </swiper>
             </div>
         </div>
@@ -394,4 +391,23 @@
 
 <script setup>
 import CCategories from "@/components/home/c-categories";
+
+import { Autoplay, EffectFade, Navigation, Pagination, Scrollbar, A11y } from 'swiper';
+
+import { Swiper, SwiperSlide } from 'swiper/vue';
+
+import 'swiper/css';
+import 'swiper/css/navigation';
+import 'swiper/css/autoplay';
+import 'swiper/css/effect-fade';
+
+
+
+
+const onSwiper = (swiper) => {
+    console.log(swiper);
+};
+const onSlideChange = () => {
+    console.log('slide change');
+};
 </script>
