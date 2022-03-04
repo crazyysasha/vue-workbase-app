@@ -12,7 +12,7 @@
                     grid
                     md:grid-cols-1
                     lg:grid-cols-2
-                    xl:grid-cols-3
+                    xl:grid-cols-4
                     2xl:grid-cols-4
                     gap-7
                     py-5
@@ -20,10 +20,29 @@
                 v-if="loading"
             >
                 <div
-                    v-for="index in 10"
+                    v-for="index in 8"
                     :key="index"
                     class="p-4 bg-white animate-pulse rounded-lg"
-                ></div>
+                >
+                    <div class="flex items-center justify-around mb-10">
+                        <div class="w-12 h-12 rounded-full bg-gray-200"></div>
+                        <div class="w-3/5 h-12">
+                            <div class="w-full h-4 bg-gray-200 rounded-lg mb-3"></div>
+                            <div class="w-3/5 h-4 bg-gray-200 rounded-lg"></div>
+                        </div>
+                    </div>
+                    <div>
+                        <div class="w-full h-4 mb-4 bg-gray-200 rounded-lg"></div>
+                        <div class="w-3/5 h-4 mb-4 bg-gray-200 rounded-lg"></div>
+                        <div class="w-4/5 h-4 mb-4 bg-gray-200 rounded-lg"></div>
+                        <div class="w-full h-4 mb-4 bg-gray-200 rounded-lg"></div>
+                        <div class="w-2/4 h-4 mb-4 bg-gray-200 rounded-lg"></div>
+                        <div class="w-3/4 h-4 mb-4 bg-gray-200 rounded-lg"></div>
+                    </div>
+                    <div class="border-t pt-4 border-dashed border-gray-400">
+                        <div class="w-4/5 h-4 mb-4 bg-gray-200 rounded-lg"></div>
+                    </div>
+                </div>
             </div>
             <div
                 class="
