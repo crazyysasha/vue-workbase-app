@@ -264,7 +264,8 @@
           <a
             class="transition-all duration-500 transform hover:scale-110"
             href="#"
-            ><img class="w-30 h-10" src="../assets/temp/android.png" alt=""
+            >
+                <img class="w-30 h-10" src="../assets/temp/android.png" alt=""
           /></a>
         </div>
       </div>

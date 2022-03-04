@@ -3,7 +3,11 @@
         <div class="relative">
             <button
                 @click="show = !show"
-                class="flex items-center p-2 text-white"
+                class="flex items-center p-2"
+                :class="{
+                    '': headerType == 'secondary',
+                    'text-primary': headerType == 'primary',
+                }" 
             >
                 <div class="mr-3">
                     <img
@@ -84,10 +88,12 @@
     </div>
 </template>
 <script setup>
-import useAuth from "@/composables/auth";
-import { ref } from "vue";
-
+import useAuth from "@/composables/auth"
+import { computed, ref } from "@vue/runtime-core";
+import { useRoute } from "vue-router";
+const show = ref(false);
+const route = useRoute();
+const headerType = computed(() => route.meta?.header || "secondary");
 const { onLogout, user } = useAuth();
 
-const show = ref(false);
 </script>

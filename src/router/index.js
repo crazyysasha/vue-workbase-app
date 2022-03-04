@@ -43,9 +43,14 @@ const routes = [
     component: () => import(/* webpackChunkName: "wallet" */ '../views/WalletView.vue')
   },
   {
+    path: '/account',
+    name: 'account',
+    component: () => import(/* webpackChunkName: "account" */ '../views/AccountView.vue'),
+  },
+  {
     path: '/:pathMath(.*)*',
     name: '404',
-    component: () => import(/* webpackChunkName: "wallet" */ '../views/NotFoundView.vue')
+    component: () => import(/* webpackChunkName: "404" */ '../views/NotFoundView.vue'),
   },
 ]
 
