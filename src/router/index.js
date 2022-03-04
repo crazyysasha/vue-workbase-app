@@ -5,7 +5,8 @@ const routes = [
   {
     path: '/',
     name: 'home',
-    component: HomeView
+    component: HomeView,
+    meta: { header: 'primary' }
   },
   {
     path: '/:category',
@@ -31,6 +32,11 @@ const routes = [
     path: '/wallet',
     name: 'wallet',
     component: () => import(/* webpackChunkName: "wallet" */ '../views/WalletView.vue')
+  },
+  {
+    path: '/:pathMath(.*)*',
+    name: '404',
+    component: () => import(/* webpackChunkName: "wallet" */ '../views/NotFoundView.vue')
   },
 ]
 
