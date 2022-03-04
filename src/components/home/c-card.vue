@@ -1,5 +1,5 @@
 <template>
-    <div class="bg-white rounded-xl px-8 py-6 flex flex-col">
+    <div class="bg-white rounded-xl px-5 py-5 flex flex-col">
         <div class="flex items-center mb-5">
             <div class="p-3 rounded-full bg-gray-100">
                 <img :src="props.iconPath" class="h-9 w-9" alt="" />
@@ -10,8 +10,8 @@
                     <router-link :to="`/${props.slug}`">
                         {{ props.name }}
                     </router-link>
+                    <span class="text-base text-gray-300"> (2)</span>
                 </h3>
-                <span class="text-gray-300">(2)</span>
             </div>
         </div>
         <div class="mt-2">

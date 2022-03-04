@@ -21,7 +21,17 @@ const routes = [
         meta: { header: 'secondary' },
       },
     ],
-  }
+  },
+  {
+    path: '/help',
+    name: 'help',
+    component: () => import(/* webpackChunkName: "faq" */ '../views/HelpView.vue')
+  },
+  {
+    path: '/wallet',
+    name: 'wallet',
+    component: () => import(/* webpackChunkName: "wallet" */ '../views/WalletView.vue')
+  },
 ]
 
 const router = createRouter({
