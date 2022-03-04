@@ -95,7 +95,7 @@
                     </li>
                     <li>
                         <router-link
-                            to="/orders"
+                            to="/account"
                             class="
                                 no-underline
                                 block

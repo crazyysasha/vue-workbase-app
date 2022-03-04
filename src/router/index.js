@@ -32,6 +32,11 @@ const routes = [
     name: 'wallet',
     component: () => import(/* webpackChunkName: "wallet" */ '../views/WalletView.vue')
   },
+  {
+    path: '/account',
+    name: 'account',
+    component: () => import(/* webpackChunkName: "account" */ '../views/AccountView.vue')
+  },
 ]
 
 const router = createRouter({
