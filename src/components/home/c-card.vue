@@ -50,7 +50,7 @@
                 :to="`category/${props.slug}`"
                 class="text-blue-900 flex items-center"
             >
-                Все услуги
+                Посмотреть все услуги
                 <svg
                     xmlns="http://www.w3.org/2000/svg"
                     class="h-5 w-5 text-blue-900 ml-2"

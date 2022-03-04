@@ -1,6 +1,6 @@
 <template>
-    <section class="flex w-full items-center justify-center pt-12" id="asd">
-        <div class="container">
+    <section class="flex w-full items-center justify-center py-12 " id="asd">
+        <div class="container px-4">
             <div class="text-center sm:text-left pb-8">
                 <h2 class="text-xl md:text-3xl text-gray-900 font-medium">
                     В <span class="text-blue-800">Ташкенте работает</span> 325
@@ -31,7 +31,6 @@
                     md:grid-cols-1
                     lg:grid-cols-2
                     xl:grid-cols-3
-                    2xl:grid-cols-4
                     gap-7
                     py-5
                 "
