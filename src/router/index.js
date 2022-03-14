@@ -8,30 +8,7 @@ const routes = [
     component: HomeView,
     meta: { header: 'primary' }
   },
-  // {
-  //   path: '/:category',
-  //   name: 'makeOrder',
-  //   component: () => import(/* webpackChunkName: "makeOrder" */ '../views/makeOrder/IndexView.vue'),
-  //   meta: { header: 'secondary' },
-  //   props: true,
-  //   children: [
-  //     {
 
-  //       path: '/',
-  //       name: 'SearchService',
-  //       component: () => import(/* webpackChunkName: "makeOrder" */ '../views/makeOrder/SearchServiceView.vue'),
-  //       meta: { header: 'secondary' },
-  //     },
-  //     {
-
-  //       path: '/:services+',
-  //       name: 'SearchService',
-  //       props: true,
-  //       component: () => import(/* webpackChunkName: "makeOrder" */ '../views/makeOrder/SearchServiceView.vue'),
-  //       meta: { header: 'secondary' },
-  //     },
-  //   ],
-  // },
   {
     path: '/help',
     name: 'help',
@@ -48,16 +25,39 @@ const routes = [
     component: () => import(/* webpackChunkName: "account" */ '../views/AccountView.vue'),
   },
   {
+    path: '/:category',
+    name: 'makeOrder',
+    component: () => import(/* webpackChunkName: "orderIndex" */ '../views/makeOrder/IndexView.vue'),
+    // meta: { header: 'secondary' },
+    // props: true,
+    children: [
+      {
+        path: '',
+        name: 'SearchService',
+        // props: true,
+        component: () => import(/* webpackChunkName: "orderSearchService" */ '../views/makeOrder/SearchServiceView.vue'),
+        // meta: { header: 'secondary' },
+      },
+      {
+
+        path: ':services+',
+        name: 'SearchService',
+        component: () => import(/* webpackChunkName: "orderSelectService" */ '../views/makeOrder/SelectServiceView.vue'),
+        meta: { header: 'secondary' },
+      },
+    ],
+  },
+  {
     path: '/:pathMath(.*)*',
     name: '404',
     component: () => import(/* webpackChunkName: "404" */ '../views/NotFoundView.vue'),
   },
+  { path: '/test', name: 'test', component: () => import(/* webpackChunkName: "test" */ '../views/TestView.vue') },
 ]
 
 const router = createRouter({
   history: createWebHistory(process.env.BASE_URL),
   routes
-  
 })
 
 export default router

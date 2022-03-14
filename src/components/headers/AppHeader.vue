@@ -306,14 +306,14 @@
 import { computed, ref } from "vue";
 import CLogin from "@/components/auth/c-login";
 import cRegister from "@/components/auth/c-register";
-import useAuth from "@/composables/auth";
+// import useAuth from "@/composables/auth";
 import cUserMenu from "@/components/userMenu/c-user-menu";
 import cLanguage from "@/components/userMenu/c-language";
 import { useRoute } from "vue-router";
 const showLoginModal = ref(false);
 const showRegisterModal = ref(false);
-const { isAuthentificated, user } = useAuth();
+// const { isAuthentificated, user } = useAuth();
 const route = useRoute();
 const headerType = computed(() => route.meta?.header || "secondary");
-console.log(headerType);
+// console.log(headerType);
 </script>
