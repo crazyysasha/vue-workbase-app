@@ -73,13 +73,17 @@ import useCategories from "@/composables/categories";
 import CCard from "./c-card";
 import { useAxios } from "@vue-composable/axios";
 import { watch, watchEffect } from "vue";
-const { data, loading, exec } = useAxios();
+const { data, loading, exec, promise } = useAxios();
 exec({
     method: "GET",
     url: "http://api.workbase.uz/api/crazy/freelancer/v1.0.1/categories",
     params: { with: ["priority_services", "image"] },
 });
-watch(data, () => console.log(data));
+const a = async () =>  {
+    console.log('waiting promise',  promise.value);
+}
+watch(data, () => console.log('updated data', data.value));
+a();
 </script>
 
 <style>

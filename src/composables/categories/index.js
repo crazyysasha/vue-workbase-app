@@ -1,11 +1,11 @@
-import { getCategories } from "@/api/categories";
+import { get, getCategories } from "@/api/categories";
 import { computed, ref } from "vue";
 
 const categoriesRef = ref([]);
 
 const isLoadingRef = ref(false);
 
-export default function useCategories() {
+function useCategories() {
 
     const categories = computed(() => categoriesRef.value);
 
@@ -28,4 +28,15 @@ export default function useCategories() {
         getAll,
         //  getByIdOrSlug,
     };
+}
+
+function useCategory() {
+    const category = ref();
+    const isLoading = ref(false);
+    const getByIdOrSlug = (idOrSlug) => {
+        isLoading.value = true;
+        getByIdOrSlug(idOrSlug).then(res => {
+            category = res.data;
+        }).catch();
+    }
 }

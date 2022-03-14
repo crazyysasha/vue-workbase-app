@@ -1,7 +1,8 @@
-import axios from "axios"
+import axios from "@/utils/axios"
 
-export const getCategories = async (params = {}) => {
-    console.log(params);
-    const { data } = await axios.get('http://october.loc/api/crazy/freelancer/v1.0.1/categories', { params });
-    return data;
+export const get = async (params = {}) => {
+    return axios.get('/crazy/freelancer/v1.0.1/categories', { params });
+}
+export const getByIdOrSlug = async (idOrSlug) => {
+    return axios.get(`/crazy/freelancer/v1.0.1/categories/${idOrSlug}`);
 }

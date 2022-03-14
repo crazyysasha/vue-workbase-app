@@ -9,7 +9,6 @@
                 rounded-3xl
                 overflow-hidden
                 -z-10
-                shadow-[0_0_10px_10px_rgb(249,115,22,.25)]
             "
             :style="{
                 paddingTop: `${searchContainer?.offsetHeight}px`,
@@ -77,6 +76,7 @@
                 :class="{
                     'shadow-[0_0_10px_10px_rgb(249,115,22,.25)]': isOpen,
                 }"
+                :placeholder="placeholder"
                 ref="searchField"
             />
             <button
@@ -139,4 +139,6 @@ const escapePressedListener = (e) => {
 };
 onMounted(() => document.addEventListener("keyup", escapePressedListener));
 onUnmounted(() => document.removeEventListener("keyup", escapePressedListener));
+
+const placeholder = computed(() => 'Услуга или специалист. Например: |');
 </script>

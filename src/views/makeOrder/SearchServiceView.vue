@@ -185,9 +185,8 @@
         </div> -->
     </form>
 </template>
-<script>
-export default {
-    setup() {
-    },
-};
+<script setup>
+import { onMounted } from "vue";
+
+onMounted(() => console.log("asd"));
 </script>
