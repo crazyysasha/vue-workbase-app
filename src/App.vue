@@ -1,6 +1,6 @@
 <template>
     <div class="min-h-screen bg-gray-100">
-        <!-- <app-header></app-header> -->
+        <app-header></app-header>
         <router-view></router-view>
     </div>
 </template>
