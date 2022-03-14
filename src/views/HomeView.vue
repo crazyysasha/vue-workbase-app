@@ -320,11 +320,11 @@
             </div> -->
       <div
         class="
-          md:grid md:grid-cols-4
+          grid md:grid-cols-4
+          grid-cols-2
           text-sm
           md:text-lg
           font-medium
-          text-center
           md:text-left
           text-gray-200
           pb-5
@@ -376,9 +376,12 @@
               <a class="hover:text-blue-300" href="#"> Условия использования </a>
             </li>
           </ul>
+          
+        </div>
+        <div>
           <h5 class="text-gray-400 text-base xl:text-lg">Социальные сети</h5>
           <div class="my-2">
-            <ul class="flex items-center justify-center md:justify-start">
+            <ul class="flex items-center justify-start">
               <li class="mr-5">
                 <a target="_blank" href="#">
                   <img
@@ -409,19 +412,18 @@
             </ul>
           </div>
         </div>
-
       </div>
       <div
         class="
           md:grid
-          flex
+          block
           items-center
           text-center
           md:text-left
           font-medium
           text-sm
           md:text-lg
-          grid-cols-4
+          md:grid-cols-4
           text-gray-200
           border-t
           border-slate-300
@@ -436,7 +438,7 @@
                 <img
                   src="../assets/logo-white.svg"
                   alt=""
-                  class="w-44"
+                  class="w-44 mx-auto md:mx-0"
                 />
               </a>
             </li>

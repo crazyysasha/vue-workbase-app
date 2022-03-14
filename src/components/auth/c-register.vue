@@ -1,5 +1,5 @@
 <template>
-    <form @submit.prevent="onRegisterHandler" class="w-[30rem]">
+    <form @submit.prevent="onRegisterHandler" class="md:w-[30rem] w-auto">
         <h3 class="font-semibold block text-xl md:text-xl text-center mb-6">
             Регистрация
         </h3>
@@ -21,7 +21,7 @@
         </div>
         <hr class="mb-4 mt-1" />
         <div class="flex flex-col">
-            <div class="flex gap-4">
+            <div class="md:flex gap-4">
                 <div class="flex-1">
                     <c-input
                         v-model="state.name"
@@ -74,7 +74,7 @@
                     </div>
                 </div>
             </div>
-            <div class="flex gap-4">
+            <div class="md:flex gap-4">
                 <div class="flex-1">
                     <c-input
                         v-model="state.username"
@@ -110,7 +110,7 @@
                     </div>
                 </div>
             </div>
-            <div class="flex gap-4">
+            <div class="md:flex gap-4">
                 <div class="flex-1">
                     <c-input
                         v-model="state.password"

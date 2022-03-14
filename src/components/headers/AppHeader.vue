@@ -31,7 +31,7 @@ const navOpen = ref(false);
       'bg-white': headerType == 'primary',
     }"
   >
-    <div class="container px-4 2xl:px-20 mx-auto flex items-stretch">
+    <div class="container px-4 2xl:px-20 mx-auto flex items-stretch xl:py-3">
       <div class="flex z-20 py-5 xl:py-0 justify-between w-full xl:w-auto items-center">
         <router-link to="/" class="py-2 mr-12 my-auto w-36 md:w-40">
           <img
@@ -100,10 +100,10 @@ const navOpen = ref(false);
         </div>
       </div>
       <nav
-        class="font-medium justify-between items-stretch xl:overflow-hidden overflow-auto block xl:flex bg-primary xl:bg-white absolute xl:static w-10/12 inset-x-0  h-screen xl:h-auto z-10 transition-all duration-300 ease-in-out"
+        class="font-medium justify-between items-stretch xl:overflow-hidden overflow-auto block xl:flex bg-primary xl:bg-transparent  absolute xl:static w-10/12 inset-x-0  h-screen xl:h-auto z-10 transition-all duration-300 ease-in-out"
         v-bind:class="{ 'close': !navOpen }"
       >
-        <ul v-if="isAuthentificated" class="block mt-20 xl:mt-0 xl:flex items-center px-3 xl:px-0 xl:pt-0 pt-3 gap-4">
+        <ul v-if="isAuthentificated" class="block mt-20 xl:mt-0 xl:flex items-center px-3 xl:px-0 xl:pt-0 pt-3 gap-4 z-30">
           <li>
             <router-link
               to="/orders"
@@ -111,19 +111,22 @@ const navOpen = ref(false);
                 no-underline
                 xl:block
                 flex
-                xl:mt-4
                 mt-0
                 xl:py-0
                 xl:border-0
                 border-b
-                xl:text-primary
-                text-white
+       
                 sm:mt-0
                 text-lg
                 xl:mr-4
                 py-3
                 border-gray-50/25
+                
               "
+              :class="{
+                  '': headerType == 'secondary',
+                  'xl:text-primary text-white': headerType == 'primary',
+                }"
 
             >
               <h-order></h-order>
@@ -143,12 +146,11 @@ const navOpen = ref(false);
                 no-underline
                 xl:block
                 flex
-                xl:mt-4
                 mt-0
                 xl:py-0
                 xl:border-0
                 border-b
-                xl:text-primary
+
                 text-white
                 sm:mt-0
                 text-lg
@@ -156,7 +158,10 @@ const navOpen = ref(false);
                 py-3
                 border-gray-50/25
               "
-
+              :class="{
+                  '': headerType == 'secondary',
+                  'xl:text-primary text-white': headerType == 'primary',
+                }"
             >
               <h-wallet></h-wallet>
               <span
@@ -175,12 +180,11 @@ const navOpen = ref(false);
                 no-underline
                 xl:block
                 flex
-                xl:mt-4
                 mt-0
                 xl:py-0
                 xl:border-0
                 border-b
-                xl:text-primary
+    
                 text-white
                 sm:mt-0
                 text-lg
@@ -188,6 +192,10 @@ const navOpen = ref(false);
                 py-3
                 border-gray-50/25
               "
+              :class="{
+                  '': headerType == 'secondary',
+                  'xl:text-primary text-white': headerType == 'primary',
+                }"
             >
               <h-account></h-account>
               <span
@@ -206,12 +214,11 @@ const navOpen = ref(false);
                 no-underline
                 xl:block
                 flex
-                xl:mt-4
                 mt-0
                 xl:py-0
                 xl:border-0
                 border-b
-                xl:text-primary
+     
                 text-white
                 sm:mt-0
                 text-lg
@@ -219,6 +226,10 @@ const navOpen = ref(false);
                 py-3
                 border-gray-50/25
               "
+              :class="{
+                  '': headerType == 'secondary',
+                  'xl:text-primary text-white': headerType == 'primary',
+                }"
             >
               <h-support></h-support>
               <span
@@ -237,12 +248,11 @@ const navOpen = ref(false);
                 no-underline
                 xl:block
                 flex
-                xl:mt-4
                 mt-0
                 xl:py-0
                 xl:border-0
                 border-b
-                xl:text-primary
+   
                 text-white
                 sm:mt-0
                 text-lg
@@ -250,6 +260,10 @@ const navOpen = ref(false);
                 py-3
                 border-gray-50/25
               "
+              :class="{
+                  '': headerType == 'secondary',
+                  'xl:text-primary text-white': headerType == 'primary',
+                }"
             >
               <h-bonus></h-bonus>
               <span
@@ -270,7 +284,7 @@ const navOpen = ref(false);
             <c-language></c-language>
           </li>
         </ul>
-        <ul class="block mt-20 xl:mt-0 xl:flex items-center px-3 xl:px-0 xl:pt-0 pt-3 gap-4" v-else>
+        <ul class="block mt-20 xl:mt-0 xl:flex items-center px-3 xl:ml-auto xl:px-0 xl:pt-0 pt-3 gap-4" v-else>
           <!--<li>
                          <button
                     type="button"
