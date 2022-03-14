@@ -15,7 +15,7 @@
                 loop
             ></video>
         </div>
-        <div class="container px-4 z-10">
+        <div class="container px-4 z-10 2xl:px-20 mx-auto">
             <h1 class="md:text-5xl text-3xl font-semibold text-white leading-3">
                 Работа в Узбекистане
             </h1>
@@ -69,7 +69,7 @@
                             duration-500
                         "
                         href="#"
-                        ># матыё ковров</a
+                        ># мытьё ковров</a
                     >
                 </li>
             </ul>

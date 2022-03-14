@@ -4,11 +4,12 @@
       <button
         @click="show = !show"
         class="
-          flex
+          xl:flex
           my-2
+          hidden
           border
-          transition
-          duration-200
+          transition-all duration-300 ease-out
+          hover:ease-in
           rounded-full
           items-center
           px-3
@@ -17,7 +18,7 @@
         :class="{
           'border-white hover:bg-white hover:text-primary':
             headerType == 'secondary',
-          'border-primary hover:bg-primary hover:text-white text-primary':
+          'border-primary hover:bg-primary hover:text-white text-black':
             headerType == 'primary',
         }"
       >
@@ -41,12 +42,13 @@
           absolute
           right-0
           left-0
-          w-full
-          py-2
           mt-5
-          bg-primary
+          bg-white
           rounded-md
           shadow-xl
+          text-center
+          border
+          border-primary
         "
       >
         <router-link
@@ -56,12 +58,12 @@
             justify-center
             px-4
             py-2
-            text-base text-indigo-100
-            hover:bg-indigo-100
-            hover:mx-2
-            hover:px-2
-            hover:rounded
-            hover:text-primary
+            text-base text-black
+            hover:bg-primary
+            hover:text-white
+            hover:rounded-t-md
+            transition-all duration-300 ease-out
+            hover:ease-in
           "
         >
           UZ
@@ -73,16 +75,22 @@
             justify-center
             px-4
             py-2
-            text-base text-indigo-100
-            hover:bg-indigo-100
-            hover:mx-2
-            hover:px-2
-            hover:rounded
-            hover:text-primary
+            text-base text-black
+            hover:bg-primary
+            hover:text-white
+            hover:rounded-b-md
+            transition-all duration-300 ease-out
+            hover:ease-in
           "
         >
-          En
+          EN
         </router-link>
+      </div>
+      <div class="xl:hidden flex items-center w-full justify-center py-3 mb-10">
+        <button class="px-2 py-1 rounded-md m-2">OZ</button>
+        <button class="px-2 py-1 rounded-md m-2">УЗ</button>
+        <button class="border px-2 py-1 rounded-md m-2">РУ</button>
+        <button class="px-2 py-1 rounded-md m-2">EN</button>
       </div>
     </div>
   </div>

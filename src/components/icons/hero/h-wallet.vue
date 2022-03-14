@@ -1,5 +1,5 @@
 <template>
-    <svg class="w-6 h-6 m-auto fill-current"
+    <svg class="w-6 h-6 xl:m-auto mr-3 fill-current"
         :class="{
             '': headerType == 'secondary',
             'text-primary': headerType == 'primary',

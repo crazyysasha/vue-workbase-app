@@ -1,8 +1,8 @@
 <template>
     <section class="flex w-full items-center justify-center py-12 " id="asd">
-        <div class="container px-4">
+        <div class="container px-4 2xl:px-20 mx-auto">
             <div class="text-center sm:text-left pb-8">
-                <h2 class="text-xl md:text-3xl text-gray-900 font-medium">
+                <h2 class="text-2xl md:text-3xl text-gray-900 font-medium">
                     В <span class="text-blue-800">Ташкенте работает</span> 325
                     779 специалистов, 205 469 дистанционно
                 </h2>
