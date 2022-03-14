@@ -1,15 +1,47 @@
+<style scoped>
+  .close {
+    left: -100%;
+  }
+  .open {
+    left: 0;
+  }
+</style>
+<script setup>
+import { computed, ref } from "vue";
+import CLogin from "@/components/auth/c-login";
+import cRegister from "@/components/auth/c-register";
+import useAuth from "@/composables/auth";
+import cUserMenu from "@/components/userMenu/c-user-menu";
+import cLanguage from "@/components/userMenu/c-language";
+import { useRoute } from "vue-router";
+const showLoginModal = ref(false);
+const showRegisterModal = ref(false);
+const { isAuthentificated, user } = useAuth();
+const route = useRoute();
+const headerType = computed(() => route.meta?.header || "secondary");
+console.log(headerType);
+const navOpen = ref(false);
+</script>
+
 <template>
   <header
-    class="sticky top-0 z-50 text-white"
+    class="sticky relative  top-0 z-50 text-white"
     :class="{
       'bg-primary': headerType == 'secondary',
       'bg-white': headerType == 'primary',
     }"
   >
-    <div class="container px-4 mx-auto flex items-stretch">
-      <div class="flex">
-        <router-link to="/" class="py-2 my-auto w-40">
+    <div class="container px-4 2xl:px-20 mx-auto flex items-stretch">
+      <div class="flex z-20 py-5 xl:py-0 justify-between w-full xl:w-auto items-center">
+        <router-link to="/" class="py-2 mr-12 my-auto w-36 md:w-40">
           <img
+            v-if="navOpen == true"
+            src="@/assets/logo-white.svg"
+            alt=""
+            class=""
+          />
+          <img
+            v-else
             :src="
               require(`@/assets/logo${
                 headerType == 'secondary' ? '-white' : ''
@@ -19,21 +51,29 @@
             class=""
           />
         </router-link>
-      </div>
-      <nav class="font-medium py-3 flex gap-4 justify-between ml-auto">
         <div class="block xl:hidden">
           <button
-            @click="toggle"
+            v-on:click="navOpen = !navOpen"
             class="
               flex
+              text-black
               items-center
               text-teal-lighter
               border-teal-light
-              hover:text-white hover:border-white
               ml-auto
             "
           >
+            <svg 
+            viewBox="0 0 28 28" 
+            class="fill-current text-black h-7 w-7" 
+            xmlns="http://www.w3.org/2000/svg"
+            v-if="navOpen = navOpen">
+              <path d="M2.32129 2.32363C2.72582 1.9191 3.38168 1.9191 3.78621 2.32363L25.6966 24.234C26.1011 24.6385 26.1011 25.2944 25.6966 25.6989C25.2921 26.1035 24.6362 26.1035 24.2317 25.6989L2.32129 3.78854C1.91676 3.38402 1.91676 2.72815 2.32129 2.32363Z" />
+              <path d="M25.6787 2.30339C25.2742 1.89887 24.6183 1.89887 24.2138 2.30339L2.30339 24.2138C1.89887 24.6183 1.89887 25.2742 2.30339 25.6787C2.70792 26.0832 3.36379 26.0832 3.76831 25.6787L25.6787 3.76831C26.0832 3.36379 26.0832 2.70792 25.6787 2.30339Z" />
+            </svg>
+            
             <svg
+              v-else
               class="fill-current h-7 w-7"
               xmlns="http://www.w3.org/2000/svg"
               viewBox="0 0 384.97 384.97"
@@ -55,38 +95,45 @@
                 />
               </g>
             </svg>
+
           </button>
         </div>
-        <div
-          :class="'block'"
-          class="w-full flex-grow xl:flex xl:items-center xl:w-auto"
-        >
-          <div class="text-sm xl:flex-grow"></div>
-          <div></div>
-          <div></div>
-        </div>
-      </nav>
-      <nav class="font-medium justify-between items-stretch flex ml-auto">
-        <ul v-if="isAuthentificated" class="flex items-center py-3 gap-4">
+      </div>
+      <nav
+        class="font-medium justify-between items-stretch xl:overflow-hidden overflow-auto block xl:flex bg-primary xl:bg-white absolute xl:static w-10/12 inset-x-0  h-screen xl:h-auto z-10 transition-all duration-300 ease-in-out"
+        v-bind:class="{ 'close': !navOpen }"
+      >
+        <ul v-if="isAuthentificated" class="block mt-20 xl:mt-0 xl:flex items-center px-3 xl:px-0 xl:pt-0 pt-3 gap-4">
           <li>
             <router-link
               to="/orders"
               class="
                 no-underline
-                block
-                px-3
-                mt-4
-                sm:inline-block sm:mt-0
+                xl:block
+                flex
+                xl:mt-4
+                mt-0
+                xl:py-0
+                xl:border-0
+                border-b
+                xl:text-primary
+                text-white
+                sm:mt-0
                 text-lg
-                mr-4
+                xl:mr-4
+                py-3
+                border-gray-50/25
               "
-                :class="{
-                    '': headerType == 'secondary',
-                    'text-primary': headerType == 'primary',
-                }"
+
             >
               <h-order></h-order>
-              Заказы
+              <span
+                :class="{
+                  '': headerType == 'secondary',
+                  'xl:text-black text-white': headerType == 'primary',
+                }">
+                  Заказы
+              </span>
             </router-link>
           </li>
           <li>
@@ -94,20 +141,31 @@
               to="/orders"
               class="
                 no-underline
-                block
-                px-3
-                mt-4
-                sm:inline-block sm:mt-0
-                text-lg text-teal-lighter
-                mr-4
+                xl:block
+                flex
+                xl:mt-4
+                mt-0
+                xl:py-0
+                xl:border-0
+                border-b
+                xl:text-primary
+                text-white
+                sm:mt-0
+                text-lg
+                xl:mr-4
+                py-3
+                border-gray-50/25
               "
-                :class="{
-                    '': headerType == 'secondary',
-                    'text-primary': headerType == 'primary',
-                }"
+
             >
               <h-wallet></h-wallet>
-              Кошелёк
+              <span
+                :class="{
+                  '': headerType == 'secondary',
+                  'xl:text-black text-white': headerType == 'primary',
+                }">
+                Кошелёк
+              </span>
             </router-link>
           </li>
           <li>
@@ -115,20 +173,30 @@
               to="/account"
               class="
                 no-underline
-                block
-                px-3
-                mt-4
-                sm:inline-block sm:mt-0
-                text-lg text-teal-lighter
-                mr-4
+                xl:block
+                flex
+                xl:mt-4
+                mt-0
+                xl:py-0
+                xl:border-0
+                border-b
+                xl:text-primary
+                text-white
+                sm:mt-0
+                text-lg
+                xl:mr-4
+                py-3
+                border-gray-50/25
               "
-                :class="{
-                    '': headerType == 'secondary',
-                    'text-primary': headerType == 'primary',
-                }"
             >
               <h-account></h-account>
-              Анкета
+              <span
+                :class="{
+                  '': headerType == 'secondary',
+                  'xl:text-black text-white': headerType == 'primary',
+                }">  
+                Анкета
+              </span>
             </router-link>
           </li>
           <li>
@@ -136,20 +204,30 @@
               to="/orders"
               class="
                 no-underline
-                block
-                px-3
-                mt-4
-                sm:inline-block sm:mt-0
-                text-lg text-teal-lighter
-                mr-4
+                xl:block
+                flex
+                xl:mt-4
+                mt-0
+                xl:py-0
+                xl:border-0
+                border-b
+                xl:text-primary
+                text-white
+                sm:mt-0
+                text-lg
+                xl:mr-4
+                py-3
+                border-gray-50/25
               "
-                :class="{
-                    '': headerType == 'secondary',
-                    'text-primary': headerType == 'primary',
-                }"
             >
               <h-support></h-support>
-              Поддержка
+              <span
+                :class="{
+                  '': headerType == 'secondary',
+                  'xl:text-black text-white': headerType == 'primary',
+                }"> 
+                Поддержка
+              </span>
             </router-link>
           </li>
           <li>
@@ -157,22 +235,34 @@
               to="/orders"
               class="
                 no-underline
-                block
-                px-3
-                mt-4
-                sm:inline-block sm:mt-0
-                text-lg text-teal-lighter
-                mr-4
+                xl:block
+                flex
+                xl:mt-4
+                mt-0
+                xl:py-0
+                xl:border-0
+                border-b
+                xl:text-primary
+                text-white
+                sm:mt-0
+                text-lg
+                xl:mr-4
+                py-3
+                border-gray-50/25
               "
-                :class="{
-                    '': headerType == 'secondary',
-                    'text-primary': headerType == 'primary',
-                }"
             >
               <h-bonus></h-bonus>
-              Бонусы
+              <span
+                :class="{
+                  '': headerType == 'secondary',
+                  'xl:text-black text-white': headerType == 'primary',
+                }">
+                Бонусы
+              </span>
             </router-link>
           </li>
+        </ul>
+        <ul v-if="isAuthentificated" class="block xl:mt-0 xl:flex items-center px-3 xl:px-0 xl:pb-0 pb-3 gap-4">
           <li>
             <c-user-menu></c-user-menu>
           </li>
@@ -180,7 +270,7 @@
             <c-language></c-language>
           </li>
         </ul>
-        <ul class="flex items-center py-3 gap-4" v-else>
+        <ul class="block mt-20 xl:mt-0 xl:flex items-center px-3 xl:px-0 xl:pt-0 pt-3 gap-4" v-else>
           <!--<li>
                          <button
                     type="button"
@@ -199,7 +289,6 @@
                     <h-location class="mr-2"></h-location>
                     г. Ташкент
                 </button>                    </li> -->
-
           <li>
             <button
               @click="showLoginModal = true"
@@ -207,20 +296,31 @@
               class="
                 flex
                 items-center
-                border
-                rounded-full
-                px-5
-                py-2
-                transition
-                duration-200
+                xl:border
+                border-b
+                w-full
+                xl:w-auto
+                xl:rounded-full
+                border-gray-50/25
+                text-white
+                xl:px-5
+                px-0
+                xl:py-2
+                py-3
+                transition-all duration-300 ease-out
+                hover:ease-in
+                xl:text-base
+                text-lg
                 outline-0
               "
-                :class="{
-                    'border-white hover:bg-white hover:text-primary': headerType == 'secondary',
-                    'border-primary hover:bg-primary hover:text-white text-primary': headerType == 'primary',
-                }"
+              :class="{
+                'xl:border-white xl:hover:bg-white xl:hover:text-primary':
+                  headerType == 'secondary',
+                'xl:border-primary xl:hover:bg-primary xl:hover:text-white xl:text-black':
+                  headerType == 'primary',
+              }"
             >
-              <h-enter class="mr-2"></h-enter>
+              <h-enter class="mr-2 xl:block hidden"></h-enter>
               Вход
             </button>
           </li>
@@ -231,27 +331,115 @@
               class="
                 flex
                 items-center
-                border border-white
-                rounded-full
-                px-5
-                py-2
-                transition
-                duration-200
+                xl:border
+                border-b
+                w-full
+                xl:w-auto
+                xl:rounded-full
+                border-gray-50/25
+                text-white
+                xl:px-5
+                px-0
+                xl:py-2
+                py-3
+                transition-all duration-300 ease-out
+                hover:ease-in
+                xl:text-base
+                text-lg
                 outline-0
               "
-                :class="{
-                    'border-white hover:bg-white hover:text-primary': headerType == 'secondary',
-                    'border-primary hover:bg-primary hover:text-white text-primary': headerType == 'primary',
-                }"
+              :class="{
+                'xl:border-white xl:hover:bg-white xl:hover:text-primary':
+                  headerType == 'secondary',
+                'xl:border-primary xl:hover:bg-primary xl:hover:text-white xl:text-black':
+                  headerType == 'primary',
+              }"
             >
-              <h-pencil class="mr-2"></h-pencil>
+              <h-pencil class="mr-2 xl:block hidden"></h-pencil>
               Регистрация
             </button>
+          </li>
+          <li class="
+                xl:hidden 
+                flex
+                items-center
+                xl:border
+                border-b
+                w-full
+                xl:w-auto
+                xl:rounded-full
+                border-gray-50/25
+                text-white
+                xl:px-5
+                px-0
+                xl:py-2
+                py-3
+                transition-all duration-300 ease-out
+                hover:ease-in
+                xl:text-base
+                text-lg
+                outline-0
+          ">
+            Служба поддержки
+          </li>
+                    <li class="
+                xl:hidden 
+                flex
+                items-center
+                xl:border
+                border-b
+                w-full
+                xl:w-auto
+                xl:rounded-full
+                border-gray-50/25
+                text-white
+                xl:px-5
+                px-0
+                xl:py-2
+                py-3
+                transition-all duration-300 ease-out
+                hover:ease-in
+                xl:text-base
+                text-lg
+                outline-0
+          ">
+            Частые вопросы
+          </li>
+                    <li class="
+                xl:hidden 
+                flex
+                items-center
+                xl:border
+                border-b
+                w-full
+                xl:w-auto
+                xl:rounded-full
+                border-gray-50/25
+                text-white
+                xl:px-5
+                px-0
+                xl:py-2
+                py-3
+                transition-all duration-300 ease-out
+                hover:ease-in
+                xl:text-base
+                text-lg
+                outline-0
+          ">
+            Условия использования
           </li>
           <li>
             <c-language></c-language>
           </li>
         </ul>
+        <div class="xl:hidden flex items-center w-full justify-center py-3 mt-6">
+          <a class="mx-auto" href="#">
+            <img class="w-32" src="@/assets/images/app.png" alt="">
+          </a>
+          <a class="mx-auto" href="#">
+            <img class="w-32" src="@/assets/images/play.png" alt="">
+          </a>
+        </div>
       </nav>
     </div>
   </header>
@@ -302,18 +490,3 @@
     <c-register></c-register>
   </c-modal>
 </template>
-<script setup>
-import { computed, ref } from "vue";
-import CLogin from "@/components/auth/c-login";
-import cRegister from "@/components/auth/c-register";
-import useAuth from "@/composables/auth";
-import cUserMenu from "@/components/userMenu/c-user-menu";
-import cLanguage from "@/components/userMenu/c-language";
-import { useRoute } from "vue-router";
-const showLoginModal = ref(false);
-const showRegisterModal = ref(false);
-const { isAuthentificated, user } = useAuth();
-const route = useRoute();
-const headerType = computed(() => route.meta?.header || "secondary");
-console.log(headerType);
-</script>

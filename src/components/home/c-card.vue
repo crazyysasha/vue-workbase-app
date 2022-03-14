@@ -6,7 +6,7 @@
             </div>
 
             <div class="ml-2">
-                <h3 class="md:text-xl font-medium text-sm">
+                <h3 class="md:text-xl font-medium text-xl">
                     <router-link :to="`/${props.slug}`">
                         {{ props.name }}
                     </router-link>
