@@ -1,5 +1,5 @@
 import { login } from "@/api/auth";
-import { ref } from "vue";
+import { readonly, ref } from "vue";
 import { token } from "./token";
 import { useUser } from "./user";
 
@@ -23,11 +23,11 @@ export default function useLogin() {
             data.value = response;
             isLoading.value = false;
         }).catch(err => {
-            if (err?.response.status < 500) {
+            if (err?.response?.status < 500) {
                 error.value = err.response.data?.error;
                 isLoading.value = false;
             }
         });
     };
-    return { onLogin, data, error, isLoading };
+    return { onLogin, data, error, isLoading: readonly(isLoading), };
 }

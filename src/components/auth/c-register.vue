@@ -192,17 +192,16 @@
                         d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
                     ></path>
                 </svg>
-                
             </button>
         </div>
     </form>
 </template>
 
 <script setup>
-import useAuth from "@/composables/auth";
+import { useRegister, user } from "@/composables/auth";
 import useVuelidate from "@vuelidate/core";
 import { email, helpers, required, sameAs } from "@vuelidate/validators";
-import { reactive, ref, watch } from "vue";
+import { reactive, watch } from "vue";
 
 const state = reactive({
     type: "customer",
@@ -279,36 +278,26 @@ watch(
     () => ($externalResults.email = [])
 );
 
-watch(
-    () => state.password,
-    () => ($externalResults.password = [])
-);
-watch(
-    () => state.password_confirmation,
-    () => ($externalResults.password_confirmation = [])
-);
+watch([() => state.password, () => state.password_confirmation], () => {
+    $externalResults.password = [];
+    $externalResults.password_confirmation = [];
+});
 
-const { onRegister } = useAuth();
-
-const isLoading = ref(false);
+const { onRegister, isLoading, data, error } = useRegister();
 
 const onRegisterHandler = async () => {
     const isLocalValidateSuccess = await v$.value.$validate();
 
     if (!isLocalValidateSuccess) return;
 
-    isLoading.value = true;
-
-    const { error, user } = await onRegister(state);
-
-    isLoading.value = false;
-
-    if (error?.type == "validation") {
-        Object.assign($externalResults, error.fields);
+    await onRegister(state);
+    console.log(error);
+    if (error.value?.type == "validation") {
+        Object.assign($externalResults, error.value?.fields);
         return;
     }
-    if (error?.type == "auth") {
-        errorMessage.value = error.message;
+    if (error.value?.type == "auth") {
+        errorMessage.value = error.value?.message;
         return;
     }
 

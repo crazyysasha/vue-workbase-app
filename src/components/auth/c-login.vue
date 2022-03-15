@@ -3,8 +3,8 @@
         <h3 class="font-semibold block text-xl md:text-xl text-center mb-6">
             Авторизация
         </h3>
-        <p v-if="errorMessage" class="mb-6 text-red-500 font-thin text-sm">
-            {{ errorMessage }}
+        <p v-if="error" class="mb-6 text-red-500 font-thin text-sm">
+            {{ error.message }}
         </p>
         <div class="grid grid-cols-2 gap-4 mb-6">
             <c-radio-toggler
@@ -104,7 +104,7 @@
 import useVuelidate from "@vuelidate/core";
 import { required, helpers } from "@vuelidate/validators";
 import { reactive, watch, ref } from "vue";
-import useAuth from "@/composables/auth";
+import { useLogin } from "@/composables/auth";
 
 const rules = {
     type: {
@@ -141,32 +141,22 @@ watch(
     () => state.password,
     () => ($externalResults.password = [])
 );
-watch(state, () => {
-    errorMessage.value = null;
-});
 
-const { onLogin } = useAuth();
-
-const isLoading = ref(false);
-
-const errorMessage = ref(null);
+const { onLogin, data, error, isLoading } = useLogin();
 
 const onLoginHandler = async () => {
     const isLocalValidateSuccess = await v$.value.$validate();
 
     if (!isLocalValidateSuccess) return;
 
-    isLoading.value = true;
+    await onLogin(state);
 
-    const { error, user } = await onLogin(state);
-
-    isLoading.value = false;
-
-    if (error?.type == "validation") {
+    if (error.value?.type == "validation") {
         Object.assign($externalResults, error.fields);
         return;
     }
-    if (error?.type == "auth") {
+
+    if (error.value?.type == "auth") {
         errorMessage.value = error.message;
         return;
     }
