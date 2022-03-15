@@ -103,7 +103,7 @@
             </div>
             <div class="text-center mt-4 font-medium">
               <span class="text-xs sm:text-sm md:text-md lg:text-lg"
-                >{{ user.surname }} {{ user.name }} {{ user.patronymic }}</span
+                >Женя</span
               >
             </div>
             <div class="grid grid-cols-2 text-center mt-4">
@@ -164,8 +164,6 @@
                   >Описание профиля:</span
                 >
                 <a
-                  data-request="onAjax"
-                  data-request-update="account/update: '#formAccountEditor'"
                   class="
                     rounded-md
                     text-white
@@ -177,12 +175,13 @@
                     w-8
                     h-8
                     cursor-pointer
-                    hover:border-blue-700 hover:bg-blue-700
+                    hover:border-blue-700 bg-blue-700
                     transition-all
                     duration-500
                   "
                   href="javascript:;"
                   type="submit"
+                  @click="activeEditor = 'false'"
                 >
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
@@ -216,12 +215,20 @@
                   </div>
                   <div
                     class="mb-1 flex text-xs sm:text-sm md:text-md lg:text-lg"
+                    v-if="activeEditor == 'true'"
                   >
-                    <span class="mr-2">{{ user.surname }} {{ user.name }} {{ user.patronymic }}</span>
+                    <span class="mr-2">Женя</span>
+                  </div>
+                  <div
+                    class="mb-1 flex text-xs sm:text-sm md:text-md lg:text-lg"
+                    v-else
+                  >
+                    <input type="text" class=" border border-gray-400 px-2 w-1/2 rounded " >
                   </div>
                 </div>
                 <div class="mb-3">
                   <div
+                    
                     class="
                       mb-1
                       text-gray-400 text-xs
@@ -234,10 +241,18 @@
                     <span>Дата рождения:</span>
                   </div>
                   <div
+                    v-if="activeEditor == 'true'"
                     class="mb-1 flex text-xs sm:text-sm md:text-md lg:text-lg"
                   >
                     <span>Не указано</span>
                   </div>
+                  <div
+                    v-else
+                    class="mb-1 flex text-xs sm:text-sm md:text-md lg:text-lg"
+                  >
+                    <input type="date" class=" border border-gray-400 px-2 w-1/2 rounded " >
+                  </div>
+
                 </div>
                 <div class="mb-3">
                   <div
@@ -253,9 +268,21 @@
                     <span>Место Проживания:</span>
                   </div>
                   <div
+                    v-if="activeEditor == 'true'"
                     class="mb-1 flex text-xs sm:text-sm md:text-md lg:text-lg"
                   >
                     <span>г.Ташкент</span>
+                  </div>
+                  <div
+                    v-else
+                    class="mb-1 flex text-xs sm:text-sm md:text-md lg:text-lg"
+                  >
+                    <select class=" border border-gray-400 px-2 w-1/2 rounded " name="country" id="country">
+                      <option value="Выбрать">Выбрать</option>
+                      <option value="Выбрать">Выбрать</option>
+                      <option value="Выбрать">Выбрать</option>
+                      <option value="Выбрать">Выбрать</option>
+                    </select>
                   </div>
                 </div>
                 <div class="mb-3">
@@ -272,6 +299,7 @@
                     <span>Номер телефона:</span>
                   </div>
                   <div
+                    v-if="activeEditor == 'true'"
                     class="mb-1 flex text-xs sm:text-sm md:text-md lg:text-lg"
                   >
                     <span class="mr-2">+998 99 999 99 99</span>
@@ -293,6 +321,12 @@
                       </svg>
                     </span>
                   </div>
+                  <div
+                    v-else
+                    class="mb-1 flex text-xs sm:text-sm md:text-md lg:text-lg"
+                  >
+                    <input type="text" class=" border border-gray-400 px-2 w-1/2 rounded ">
+                  </div>
                 </div>
                 <div class="mb-3">
                   <div
@@ -308,6 +342,7 @@
                     <span>Электронная почта:</span>
                   </div>
                   <div
+                    v-if="activeEditor == 'true'"
                     class="mb-1 flex text-xs sm:text-sm md:text-md lg:text-lg"
                   >
                     <span>developer@bigsoft.uz</span>
@@ -322,6 +357,12 @@
                         />
                       </svg>
                     </span>
+                  </div>
+                  <div
+                    v-else
+                    class="mb-1 flex text-xs sm:text-sm md:text-md lg:text-lg"
+                  >
+                    <input type="text" class=" border border-gray-400 px-2 w-1/2 rounded ">
                   </div>
                 </div>
                 <div class="mb-3">
@@ -338,9 +379,19 @@
                     <span>Пол:</span>
                   </div>
                   <div
+                    v-if="activeEditor == 'true'"
                     class="mb-1 flex text-xs sm:text-sm md:text-md lg:text-lg"
                   >
                     <span>Мужской</span>
+                  </div>
+                  <div
+                    v-else
+                    class="mb-1 flex text-xs sm:text-sm md:text-md lg:text-lg"
+                  >
+                    <select class=" border border-gray-400 px-2 w-1/2 rounded " name="gender" id="gender">
+                      <option value="Мужской">Мужской</option>
+                      <option value="Женский">Женский</option>
+                    </select>
                   </div>
                 </div>
               </div>
@@ -582,6 +633,7 @@
                     duration-500
                   "
                   href="#"
+                  @click="showVerificationModal = true"
                 >
                   Добавить
                 </a>
@@ -947,6 +999,28 @@
       </div>
     </div>
   </section>
+<c-modal
+    v-model="showVerificationModal"
+    v-slot="{ close }"
+  >
+  <button
+    class="
+      absolute
+      top-3
+      right-3
+      bg-gray-300
+      hover:bg-primary hover:text-white
+      transition
+      duration-200
+      rounded-full
+      p-2
+    "
+    @click="close"
+  >
+    <h-x class="w-3 h-3"></h-x>
+  </button>
+  <c-verification @successful="close"></c-verification>
+</c-modal>
 </template>
 
 
@@ -955,9 +1029,11 @@
 
 
 <script setup>
-import useAuth from "@/composables/auth";
-import { ref } from "vue";
+  import {user} from "@/composables/auth";
+  import { ref } from "vue";
+  import cVerification from "@/components/auth/c-verification";
 
-const activeTab = ref("anketa");
-const {user} = useAuth();
+  const activeTab = ref("anketa");
+  const activeEditor = ref("true")
+  const showVerificationModal = ref(false);
 </script>
