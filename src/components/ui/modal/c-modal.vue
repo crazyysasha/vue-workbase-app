@@ -9,7 +9,7 @@
             leave-to-class="backdrop-blur-0"
             @after-enter="showModal()"
         >
-            <div v-if="isShownWrapper" class="absolute inset-0 z-50">
+            <div v-if="isShownWrapper" class="fixed inset-0 z-50">
                 <div
                     class="
                         backdrop-blur-sm
