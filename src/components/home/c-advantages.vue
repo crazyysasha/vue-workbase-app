@@ -5,7 +5,7 @@ const advantages = ref([
     {
         title: "Мобильность",
         description:
-            "Всего За 10 минут Вы можете выбрать подходящего Заказчика и Специалиста",
+            "Всего за 10 минут Вы можете выбрать подходящего Заказчика и Специалиста",
     },
     {
         title: "Достойная оплата",
@@ -38,7 +38,7 @@ const advantages = ref([
 
 <template>
     <div class="bg-white">
-        <div class="mx-auto container p-4 2xl:px-20 pb-0">
+        <div class="mx-auto container px-4 py-12 2xl:px-20 pb-0">
             <h2 class="text-3xl font-medium mb-5 text-center md:text-left">
                 Ключевые преимущества <span class="text-primary">WorkBase</span>
             </h2>

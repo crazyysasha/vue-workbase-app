@@ -3,8 +3,7 @@
         <div class="container px-4 2xl:px-20 mx-auto">
             <div class="text-center sm:text-left pb-8">
                 <h2 class="text-2xl md:text-3xl text-gray-900 font-medium">
-                    В <span class="text-blue-800">Ташкенте работает</span> 325
-                    779 специалистов, 205 469 дистанционно
+                    Для Вашего удобства, мы собрали<span class="text-blue-800"> более 10 000  услуг</span> в одном удобном сервисе
                 </h2>
             </div>
             <div

@@ -115,8 +115,6 @@ const navOpen = ref(false);
           font-medium
           justify-between
           items-stretch
-          xl:overflow-hidden
-          overflow-auto
           block
           xl:flex
           bg-primary

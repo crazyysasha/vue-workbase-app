@@ -42,6 +42,7 @@
           absolute
           right-0
           left-0
+          z-50
           mt-5
           bg-white
           rounded-md

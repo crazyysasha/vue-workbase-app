@@ -20,7 +20,7 @@
                 Работа в Узбекистане
             </h1>
             <p class="text-md md:text-2xl font-normal md:my-10 my-5 text-white">
-                Вы ищите, мы находим
+                Вы ищите? Мы находим!
             </p>
             <search-widget class="md:w-2/3 z-20"></search-widget>
             <ul class="flex flex-wrap mt-10 text-white text-xl">
@@ -33,7 +33,7 @@
                             duration-500
                         "
                         href="#"
-                        ># русский онлайн</a
+                        ># Уборка</a
                     >
                 </li>
                 <li class="mr-5 my-2 md:text-xl text-sm">
@@ -45,7 +45,7 @@
                             duration-500
                         "
                         href="#"
-                        ># Ielts</a
+                        ># IELTS</a
                     >
                 </li>
                 <li class="mr-5 my-2 md:text-xl text-sm">
@@ -57,7 +57,7 @@
                             duration-500
                         "
                         href="#"
-                        ># создать сайт</a
+                        ># Электрика</a
                     >
                 </li>
                 <li class="mr-5 my-2 md:text-xl text-sm">
@@ -69,7 +69,7 @@
                             duration-500
                         "
                         href="#"
-                        ># мытьё ковров</a
+                        ># Юристы</a
                     >
                 </li>
             </ul>
