@@ -1,5 +1,5 @@
 import { register } from "@/api/auth";
-import { ref } from "vue";
+import { readonly, ref } from "vue";
 import { token } from "./token";
 import { useUser } from "./user";
 
@@ -28,5 +28,11 @@ export default function useRegister() {
             }
         });
     };
-    return { onRegister, data, error, isLoading };
+
+    return {
+        onRegister,
+        data: readonly(data),
+        error: readonly(error),
+        isLoading: readonly(isLoading)
+    };
 }
