@@ -26,9 +26,10 @@ export function useUser() {
         const isLoading = ref(false);
         const error = ref();
         const exec = async () => {
-            isLoading.value = false;
+            isLoading.value = true;
             error.value = null;
-            return getMe().then((response) => {
+            
+            return getMe().then( async (response) => {
                 return response.data?.data;
             }).then(data => {
                 isLoading.value = false;

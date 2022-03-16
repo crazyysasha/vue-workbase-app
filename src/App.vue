@@ -1,4 +1,5 @@
 <template>
+    <!-- TODO: в дальнейшем для темной темы будем использовать этот цвет "dark:bg-slate-900" -->
     <div class="min-h-screen bg-gray-100">
         <app-header></app-header>
         <router-view></router-view>

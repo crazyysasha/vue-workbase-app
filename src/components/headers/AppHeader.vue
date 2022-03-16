@@ -17,7 +17,9 @@ import { useRoute } from "vue-router";
 const showLoginModal = ref(false);
 const showRegisterModal = ref(false);
 const route = useRoute();
-const headerType = computed(() => route.meta?.header || "secondary");
+const headerType = computed(() => {
+    return route.meta?.header || "secondary";
+});
 const navOpen = ref(false);
 </script>
 <template>
