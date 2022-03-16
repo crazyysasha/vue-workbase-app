@@ -60,6 +60,11 @@ const routes = [
     name: '404',
     component: () => import(/* webpackChunkName: "404" */ '../views/NotFoundView.vue'),
   },
+  {
+    path: '/orders',
+    name: 'orders',
+    component: () => import(/* webpackChunkName: "orders" */ '../views/OrdersView.vue'),
+  },
 ]
 
 const router = createRouter({
