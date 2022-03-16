@@ -20,17 +20,17 @@ const routes = [
   //   name: 'wallet',
   //   component: () => import(/* webpackChunkName: "wallet" */ '../views/WalletView.vue')
   // },
-  // {
-  //   path: '/account',
-  //   name: 'account',
-  //   component: () => import(/* webpackChunkName: "account" */ '../views/AccountView.vue'),
-  //   beforeEnter(to, from) {
+  {
+    path: '/account',
+    name: 'account',
+    component: () => import(/* webpackChunkName: "account" */ '../views/AccountView.vue'),
+    beforeEnter(to, from) {
 
-  //     if (!isAuthentificated.value)
-  //       return false
+      if (!isAuthentificated.value)
+        return false
 
-  //   }
-  // },
+    }
+  },
   // {
   //   path: '/:category',
   //   name: 'makeOrder',
