@@ -1,10 +1,9 @@
 <template>
     <home-header></home-header>
     <c-categories></c-categories>
-    <c-advantages></c-advantages>
     <c-questions></c-questions>
+    <c-advantages></c-advantages>
     <c-application></c-application>
-    <home-footer></home-footer>
 
 </template>
 
@@ -28,5 +27,4 @@
     import CQuestions from "@/components/home/c-advantages.vue";
     import CAdvantages from "@/components/home/c-questions.vue";
     import CApplication from "@/components/home/c-application.vue";
-    import HomeFooter from "@/components/home/home-footer.vue";
 </script>
