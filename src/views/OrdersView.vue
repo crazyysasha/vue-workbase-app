@@ -1,6 +1,6 @@
 <template>
-<section class="bg-gray-100">
-    <div class="mx-auto container px-4 py-12 2xl:px-20 pb-0">
+<section class="bg-gray-100 py-12">
+    <div class="mx-auto container px-4">
         <div class="hidden md:flex justify-between lg:justify-start py-2  text-gray-500">
                 <a 
                     class="                        
@@ -183,16 +183,16 @@
 
 
             <div class="col-span-2 mr-0 lg:mr-4">
-               <div class="bg-white py-4 px-6 rounded-md mb-4">
+               <div class="bg-white rounded-md shadow-md shadow-primary/25 mb-3 py-4 px-6 ">
 
                     <div v-show="activeTab == 'new'">
                         <div class="">
                             <a href="#" class="">
                                 <div class="flex flex-col md:flex-row">
                                     <div class="">
-                                        <h4 class="text-lg font-medium">
+                                        <h2 class="text-2xl text-primary font-medium">
                                             Электрика. Монтаж проводки 
-                                        </h4>
+                                        </h2>
                                         <div class="text-md my-4">
                                             <p>
                                                 Установка розеток 3шт, установка выключателей 4шт. У нас в
@@ -239,9 +239,9 @@
                             <a href="#" class="">
                                 <div class="flex items-start flex-col md:flex-row">
                                     <div class="">
-                                        <h4 class="text-lg font-medium">
+                                        <h2 class="text-2xl text-primary font-medium">
                                             Электрика. Монтаж проводки 
-                                        </h4>
+                                        </h2>
                                         <div class="text-md my-4">
                                             <p>
                                                 Установка розеток 3шт, установка выключателей 4шт. У нас в
@@ -287,9 +287,9 @@
                             <a href="#" class="">
                                 <div class="flex items-start flex-col md:flex-row">
                                     <div class="">
-                                        <h4 class="text-lg font-medium">
+                                        <h2 class="text-2xl text-primary font-medium">
                                             Электрика. Монтаж проводки 
-                                        </h4>
+                                        </h2>
                                         <div class="text-md my-4">
                                             <p>
                                                 Установка розеток 3шт, установка выключателей 4шт. У нас в
@@ -335,9 +335,9 @@
                             <a href="#" class="">
                                 <div class="flex items-start flex-col md:flex-row">
                                     <div class="">
-                                        <h4 class="text-lg font-medium">
+                                        <h2 class="text-2xl text-primary font-medium">
                                             Электрика. Монтаж проводки 
-                                        </h4>
+                                        </h2>
                                         <div class="text-md my-4">
                                             <p>
                                                 Установка розеток 3шт, установка выключателей 4шт. У нас в
@@ -386,9 +386,9 @@
                             <div class="">
                                 <div class="flex items-start flex-col md:flex-row justify-between">
                                     <div class="">
-                                        <h4 class="text-lg font-medium">
+                                        <h2 class="text-2xl text-primary font-medium">
                                             Электрика. Монтаж проводки 
-                                        </h4>
+                                        </h2>
                                         <ul class="flex flex-col justify-between text-xs md:text-sm text-gray-400 mt-4">
                                             <li class="flex items-center mb-1">
                                                 <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2 stroke-red-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -430,9 +430,9 @@
                             <div class="">
                                 <div class="flex items-start flex-col md:flex-row justify-between">
                                     <div class="">
-                                        <h4 class="text-lg font-medium">
+                                        <h2 class="text-2xl text-primary font-medium">
                                             Электрика. Монтаж проводки 
-                                        </h4>
+                                        </h2>
                                         <ul class="flex flex-col justify-between text-xs md:text-sm text-gray-400 mt-4">
                                             <li class="flex items-center mb-1">
                                                 <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2 stroke-red-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -479,9 +479,9 @@
                             <div class="">
                                 <div class="flex items-start flex-col md:flex-row justify-between">
                                     <div class="">
-                                        <h4 class="text-lg font-medium">
+                                        <h2 class="text-2xl text-primary font-medium">
                                             Электрика. Монтаж проводки 
-                                        </h4>
+                                        </h2>
                                         <ul class="flex flex-col justify-between text-xs md:text-sm text-gray-400 mt-4">
                                             <li class="flex items-center mb-1">
                                                 <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2 stroke-red-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -523,9 +523,9 @@
                             <div class="">
                                 <div class="flex items-start flex-col md:flex-row justify-between">
                                     <div class="">
-                                        <h4 class="text-lg font-medium">
+                                        <h2 class="text-2xl text-primary font-medium">
                                             Электрика. Монтаж проводки 
-                                        </h4>
+                                        </h2>
                                         <ul class="flex flex-col justify-between text-xs md:text-sm text-gray-400 mt-4">
                                             <li class="flex items-center mb-1">
                                                 <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2 stroke-red-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -572,9 +572,9 @@
                             <div class="">
                                 <div class="flex items-start flex-col md:flex-row justify-between">
                                     <div class="">
-                                        <h4 class="text-lg font-medium">
+                                        <h2 class="text-2xl text-primary font-medium">
                                             Электрика. Монтаж проводки 
-                                        </h4>
+                                        </h2>
                                         <ul class="flex flex-col justify-between text-xs md:text-sm text-gray-400 mt-4">
                                             <li class="flex items-center mb-1">
                                                 <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2 stroke-red-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -620,9 +620,9 @@
                             <div class="">
                                 <div class="flex items-start flex-col md:flex-row justify-between">
                                     <div class="">
-                                        <h4 class="text-lg font-medium">
+                                        <h2 class="text-2xl text-primary font-medium">
                                             Электрика. Монтаж проводки 
-                                        </h4>
+                                        </h2>
                                         <ul class="flex flex-col justify-between text-xs md:text-sm text-gray-400 mt-4">
                                             <li class="flex items-center mb-1">
                                                 <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2 stroke-red-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -673,9 +673,9 @@
                             <div class="">
                                 <div class="flex items-start flex-col md:flex-row justify-between">
                                     <div class="">
-                                        <h4 class="text-lg font-medium">
+                                        <h2 class="text-2xl text-primary font-medium">
                                             Электрика. Монтаж проводки 
-                                        </h4>
+                                        </h2>
                                         <ul class="flex flex-col justify-between text-xs md:text-sm text-gray-400 mt-4">
                                             <li class="flex items-center mb-1">
                                                 <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2 stroke-red-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -721,9 +721,9 @@
                             <div class="">
                                 <div class="flex items-start flex-col md:flex-row justify-between">
                                     <div class="">
-                                        <h4 class="text-lg font-medium">
+                                        <h2 class="text-2xl text-primary font-medium">
                                             Электрика. Монтаж проводки 
-                                        </h4>
+                                        </h2>
                                         <ul class="flex flex-col justify-between text-xs md:text-sm text-gray-400 mt-4">
                                             <li class="flex items-center mb-1">
                                                 <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2 stroke-red-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -776,7 +776,7 @@
 
                     <div v-show="activeTab == 'new'" class="">
 
-                        <div class="relative overflow-hidden bg-white p-4 rounded-md ">
+                        <div class="relative overflow-hidden bg-white rounded-md shadow-md shadow-primary/25 mb-3 py-4 px-6 ">
                             <div class="mb-4 flex items-center justify-between">
                                 <h4 class="text-lg font-mediums">Бонусы:</h4>
                                 <div class="flex items-center">
@@ -793,14 +793,14 @@
                             <img class="absolute w-20 h-16 -bottom-2 -right-2" src="@/assets/images/bonus.png" alt="">
                         </div>
 
-                        <div class="bg-white p-4 rounded-md flex items-center justify-between my-4">
+                        <div class="bg-white rounded-md shadow-md shadow-primary/25 mb-3 py-4 px-6 flex items-center justify-between my-4">
                             <span class="text-sm md:text-md">Заказы на карте</span>
                             <a href="https://www.google.com/maps/">
                                 <img src="@/assets/images/google-maps.png" class="" alt="">
                             </a>
                         </div>
 
-                        <div class="bg-white p-4 rounded-md ">
+                        <div class="bg-white rounded-md shadow-md shadow-primary/25 mb-3 py-4 px-6 ">
                             <div class="flex justify-between text-sm md:text-md">
                                 <h3>Фильтр</h3>
                                 <a class="text-blue-600" href="#">
@@ -872,7 +872,7 @@
 
                     <div v-show="activeTab == 'open'" class="">
                         <div>
-                            <div class="relative overflow-hidden bg-white p-4 rounded-md">
+                            <div class="relative overflow-hidden bg-white rounded-md shadow-md shadow-primary/25 mb-3 py-4 px-6">
                                 <div class="mb-4 flex items-center justify-between">
                                     <h4 class="text-lg font-mediums">Бонусы:</h4>
                                     <div class="flex items-center">
