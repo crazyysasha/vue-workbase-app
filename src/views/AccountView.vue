@@ -1,6 +1,41 @@
 <template>
-    <div class="grid grid-cols-5 container mx-auto p-4 2xl:px-20">
-        <div class=""></div>
+    <div class="grid grid-cols-5 gap-4 container mx-auto p-4 2xl:px-20">
+        <div class="col-span-1 relative">
+            <div class="sticky top-32">
+                <ul>
+                    <li
+                        class="
+                            px-3
+                            py-1
+                            my-0.5
+                            text-md text-primary
+                            font-medium
+                            cursor-pointer
+                            rounded-md
+                            transition-all
+                            duration-300
+                            hover:shadow-md
+                            hover:shadow-primary/25
+                            hover:bg-primary/40
+                            hover:text-white
+                        "
+                        @click="Active = item.message"
+                        :class="{
+                            '!bg-primary': Active == item.message,
+                            'text-white': Active == item.message,
+                            'shadow-md': Active == item.message,
+                            'shadow-primary/25': Active == item.message,
+                        }"
+                        v-for="item in items"
+                        :key="item"
+                    >
+                        <a href="#">
+                            {{ item.message }}
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
         <div class="col-span-4">
             <account-section class="mb-3" anchor="">
                 <template #header>
@@ -1065,4 +1100,7 @@ import AccountSection from "@/components/account/account-section.vue";
 import AccountDetail from "@/components/account/account-detail.vue";
 import AccountAbout from "@/components/account/account-about.vue";
 import AccountLocations from "@/components/account/account-locations.vue";
+import { ref } from "vue";
+const Active = ref("Мой профиль");
+const items = ref([{ message: "Мой профиль" }, { message: "Bar" }]);
 </script>
