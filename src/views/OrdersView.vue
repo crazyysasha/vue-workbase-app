@@ -183,10 +183,10 @@
 
 
             <div class="col-span-2 mr-0 lg:mr-4">
-               <div class="bg-white rounded-md shadow-md shadow-primary/25 mb-3 py-4 px-6 ">
+               <div class="">
 
                     <div v-show="activeTab == 'new'">
-                        <div class="">
+                        <div class="bg-white rounded-md shadow-md shadow-primary/25 mb-3 py-4 px-6 hover:shadow-primary/50 transition-all duration-300 ">
                             <a href="#" class="">
                                 <div class="flex flex-col md:flex-row">
                                     <div class="">
@@ -231,11 +231,10 @@
                                 </div>
                             </a>
             
-                            <hr class="my-5 border-dashed">
             
                         </div>
             
-                        <div class="">
+                        <div class="bg-white rounded-md shadow-md shadow-primary/25 mb-3 py-4 px-6 hover:shadow-primary/50 transition-all duration-300 ">
                             <a href="#" class="">
                                 <div class="flex items-start flex-col md:flex-row">
                                     <div class="">
@@ -280,10 +279,9 @@
                                 </div>
                             </a>
             
-                            <hr class="my-5 border-dashed">
             
                         </div>
-                        <div class="">
+                        <div class="bg-white rounded-md shadow-md shadow-primary/25 mb-3 py-4 px-6 hover:shadow-primary/50 transition-all duration-300 ">
                             <a href="#" class="">
                                 <div class="flex items-start flex-col md:flex-row">
                                     <div class="">
@@ -328,10 +326,9 @@
                                 </div>
                             </a>
             
-                            <hr class="my-5 border-dashed">
             
                         </div>
-                        <div class="">
+                        <div class="bg-white rounded-md shadow-md shadow-primary/25 mb-3 py-4 px-6 hover:shadow-primary/50 transition-all duration-300 ">
                             <a href="#" class="">
                                 <div class="flex items-start flex-col md:flex-row">
                                     <div class="">
@@ -376,14 +373,13 @@
                                 </div>
                             </a>
             
-                            <hr class="my-5 border-dashed">
             
                         </div>
                     </div>
 
                     <div v-show="activeTab == 'open'">
                         <div class="">
-                            <div class="">
+                            <div class="bg-white rounded-md shadow-md shadow-primary/25 mb-3 py-4 px-6">
                                 <div class="flex items-start flex-col md:flex-row justify-between">
                                     <div class="">
                                         <h2 class="text-2xl text-primary font-medium">
@@ -425,9 +421,8 @@
                                 </div>
                             </div>
 
-                            <hr class="my-5 border-dashed">
 
-                            <div class="">
+                            <div class="bg-white rounded-md shadow-md shadow-primary/25 mb-3 py-4 px-6">
                                 <div class="flex items-start flex-col md:flex-row justify-between">
                                     <div class="">
                                         <h2 class="text-2xl text-primary font-medium">
@@ -469,14 +464,13 @@
                                 </div>
                             </div>
             
-                            <hr class="my-5 border-dashed">
             
                         </div>
                     </div>
 
                     <div v-show="activeTab == 'inWork'">
                         <div class="">
-                            <div class="">
+                            <div class="bg-white rounded-md shadow-md shadow-primary/25 mb-3 py-4 px-6">
                                 <div class="flex items-start flex-col md:flex-row justify-between">
                                     <div class="">
                                         <h2 class="text-2xl text-primary font-medium">
@@ -518,9 +512,8 @@
                                 </div>
                             </div>
 
-                            <hr class="my-5 border-dashed">
 
-                            <div class="">
+                            <div class="bg-white rounded-md shadow-md shadow-primary/25 mb-3 py-4 px-6">
                                 <div class="flex items-start flex-col md:flex-row justify-between">
                                     <div class="">
                                         <h2 class="text-2xl text-primary font-medium">
@@ -562,14 +555,13 @@
                                 </div>
                             </div>
             
-                            <hr class="my-5 border-dashed">
             
                         </div>
                     </div>
                     
                     <div v-show="activeTab == 'completed'">
                         <div class="">
-                            <div class="">
+                            <div class="bg-white rounded-md shadow-md shadow-primary/25 mb-3 py-4 px-6">
                                 <div class="flex items-start flex-col md:flex-row justify-between">
                                     <div class="">
                                         <h2 class="text-2xl text-primary font-medium">
@@ -615,9 +607,8 @@
                                 </div>
                             </div>
 
-                            <hr class="my-5 border-dashed">
 
-                            <div class="">
+                            <div class="bg-white rounded-md shadow-md shadow-primary/25 mb-3 py-4 px-6">
                                 <div class="flex items-start flex-col md:flex-row justify-between">
                                     <div class="">
                                         <h2 class="text-2xl text-primary font-medium">
@@ -663,14 +654,13 @@
                                 </div>
                             </div>
             
-                            <hr class="my-5 border-dashed">
             
                         </div>
                     </div>
 
                     <div v-show="activeTab == 'archive'">
                         <div class="">
-                            <div class="">
+                            <div class="bg-white rounded-md shadow-md shadow-primary/25 mb-3 py-4 px-6">
                                 <div class="flex items-start flex-col md:flex-row justify-between">
                                     <div class="">
                                         <h2 class="text-2xl text-primary font-medium">
@@ -716,9 +706,8 @@
                                 </div>
                             </div>
 
-                            <hr class="my-5 border-dashed">
 
-                            <div class="">
+                            <div class="bg-white rounded-md shadow-md shadow-primary/25 mb-3 py-4 px-6">
                                 <div class="flex items-start flex-col md:flex-row justify-between">
                                     <div class="">
                                         <h2 class="text-2xl text-primary font-medium">
@@ -764,7 +753,6 @@
                                 </div>
                             </div>
             
-                            <hr class="my-5 border-dashed">
             
                         </div>
                     </div>
