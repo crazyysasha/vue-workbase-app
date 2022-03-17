@@ -1,13 +1,12 @@
 <template>
-    <div class="grid grid-cols-5 gap-4 container mx-auto p-4 2xl:px-20">
-        <div class="col-span-1 relative">
-            <div class="sticky top-32">
-                <ul>
+    <div class="grid grid-cols-5 gap-4 container mx-auto p-4 py-5 2xl:px-20 ">
+        <div class="col-span-1 ">
+            <div class="sticky top-[7.25rem]">
+                <ul class="flex flex-col gap-3">
                     <li
                         class="
-                            px-3
-                            py-1
-                            my-0.5
+                            px-4
+                            py-2
                             text-md text-primary
                             font-medium
                             cursor-pointer
@@ -172,6 +171,7 @@
             <account-detail class="mb-3"></account-detail>
             <account-about class="mb-3"></account-about>
             <account-locations class="mb-3"></account-locations>
+            <account-specialties class="mb-3"></account-specialties>
         </div>
     </div>
     <!-- <section class="bg-gray-100">
@@ -1100,7 +1100,8 @@ import AccountSection from "@/components/account/account-section.vue";
 import AccountDetail from "@/components/account/account-detail.vue";
 import AccountAbout from "@/components/account/account-about.vue";
 import AccountLocations from "@/components/account/account-locations.vue";
+import AccountSpecialties from "@/components/account/account-specialties.vue";
 import { ref } from "vue";
 const Active = ref("Мой профиль");
-const items = ref([{ message: "Мой профиль" }, { message: "Bar" }]);
+const items = ref([{ message: "Мой профиль" }, { message: "Bar" }, { message: "Bar" }, { message: "Bar" }, { message: "Bar" }, { message: "Bar" }]);
 </script>
