@@ -248,7 +248,7 @@
 
   <div v-show="isAddNew">
     <div class="absolute inset-x-10 bg-gray-300">
-
+      
     </div>
   </div>
 
