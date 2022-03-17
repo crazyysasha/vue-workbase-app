@@ -1,11 +1,11 @@
 <template>
-    <div class="flex flex-col group transition-all duration-200 text-base">
+    <div class="flex flex-col group transition-all duration-200 mb-2 text-base">
         <label
             class="text-primary inline-block bg-transparent align-middle px-1"
         >
             {{ label }}
         </label>
-        <input
+        <textarea
             :type="type"
             class="
                 p-1
@@ -14,6 +14,7 @@
                 group-hover:border-opacity-70
                 focus:!border-opacity-100 focus:outline-none
                 disabled:bg-transparent
+                h-24 disabled:resize-none
             "
             :class="{
                 '!border-opacity-0 ': disabled,
@@ -27,7 +28,7 @@
             :value="modelValue"
             @input="onInput"
             :placeholder="placeholder"
-        />
+        ></textarea>
     </div>
 </template>
 
