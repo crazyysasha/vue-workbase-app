@@ -134,7 +134,9 @@
                     </div>
                 </template>
             </account-section>
-            <account-detail></account-detail>
+            <account-detail class="mb-3"></account-detail>
+            <account-about class="mb-3"></account-about>
+            <account-locations class="mb-3"></account-locations>
         </div>
     </div>
     <!-- <section class="bg-gray-100">
@@ -1061,5 +1063,6 @@
 <script setup>
 import AccountSection from "@/components/account/account-section.vue";
 import AccountDetail from "@/components/account/account-detail.vue";
-
+import AccountAbout from "@/components/account/account-about.vue";
+import AccountLocations from "@/components/account/account-locations.vue";
 </script>

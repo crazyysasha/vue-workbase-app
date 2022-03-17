@@ -1,60 +1,25 @@
 <template>
-    <account-section>
+    <account-section class="mb-3">
         <template #header>
-            <h2 class="text-2xl text-primary font-medium">Личные данные</h2>
-            <p class="text-gray-500">Убедитесь в правильности заполнения</p>
+            <h2 class="text-2xl text-primary font-medium">О себе</h2>
+            <p class="text-gray-500">Расскажите немного о себе</p>
         </template>
         <template #default>
-            <div class="grid grid-cols-3 gap-4 -mx-1">
-                <wb-input
-                    label="Имя"
-                    :disabled="!isEditing"
-                    :loading="isLoadingProfile"
-                    v-model="state.name"
-                >
-                </wb-input>
-                <wb-input
-                    label="Фамилия"
-                    :disabled="!isEditing"
-                    :loading="isLoadingProfile"
-                    v-model="state.surname"
-                >
-                </wb-input>
-                <wb-input
-                    label="Отчество"
-                    :disabled="!isEditing"
-                    :loading="isLoadingProfile"
-                    v-model="state.patronymic"
-                >
-                </wb-input>
-                <wb-input
-                    label="День рождения"
-                    :disabled="!isEditing"
-                    :loading="isLoadingProfile"
-                    v-model="state.birthday"
-                    placeholder="Не указан"
-                    type="date"
-                ></wb-input>
-                <wb-select
-                    v-model="state.gender"
-                    label="Пол"
-                    :disabled="!isEditing"
-                >
-                    <option disabled :selected="!state.gender">
-                        Не указан
-                    </option>
-                    <option value="man">Мужской</option>
-                    <option value="woman">Женский</option>
-                </wb-select>
-                <wb-input
-                    label="Адрес"
-                    :disabled="!isEditing"
-                    :loading="isLoadingProfile"
-                    v-model="state.address"
-                    placeholder="Не указан"
-                    type="text"
-                ></wb-input>
-            </div>
+            <wb-textarea
+                v-model="state.excerpt"
+                :disabled="!isEditing"
+                label="Коротко о себе"
+            ></wb-textarea>
+            <wb-textarea
+                v-model="state.description"
+                :disabled="!isEditing"
+                label="Подробно о себе"
+            ></wb-textarea>
+            <wb-textarea
+                v-model="state.education"
+                :disabled="!isEditing"
+                label="Образование и опыт работы"
+            ></wb-textarea>
         </template>
         <template #footer>
             <div class="flex gap-4">
@@ -128,35 +93,18 @@
 </template>
 
 <script setup>
-import { onMounted, reactive, ref } from "vue";
-import WbInput from "./wb-input";
-import WbSelect from "./wb-select";
-import WbButton from "./wb-button";
-import AccountSection from "./account-section";
-import { user, useUser } from "@/composables/auth/user";
-
+import { reactive, ref } from "vue";
+import AccountSection from "./account-section.vue";
+import WbTextarea from "./wb-textarea.vue";
+import WbButton from "./wb-button.vue";
 const isEditing = ref(false);
 
-const { onGetMe } = useUser();
-
-const {
-    exec: execProfile,
-    isLoading: isLoadingProfile,
-    error: errorInLoadingProfile,
-} = onGetMe();
-
 const state = reactive({
-    name: "",
-    surname: "",
-    patronimyc: "",
-    birthday: "",
-    gender: null,
-    address: "",
-});
-onMounted(async () => {
-    await execProfile();
-    console.log(state, user);
-    Object.assign(state, user.value);
-    console.log(state, user);
+    education:
+        'Ташкентский государственный технический унивеситет, работал в компании "Электромонтаж Сервис" с 2010 по 2019 год, на данный момент работаю со своей командой.',
+    excerpt:
+        "Техник-электрик, большой опыт в решении ваших электромонтажных задач. Выбрав меня вы облегчите себе текущий или наступаюшую стадию электрофикации. Обещаю,результатом останетесь довольны! Работу сделаю быстро и качественно.",
+    description:
+        "Техник-электрик, большой опыт в решении ваших электромонтажных задач. Выбрав меня вы облегчите себе текущий или наступаюшую стадию электрофикации. Обещаю,результатом останетесь довольны! Работу сделаю быстро и качественно.",
 });
 </script>

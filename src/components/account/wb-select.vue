@@ -1,12 +1,11 @@
 <template>
-    <div class="flex flex-col group transition-all duration-200 text-base">
+    <div class="flex flex-col group transition-all duration-200 mb-2 text-base">
         <label
             class="text-primary inline-block bg-transparent align-middle px-1"
         >
             {{ label }}
         </label>
-        <input
-            :type="type"
+        <select
             class="
                 p-1
                 rounded-md
@@ -16,35 +15,28 @@
                 disabled:bg-transparent
             "
             :class="{
-                '!border-opacity-0 ': disabled,
+                '!border-opacity-0': disabled,
                 'text-primary/0': loading,
                 '!bg-primary/10': loading,
                 'animate-pulse': loading,
                 '!bg-primary/10': saving,
                 'animate-pulse': saving,
             }"
-            :disabled="disabled"
             :value="modelValue"
-            @input="onInput"
-            :placeholder="placeholder"
-        />
+            :disabled="disabled"
+            @change="onChange"
+        >
+            <slot></slot>
+        </select>
     </div>
 </template>
 
 <script setup>
+import { ref } from "vue";
+
 const props = defineProps({
-    type: {
-        type: String,
-        required: false,
-        default() {
-            return "text";
-        },
-        validator(value) {
-            return ["text", "number", "date"].includes(value);
-        },
-    },
     modelValue: {
-        type: [String, Number],
+        type: [String, Number, null],
         required: true,
     },
     disabled: {
@@ -65,20 +57,18 @@ const props = defineProps({
         type: String,
         required: false,
     },
-    placeholder: {
-        type: [String, Number],
-    },
 });
 
 const emit = defineEmits(["update:modelValue"]);
 
-const onInput = ({ target: { value } }) => {
+const onChange = ({ target: { value } }) => {
     emit("update:modelValue", value);
 };
 </script>
-
 <style scoped>
-input[type="date" i]::-webkit-calendar-picker-indicator {
-    background-image: url("@/assets/icons/calendar.svg");
+select:disabled {
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
 }
 </style>
