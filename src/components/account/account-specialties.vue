@@ -3,7 +3,7 @@
     <div class="p-4">
       <div class="flex flex-col sm:flex-row justify-between sm:items-center">
         <h4 class="font-medium text-2xl text-primary">Специальности</h4>
-        <wb-button type="primary" v-if="!isEditing" @click="isEditing = true">
+        <wb-button type="primary">
           Добавить новую специальность
         </wb-button>
       </div>
@@ -64,7 +64,7 @@
           </label>
         </div>
       </div>
-      <div class="md:grid md:grid-cols-2 lg:grid-cols-3 gap-4 mt-5">
+      <div class="md:grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 mt-5">
         <div
           class="
             relative
@@ -74,6 +74,7 @@
             overflow-hidden
             p-4
             pb-6
+            mb-3
           "
         >
           <div class="flex justify-between items-center text-orange-500">
@@ -109,12 +110,12 @@
           <div class="flex justify-between">
             <div class="">
               <p class="text-gray-400">Оказывает</p>
-              <span>12 из 18</span>
+              <span class="text-primary">12 из 18</span>
             </div>
             <div class="">
               <div class="text-right">
                 <p class="text-gray-400">Цены указаны</p>
-                <span>В 6 услугах</span>
+                <span class="text-orange-500">В 6 услугах</span>
               </div>
             </div>
           </div>
@@ -134,6 +135,7 @@
             overflow-hidden
             p-4
             pb-6
+            mb-3
           "
         >
           <div class="flex justify-between items-center text-orange-500">
@@ -195,6 +197,7 @@
             shadow-md shadow-primary/25
             hover:shadow-primary/30
             flex flex-col justify-center
+            mb-3
           "
         >
           <div

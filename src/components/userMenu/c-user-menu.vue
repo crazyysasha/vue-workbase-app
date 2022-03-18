@@ -28,7 +28,8 @@
                             h-6
                             mx-auto
                             rounded-full
-                            ring-2 ring-white
+                            ring-2
+                            ring-white 
                         "
                         src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"
                         alt=""
@@ -38,15 +39,14 @@
                     <span
                         class="
                             mr-1
-                            text-lg
-                            xl:text-base
+                            text-base
                             text-white
-                            xl:text-black
                         "
+                        :class="{'xl:text-black': headerType != 'secondary' }"
                         >Я исполнитель</span
                     >
                     <svg
-                        class="w-4 h-4 text-white xl:text-black"
+                        class="w-4 h-4 text-white"
                         xmlns="http://www.w3.org/2000/svg"
                         viewBox="0 0 20 20"
                         fill="currentColor"
@@ -72,6 +72,7 @@
                     xl:shadow-xl
                     xl:text-center
                     xl:border
+                    overflow-hidden 
                     xl:border-primary
                 "
             >
@@ -84,15 +85,14 @@
                         py-3
                         xl:ml-0
                         ml-9
-                        xl:text-base
-                        text-lg
-                        xl:text-black
-                        hover:bg-primary hover:text-white hover:rounded-t-md
+                        text-base
+                        hover:bg-primary hover:text-white
                         transition-all
                         duration-300
                         ease-out
                         hover:ease-in
                         text-white
+                        xl:text-primary
                     "
                 >
                     Я заказчик
@@ -107,15 +107,14 @@
                         py-3
                         xl:ml-0
                         ml-9
-                        xl:text-base
-                        text-lg
-                        xl:text-black
-                        hover:bg-primary hover:text-white hover:rounded-t-md
+                        text-base
+                        hover:bg-primary hover:text-white
                         transition-all
                         duration-300
                         ease-out
                         hover:ease-in
                         text-white
+                        xl:text-primary
                     "
                     :class="{ '!bg-primary !bg-opacity-50': isLoading }"
                 >

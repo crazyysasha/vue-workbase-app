@@ -1,8 +1,10 @@
 <template>
-    <div class="grid grid-cols-5 gap-4 container mx-auto p-4 py-5 2xl:px-20">
-        <div class="col-span-1">
-            <div class="sticky top-[7.25rem]">
-                <ul class="flex flex-col gap-3">
+    <div class="grid lg:grid-cols-5 lg:gap-4 container mx-auto p-4 py-5 2xl:px-20">
+        <div class="sticky  top-[5.25rem] bg-white p-4 py-5 mb-4
+                    rounded-md z-10 shadow-md shadow-primary/25
+                    lg:col-span-1 lg:p-0 lg:py-0 lg:mb-0 lg:bg-transparent lg:shadow-none">
+            <div class="lg:sticky top-[7.25rem]">
+                <ul class="flex flex-row lg:flex-col gap-3">
                     <li
                         class="
                             px-4
@@ -28,9 +30,9 @@
                         v-for="item in items"
                         :key="item"
                     >
-                        <a href="#">
+                        <p href="#">
                             {{ item.message }}
-                        </a>
+                        </p>
                     </li>
                 </ul>
             </div>
@@ -172,6 +174,7 @@
             <account-about class="mb-3"></account-about>
             <account-locations class="mb-3"></account-locations>
             <account-specialties class="mb-3"></account-specialties>
+            <account-fileUpload class="mb-3"></account-fileUpload>
         </div>
     </div>
     <!-- <section class="bg-gray-100">
@@ -1101,6 +1104,7 @@ import AccountDetail from "@/components/account/account-detail.vue";
 import AccountAbout from "@/components/account/account-about.vue";
 import AccountLocations from "@/components/account/account-locations.vue";
 import AccountSpecialties from "@/components/account/account-specialties.vue";
+import AccountFileUpload from "@/components/account/account-fileUpload.vue";
 import { ref } from "vue";
 const Active = ref("Мой профиль");
 const items = ref([
@@ -1110,4 +1114,5 @@ const items = ref([
     { message: "Районы и адреса" },
     { message: "Специальности" },
 ]);
+console.log(scroll);
 </script>
