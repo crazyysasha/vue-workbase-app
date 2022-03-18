@@ -1,6 +1,6 @@
 <template>
-    <div class="grid grid-cols-5 gap-4 container mx-auto p-4 py-5 2xl:px-20 ">
-        <div class="col-span-1 ">
+    <div class="grid grid-cols-5 gap-4 container mx-auto p-4 py-5 2xl:px-20">
+        <div class="col-span-1">
             <div class="sticky top-[7.25rem]">
                 <ul class="flex flex-col gap-3">
                     <li
@@ -1103,5 +1103,11 @@ import AccountLocations from "@/components/account/account-locations.vue";
 import AccountSpecialties from "@/components/account/account-specialties.vue";
 import { ref } from "vue";
 const Active = ref("Мой профиль");
-const items = ref([{ message: "Мой профиль" }, { message: "Bar" }, { message: "Bar" }, { message: "Bar" }, { message: "Bar" }, { message: "Bar" }]);
+const items = ref([
+    { message: "Мой профиль" },
+    { message: "Личные данные" },
+    { message: "О себе" },
+    { message: "Районы и адреса" },
+    { message: "Специальности" },
+]);
 </script>

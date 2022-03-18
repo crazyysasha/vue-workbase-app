@@ -180,7 +180,7 @@
           </div>
           <div class="absolute -bottom-px left-0 w-full h-2">
             <div class="relative w-full bg-gray-300 h-full">
-              <div class="absolute bottom-0 w-1/2 h-full bg-primary"></div>
+              <div class="absolute bottom-0 w-1/2 h-full bg-primary "></div>
               <div class="absolute bottom-0 w-1/4 h-full bg-orange-500"></div>
             </div>
           </div>
