@@ -1,5 +1,5 @@
 <template>
-    <div class="grid lg:grid-cols-5 lg:gap-4 container mx-auto p-4 py-5 2xl:px-20">
+    <div class="grid scroll-smooth lg:grid-cols-5 lg:gap-4 container mx-auto p-4 py-5 2xl:px-20">
         <div class="sticky  top-[5.25rem] bg-white p-4 py-5 mb-4
                     rounded-md z-10 shadow-md shadow-primary/25
                     lg:col-span-1 lg:p-0 lg:py-0 lg:mb-0 lg:bg-transparent lg:shadow-none">
@@ -29,10 +29,11 @@
                         }"
                         v-for="item in items"
                         :key="item"
+                        
                     >
-                        <p href="#">
+                        <a href="#">
                             {{ item.message }}
-                        </p>
+                        </a>
                     </li>
                 </ul>
             </div>
@@ -174,6 +175,8 @@
             <account-about class="mb-3"></account-about>
             <account-locations class="mb-3"></account-locations>
             <account-specialties class="mb-3"></account-specialties>
+            <account-certificates class="mb-3"></account-certificates>
+            <account-works class="mb-3"></account-works>
             <account-fileUpload class="mb-3"></account-fileUpload>
         </div>
     </div>
@@ -1104,6 +1107,8 @@ import AccountDetail from "@/components/account/account-detail.vue";
 import AccountAbout from "@/components/account/account-about.vue";
 import AccountLocations from "@/components/account/account-locations.vue";
 import AccountSpecialties from "@/components/account/account-specialties.vue";
+import AccountCertificates from "@/components/account/account-certificates.vue";
+import AccountWorks from "@/components/account/account-works.vue";
 import AccountFileUpload from "@/components/account/account-fileUpload.vue";
 import { ref } from "vue";
 const Active = ref("Мой профиль");
