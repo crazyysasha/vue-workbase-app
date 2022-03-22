@@ -1065,5 +1065,9 @@ const items = ref([
     { id: "about", message: "О себе" },
     { id: "locations", message: "Районы и адреса" },
     { id: "specialties", message: "Специальности" },
+    { id: "certificates", message: "Сертификаты и дипломы" },
+    { id: "works", message: "Работы" },
+    { id: "lich", message: "Удостоверение личности" },
+    
 ]);
 </script>
