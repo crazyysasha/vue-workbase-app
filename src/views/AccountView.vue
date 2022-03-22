@@ -2,6 +2,7 @@
     <div
         class="
             grid
+            scroll-smooth
             lg:grid-cols-5 lg:gap-4
             container
             mx-auto
@@ -33,8 +34,6 @@
                 <ul class="flex flex-row lg:flex-col gap-3">
                     <li
                         class="
-                            px-4
-                            py-2
                             text-md text-primary
                             font-medium
                             cursor-pointer
@@ -56,19 +55,37 @@
                         v-for="item in items"
                         :key="item"
                     >
-                        <p href="#">
+                        <a class="w-full px-4 py-2 block" :href="`#${item.id}`">
                             {{ item.message }}
-                        </p>
+                        </a>
                     </li>
                 </ul>
             </div>
         </div>
         <div class="col-span-4">
-            <account-cv class="mb-3"></account-cv>
-            <account-detail class="mb-3"></account-detail>
-            <account-about class="mb-3"></account-about>
-            <account-locations class="mb-3"></account-locations>
-            <account-specialties class="mb-3"></account-specialties>
+            <div id="cv" class="scroll-mt-28 mb-5">
+                <account-cv></account-cv>
+            </div>
+
+            <div id="detail" class="scroll-mt-28">
+                <account-detail class="mb-5"></account-detail>
+            </div>
+            <div id="about" class="scroll-mt-28">
+                <account-about class="mb-5"></account-about>
+            </div>
+            <div id="locations" class="scroll-mt-28">
+                <account-locations class="mb-5"></account-locations>
+            </div>
+            <div id="specialties" class="scroll-mt-28">
+                <account-specialties class="mb-5"></account-specialties>
+            </div>
+            <div id="certificates" class="scroll-mt-28">
+                <account-certificates class="mb-5"></account-certificates>
+            </div>
+            <div id="works" class="scroll-mt-28">
+                <account-works class="mb-5"></account-works>
+            </div>
+
             <account-fileUpload class="mb-3"></account-fileUpload>
         </div>
     </div>
@@ -1037,14 +1054,16 @@ import AccountCv from "@/components/account/account-cv.vue";
 import AccountAbout from "@/components/account/account-about.vue";
 import AccountLocations from "@/components/account/account-locations.vue";
 import AccountSpecialties from "@/components/account/account-specialties.vue";
+import AccountCertificates from "@/components/account/account-certificates.vue";
+import AccountWorks from "@/components/account/account-works.vue";
 import AccountFileUpload from "@/components/account/account-fileUpload.vue";
 import { ref } from "vue";
 const Active = ref("Мой профиль");
 const items = ref([
-    { message: "Мой профиль" },
-    { message: "Личные данные" },
-    { message: "О себе" },
-    { message: "Районы и адреса" },
-    { message: "Специальности" },
+    { id: "cv", message: "Мой профиль" },
+    { id: "detail", message: "Личные данные" },
+    { id: "about", message: "О себе" },
+    { id: "locations", message: "Районы и адреса" },
+    { id: "specialties", message: "Специальности" },
 ]);
 </script>
