@@ -23,6 +23,7 @@
                 'hover:bg-orange-500/80': isSecondary,
                 'disabled:bg-orange-500/50': isSecondary,
                 'shadow-orange-500/25': isSecondary,
+                'animate-pulse': isLoading,
             }"
         >
             <slot></slot>
@@ -43,8 +44,17 @@ const props = defineProps({
             return "primary";
         },
     },
+    loading: {
+        type: Boolean,
+        required: false,
+        default() {
+            return false;
+        },
+    },
 });
 
 const isPrimary = computed(() => props.type == "primary");
 const isSecondary = computed(() => props.type == "secondary");
+
+const isLoading = computed(() => props.loading);
 </script>

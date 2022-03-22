@@ -7,5 +7,7 @@ export * as HWallet from './h-wallet';
 export * as HAccount from './h-account';
 export * as HSupport from './h-support';
 export * as HBonus from './h-bonus';
+export * as HCheck from './h-check';
+export * as HChevronRight from './h-chevron-right';
 
 export * as HCloudUpload from './h-cloud-upload';
