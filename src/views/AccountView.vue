@@ -45,44 +45,43 @@
                             hover:bg-primary/40
                             hover:text-white
                         "
-                        @click="Active = item.message"
                         :class="{
-                            '!bg-primary': Active == item.message,
-                            'text-white': Active == item.message,
-                            'shadow-md': Active == item.message,
-                            'shadow-primary/25': Active == item.message,
+                            '!bg-primary': item.isActive,
+                            'text-white': item.isActive,
+                            'shadow-md': item.isActive,
+                            'shadow-primary/25': item.isActive,
                         }"
-                        v-for="item in items"
-                        :key="item"
+                        v-for="(item, id) in items"
+                        :key="id"
                     >
-                        <a class="w-full px-4 py-2 block" :href="`#${item.id}`">
-                            {{ item.message }}
+                        <a class="w-full px-4 py-2 block" :href="`#${id}`">
+                            {{ item.label }}
                         </a>
                     </li>
                 </ul>
             </div>
         </div>
         <div class="col-span-4">
-            <div id="cv" class="scroll-mt-28 mb-5">
+            <div id="cv" class="spy scroll-mt-28 mb-5">
                 <account-cv></account-cv>
             </div>
 
-            <div id="detail" class="scroll-mt-28">
+            <div id="detail" class="spy scroll-mt-28">
                 <account-detail class="mb-5"></account-detail>
             </div>
-            <div id="about" class="scroll-mt-28">
+            <div id="about" class="spy scroll-mt-28">
                 <account-about class="mb-5"></account-about>
             </div>
-            <div id="locations" class="scroll-mt-28">
+            <div id="locations" class="spy scroll-mt-28">
                 <account-locations class="mb-5"></account-locations>
             </div>
-            <div id="specialties" class="scroll-mt-28">
+            <div id="specialties" class="spy scroll-mt-28">
                 <account-specialties class="mb-5"></account-specialties>
             </div>
-            <div id="certificates" class="scroll-mt-28">
+            <div id="certificates" class="spy scroll-mt-28">
                 <account-certificates class="mb-5"></account-certificates>
             </div>
-            <div id="works" class="scroll-mt-28">
+            <div id="works" class="spy scroll-mt-28">
                 <account-works class="mb-5"></account-works>
             </div>
 
@@ -1057,13 +1056,50 @@ import AccountSpecialties from "@/components/account/account-specialties.vue";
 import AccountCertificates from "@/components/account/account-certificates.vue";
 import AccountWorks from "@/components/account/account-works.vue";
 import AccountFileUpload from "@/components/account/account-fileUpload.vue";
-import { ref } from "vue";
-const Active = ref("Мой профиль");
-const items = ref([
-    { id: "cv", message: "Мой профиль" },
-    { id: "detail", message: "Личные данные" },
-    { id: "about", message: "О себе" },
-    { id: "locations", message: "Районы и адреса" },
-    { id: "specialties", message: "Специальности" },
-]);
+import { onMounted, reactive } from "vue";
+
+const items = reactive({
+    cv: {
+        label: "Мой профиль",
+        isActive: false,
+        top: 0,
+    },
+    detail: {
+        label: "Личные данные",
+        isActive: false,
+        top: 0,
+    },
+    about: {
+        label: "О себе",
+        isActive: false,
+        top: 0,
+    },
+    locations: {
+        label: "Районы и адреса",
+        isActive: false,
+        top: 0,
+    },
+    specialties: {
+        label: "Специальности",
+        isActive: false,
+        top: 0,
+    },
+});
+onMounted(() => {
+    document.querySelectorAll(".spy").forEach((e) => {
+        if (items[e.id]) {
+            items[e.id].top = e.offsetTop;
+        }
+    });
+    document.addEventListener("scroll", (e) => {
+        const { scrollTop } = e.target.documentElement;
+        for (const [id, menu] of Object.entries(items)) {
+            if (menu.top < scrollTop +7 * 16) {
+                items[id].isActive = true;
+            } else {
+                items[id].isActive = false;
+            }
+        }
+    });
+});
 </script>
