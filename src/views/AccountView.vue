@@ -1084,7 +1084,23 @@ const items = reactive({
         isActive: false,
         top: 0,
     },
+    certificates: {
+        label: "Сертификаты и дипломы",
+        isActive: false,
+        top: 0,
+    },
+    works: {
+        label: "Работы",
+        isActive: false,
+        top: 0,
+    },
+    lich: {
+        label: "Удостоверение личности",
+        isActive: false,
+        top: 0,
+    },
 });
+
 onMounted(() => {
     document.querySelectorAll(".spy").forEach((e) => {
         if (items[e.id]) {
@@ -1094,7 +1110,7 @@ onMounted(() => {
     document.addEventListener("scroll", (e) => {
         const { scrollTop } = e.target.documentElement;
         for (const [id, menu] of Object.entries(items)) {
-            if (menu.top < scrollTop +7 * 16) {
+            if (menu.top < scrollTop + 7 * 16) {
                 items[id].isActive = true;
             } else {
                 items[id].isActive = false;
