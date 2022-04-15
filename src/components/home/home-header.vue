@@ -1,9 +1,9 @@
 <template>
     <section
-        class="section-banner relative flex w-full items-center justify-center"
+        class="section-banner relative flex w-full items-center justify-center h-[calc(70vh-76px)] sm:h-[calc(85vh-76px)]"
     >
         <div
-            class="bg-black bg-opacity-40 h-full w-full  absolute block z-10"
+            class="bg-black bg-opacity-40 h-full w-full absolute block z-10"
         ></div>
         <div class="w-full absolute h-full block -z-0">
             <video

@@ -9,4 +9,11 @@
 <script setup>
 import AppHeader from "@/components/headers/AppHeader.vue";
 import AppFooter from "@/components/footer/AppFooter.vue";
+import useSetttings from "@/composables/settings.js";
+import { onMounted } from "vue";
+const { exec, isLoaded } = useSetttings();
+
+onMounted(async () => {
+    if (!isLoaded.value) await exec();
+});
 </script>

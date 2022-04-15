@@ -1,39 +1,7 @@
 <script setup>
+import useSettings from "@/composables/settings";
 import { ref } from "vue";
-
-const advantages = ref([
-    {
-        title: "Мобильность",
-        description:
-            "Всего за 10 минут Вы можете выбрать подходящего Заказчика и Специалиста",
-    },
-    {
-        title: "Достойная оплата",
-        description:
-            "Заказчики сами указывают свой бюджет, а Специалисты могут предложить свою цену за услугу",
-    },
-    {
-        title: "Выгода",
-        description:
-            "Пользователи WorkBase не тратят деньги на рекламу и аренду офиса",
-    },
-    {
-        title: "Надежность",
-        description:
-            "WorkBase приоритезирует пользователей прошедших верификацию",
-    },
-    {
-        title: "Гибкость",
-        description:
-            "Вы сами напрямую договариваетесь о времени и деталях работы",
-    },
-
-    {
-        title: "Безопасная сделка",
-        description:
-            'В WorkBase возможно использование функции "Безопасный платеж"',
-    },
-]);
+const { settings } = useSettings();
 </script>
 
 <template>
@@ -59,7 +27,7 @@ const advantages = ref([
         >
             <!-- TODO: после подключения API вставить на key -> id приемущества -->
             <div
-                v-for="(advantage, index) in advantages"
+                v-for="(advantage, index) in settings?.advantages"
                 :key="index"
                 class="
                     flex
@@ -118,7 +86,7 @@ const advantages = ref([
                     </h4>
                     <div
                         class="text-sm text-gray-500"
-                        v-html="advantage.description"
+                        v-html="advantage.content"
                     ></div>
                 </div>
             </div>

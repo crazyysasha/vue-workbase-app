@@ -1,5 +1,5 @@
-import axios from "axios";
+import axios from "@/utils/axios";
 
 export const get = () => {
-    return axios.get(`${process.env.VUE_APP_API_URL}/settings`);
+    return axios.get(`/crazy/workbase/v1.0.1/settings`);
 }

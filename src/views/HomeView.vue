@@ -1,17 +1,10 @@
-
-
 <script setup>
 import CCategories from "@/components/home/c-categories";
 import HomeHeader from "@/components/home/home-header.vue";
 import CAdvantages from "@/components/home/c-advantages.vue";
 import CQuestions from "@/components/home/c-questions.vue";
 import CApplication from "@/components/home/c-application.vue";
-
-const click = ({ target, preventDefault }) => {
-    console.log(target);
-};
 </script>
-
 <template>
     <home-header></home-header>
     <c-categories></c-categories>
@@ -19,16 +12,3 @@ const click = ({ target, preventDefault }) => {
     <c-questions></c-questions>
     <c-application></c-application>
 </template>
-
-
-<style>
-.section-banner {
-    height: calc(85vh - 76px);
-}
-
-@media only screen and (max-width: 600px) {
-    .section-banner {
-        height: calc(70vh - 76px);
-    }
-}
-</style>
