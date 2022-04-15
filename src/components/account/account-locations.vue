@@ -13,10 +13,8 @@
                 :options="locations"
                 option-key="id"
                 v-model="selected"
-                collapsed
-                is-nested
                 :disabled="!isEditing"
-                :loading="isLoading"
+                :loading="locationsIsLoading"
             >
             </checkbox-list>
         </template>
@@ -46,7 +44,7 @@
 </template>
 
 <script setup>
-import { onMounted, ref, watch } from "vue";
+import { effect, onMounted, ref, watch } from "vue";
 import AccountSection from "./account-section.vue";
 import WbButton from "./wb-button.vue";
 import WbSelect from "./wb-select.vue";
@@ -56,12 +54,17 @@ import { useLocations } from "@/composables/locations";
 
 const isEditing = ref(false);
 const selected = ref([]);
-const { locations, exec, isLoading, isLoaded } = useLocations();
+const {
+    locations,
+    exec: execLocations,
+    isLoading: locationsIsLoading,
+    isLoaded: locationsIsLoaded,
+} = useLocations();
+
 watch(selected, (newVal) => {
     console.log(newVal);
 });
-
 onMounted(async () => {
-    if (!isLoaded.value) await exec();
+    if (!locationsIsLoaded.value) await execLocations();
 });
 </script>

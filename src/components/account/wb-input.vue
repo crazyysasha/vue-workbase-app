@@ -44,7 +44,7 @@ const props = defineProps({
         },
     },
     modelValue: {
-        type: [String, Number],
+        type: [String, Number, null],
         required: true,
     },
     disabled: {
@@ -67,6 +67,12 @@ const props = defineProps({
     },
     placeholder: {
         type: [String, Number],
+    },
+    saving: {
+        type: Boolean,
+        default() {
+            return false;
+        }
     },
 });
 

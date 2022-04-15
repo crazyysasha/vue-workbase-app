@@ -1,11 +1,20 @@
 <template>
     <ul class="py-2">
-        <li
+        <checkbox-list-item
+            v-for="option in options"
+            :key="option[optionKey]"
+            :model-value="modelValue"
+            :option-key="optionKey"
+            :option="option"
+            @update:model-value="onUpdate"
+        >
+        </checkbox-list-item>
+        <!-- <li
             v-for="option in options"
             :key="option[optionKey]"
             class="
                 group
-                hover:shadow hover:shadow-orange-500
+                hover:shadow hover:shadow-primary
                 rounded-md
                 my-1
                 -mx-2
@@ -18,7 +27,7 @@
                 :class="{
                     'border-b': isChildrenOpen,
                     'border-transparent': isChildrenOpen,
-                    'group-hover:border-orange-500/50': isChildrenOpen,
+                    'group-hover:border-primary/50': isChildrenOpen,
                 }"
             >
                 <div
@@ -32,7 +41,7 @@
                         aspect-square
                         h-5
                         w-5
-                        border border-orange-500
+                        border border-primary
                     "
                 >
                     <h-check
@@ -47,6 +56,7 @@
                     @change="onChange"
                     hidden
                 />
+                {{ modelValue.includes(`${option[optionKey]}`) }}
                 <slot> {{ option.name }} </slot>
                 <button
                     class="ml-auto flex items-center"
@@ -60,15 +70,15 @@
                     0 из {{ option.children.length }}
                 </button>
             </label>
-            <!-- TODO: нужно доделать анимацию открытия  -->
-            <!-- <transition
+            TODO: нужно доделать анимацию открытия  
+             <transition
                 enter-from-class="max-h-0"
                 enter-active-class="transition duration-200  overflow-hidden"
                 enter-to-class="max-h-[9999999999999px]"
                 leave-from-class="max-h-[9999999999999px]"
                 leave-active-class="transition duration-200  overflow-hidden"
                 leave-to-class="max-h-0"
-            > -->
+            > 
             <checkbox-list
                 v-if="option.children?.length > 0 && isNested && isChildrenOpen"
                 :options="option.children"
@@ -80,11 +90,12 @@
                 class="px-4"
             >
             </checkbox-list>
-            <!-- </transition> -->
-        </li>
+        </li> 
+         </transition> -->
     </ul>
 </template>
 <script setup>
+import CheckboxListItem from "./checkbox-list-item.vue";
 import { computed, effect, ref, watch } from "vue";
 
 const props = defineProps({
@@ -124,6 +135,8 @@ const props = defineProps({
 const emit = defineEmits(["update:modelValue"]);
 
 const isChildrenOpen = ref(false);
+
+console.log(props.modelValue);
 
 const onChange = (event) => {
     const checked = [...(props.modelValue || [])];

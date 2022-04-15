@@ -69,6 +69,12 @@ const props = defineProps({
     placeholder: {
         type: [String, Number],
     },
+    saving: {
+        type: Boolean,
+        default() {
+            return false;
+        }
+    },
 });
 
 const emit = defineEmits(["update:modelValue"]);

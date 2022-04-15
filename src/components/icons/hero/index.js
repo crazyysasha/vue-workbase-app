@@ -9,5 +9,6 @@ export * as HSupport from './h-support';
 export * as HBonus from './h-bonus';
 export * as HCheck from './h-check';
 export * as HChevronRight from './h-chevron-right';
+export * as HInformationCircle from './h-information-circle';
 
 export * as HCloudUpload from './h-cloud-upload';
