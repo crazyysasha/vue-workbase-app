@@ -15,6 +15,3 @@
         </div>
     </section>
 </template>
-
-<script setup>
-</script>

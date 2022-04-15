@@ -40,30 +40,51 @@
                             rounded-md
                             transition-all
                             duration-300
-                            hover:shadow-md
-                            hover:shadow-primary/25
-                            hover:bg-primary/40
-                            hover:text-white
                         "
                         :class="{
                             '!bg-primary': item.isActive,
                             'text-white': item.isActive,
                             'shadow-md': item.isActive,
                             'shadow-primary/25': item.isActive,
+                            '!text-red-500': item.isError,
+                            'hover:shadow-md': !item.disabled,
+                            'hover:shadow-primary/25': !item.disabled,
+                            'hover:bg-primary/40': !item.disabled,
+                            'hover:text-white': !item.disabled,
                         }"
                         v-for="(item, id) in items"
                         :key="id"
                     >
-                        <a class="w-full px-4 py-2 block" :href="`#${id}`">
-                            {{ item.label }}
+                        <a
+                            class="
+                                w-full
+                                px-4
+                                py-2
+                                flex
+                                justify-between
+                                items-center
+                            "
+                            :href="`#${id}`"
+                            :disabled="item.disabled"
+                            :title="item.disabled ? 'Скоро' : ''"
+                        >
+                            <span>
+                                {{ item.label }}
+                            </span>
+                            <span>
+                                <h-information-circle
+                                    class="h-5 w-5"
+                                    v-if="item.isError"
+                                ></h-information-circle>
+                            </span>
                         </a>
                     </li>
                 </ul>
             </div>
         </div>
         <div class="col-span-4">
-            <div id="cv" class="spy scroll-mt-28 mb-5">
-                <account-cv></account-cv>
+            <div id="cv" class="spy scroll-mt-28">
+                <account-cv class="mb-5"></account-cv>
             </div>
 
             <div id="detail" class="spy scroll-mt-28">
@@ -81,14 +102,15 @@
             <div id="certificates" class="spy scroll-mt-28">
                 <account-certificates class="mb-5"></account-certificates>
             </div>
+
             <div id="works" class="spy scroll-mt-28">
                 <account-works class="mb-5"></account-works>
             </div>
 
-            <account-fileUpload class="mb-3"></account-fileUpload>
+            <!-- <account-fileUpload class="mb-3"></account-fileUpload> -->
         </div>
     </div>
-    <section class="bg-gray-100">
+    <!-- <section class="bg-gray-100">
         <div class="container mx-auto px-2 md:px-4 2xl:px-20 py-2 md:py-4">
             <div class="flex text-gray-400">
                 <div
@@ -592,7 +614,10 @@
                 </div>
             </div>
 
-            <div class="pb-80">
+            <div class="pb-80 opacity-50 group relative">
+                <div class="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100">
+                    Скоро
+                </div>
                 <div class="p-5 mt-4 mr-2 bg-white rounded-md">
                     <h5
                         class="
@@ -1019,7 +1044,7 @@
                 </div>
             </div>
         </div>
-    </section>
+    </section> -->
     <!-- <c-modal v-model="showVerificationModal" v-slot="{ close }">
         <button
             class="
@@ -1057,47 +1082,56 @@ import AccountCertificates from "@/components/account/account-certificates.vue";
 import AccountWorks from "@/components/account/account-works.vue";
 import AccountFileUpload from "@/components/account/account-fileUpload.vue";
 import { onMounted, reactive } from "vue";
+import { useResizeObserver } from "@vueuse/core";
 
 const items = reactive({
     cv: {
         label: "Мой профиль",
-        isActive: false,
-        top: 0,
+        isActive: true,
+        top: 9999999,
     },
     detail: {
         label: "Личные данные",
         isActive: false,
-        top: 0,
+        top: 9999999,
     },
     about: {
         label: "О себе",
         isActive: false,
-        top: 0,
+        top: 9999999,
     },
     locations: {
         label: "Районы и адреса",
         isActive: false,
-        top: 0,
+        top: 9999999,
     },
     specialties: {
         label: "Специальности",
         isActive: false,
-        top: 0,
+        top: 9999999,
     },
     certificates: {
         label: "Сертификаты и дипломы",
         isActive: false,
-        top: 0,
+        top: 9999999,
     },
     works: {
         label: "Работы",
         isActive: false,
-        top: 0,
+        top: 9999999,
     },
-    lich: {
+    identification: {
         label: "Удостоверение личности",
         isActive: false,
-        top: 0,
+        top: 9999999,
+        isError: true,
+        disabled: true,
+    },
+    settings: {
+        label: "Настройки",
+        isActive: false,
+        top: 9999999,
+        disabled: true,
     },
 });
 
@@ -1107,11 +1141,34 @@ onMounted(() => {
             items[e.id].top = e.offsetTop;
         }
     });
+    useResizeObserver(document.documentElement, () => {
+        document.querySelectorAll(".spy").forEach((e) => {
+            if (items[e.id]) {
+                items[e.id].top = e.offsetTop;
+            }
+        });
+        const { scrollTop } = document.documentElement;
+        for (const [id, menu] of Object.entries(items)) {
+            if (menu.top < scrollTop + 7 * 16 + 50) {
+                items[id].isActive = true;
+                for (const [newId, newMenu] of Object.entries(items)) {
+                    if (newId == id) continue;
+                    items[newId].isActive = false;
+                }
+            } else {
+                items[id].isActive = false;
+            }
+        }
+    });
     document.addEventListener("scroll", (e) => {
         const { scrollTop } = e.target.documentElement;
         for (const [id, menu] of Object.entries(items)) {
-            if (menu.top < scrollTop + 7 * 16) {
+            if (menu.top < scrollTop + 7 * 16 + 50) {
                 items[id].isActive = true;
+                for (const [newId, newMenu] of Object.entries(items)) {
+                    if (newId == id) continue;
+                    items[newId].isActive = false;
+                }
             } else {
                 items[id].isActive = false;
             }

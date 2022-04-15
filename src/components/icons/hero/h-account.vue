@@ -1,9 +1,5 @@
 <template>
     <svg class="w-6 h-6 xl:m-auto mr-3 fill-current"
-        :class="{
-            '': headerType == 'secondary',
-            'text-primary': headerType == 'primary',
-        }" 
         viewBox="0 0 22 22" 
         fill="none" 
         xmlns="http://www.w3.org/2000/svg">
