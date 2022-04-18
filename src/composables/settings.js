@@ -29,7 +29,7 @@ const settings = useStorage(
 const error = ref(null);
 const isLoading = ref(false);
 console.log(settings.value?.advantages);
-const isLoaded = ref(settings.value?.advantages.length > 0);
+const isLoaded = ref(settings.value?.advantages.length > 0 || settings.value?.questions.length > 0);
 
 
 export default function useSettings() {

@@ -86,7 +86,7 @@ const { settings } = useSettings();
                     </h4>
                     <div
                         class="text-sm text-gray-500"
-                        v-html="advantage.content"
+                        v-html="advantage.description"
                     ></div>
                 </div>
             </div>
