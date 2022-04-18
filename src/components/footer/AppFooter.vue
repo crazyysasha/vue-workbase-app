@@ -45,7 +45,14 @@ import { ref } from "vue";
                                 lg:text-base
                             "
                         >
-                            <a class="hover:text-blue-300" href="#"> О нас </a>
+                            <router-link
+                                to="/about"
+                                class="
+                                    hover:text-blue-300
+                                "
+                            >
+                                О нас
+                            </router-link>
                         </li>
                         <li
                             class="
@@ -155,9 +162,14 @@ import { ref } from "vue";
                                 lg:text-base
                             "
                         >
-                            <a class="hover:text-blue-300" href="#">
+                            <router-link
+                                to="/faq"
+                                class="
+                                    hover:text-blue-300
+                                "
+                            >
                                 Частые вопросы
-                            </a>
+                            </router-link>
                         </li>
                         <li
                             class="
@@ -168,9 +180,14 @@ import { ref } from "vue";
                                 lg:text-base
                             "
                         >
-                            <a class="hover:text-blue-300" href="#">
+                            <router-link
+                                to="/legal"
+                                class="
+                                    hover:text-blue-300
+                                "
+                            >
                                 Условия использования
-                            </a>
+                            </router-link>
                         </li>
                     </ul>
                 </div>

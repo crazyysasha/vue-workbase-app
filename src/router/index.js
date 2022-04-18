@@ -65,6 +65,31 @@ const routes = [
     name: 'orders',
     component: () => import(/* webpackChunkName: "orders" */ '../views/OrdersView.vue'),
   },
+  {
+    path: '/about',
+    name: 'about',
+    component: () => import(/* webpackChunkName: "about" */ '../views/AboutView.vue'),
+  },
+  {
+    path: '/legal',
+    name: 'legal',
+    component: () => import(/* webpackChunkName: "legal" */ '../views/LegalView.vue'),
+  },
+  {
+    path: '/faq',
+    name: 'faq',
+    component: () => import(/* webpackChunkName: "faq" */ '../views/FaqView.vue'),
+  },
+  {
+    path: '/usage',
+    name: 'usage',
+    component: () => import(/* webpackChunkName: "usage" */ '../views/UsageAgreementsView.vue'),
+  },
+  {
+    path: '/termsofuse',
+    name: 'termsofuse',
+    component: () => import(/* webpackChunkName: "termsofuse" */ '../views/TermsOfUseView.vue'),
+  },
 ]
 
 const router = createRouter({
