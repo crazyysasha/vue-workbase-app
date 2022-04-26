@@ -2,7 +2,7 @@
 </script>
 
 <template>
-    <section class="bg-white py-5">
+    <section class="bg-white py-12">
         <div class="mx-auto container px-4">
             
                 <h1 class="text-3xl mb-3">Условия использования</h1>

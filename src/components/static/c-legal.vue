@@ -5,7 +5,7 @@
 <template>
     <section class="bg-white py-12 md:min-h-[500px] min-h-[auto]">
         <div class="mx-auto container px-4">
-            <h1 class="text-3xl font-semibold mb-3">Правовые документы</h1>
+            <h2 class="text-3xl font-bold mb-6">Правовые документы</h2>
             <ul class="list-disc pl-5">
                 <li>
                     <router-link
@@ -27,7 +27,7 @@
                             underline decoration-1 text-lg
                         "
                     >
-                        Соглашение об использовании
+                        Пользовательское соглашение
                     </router-link>
                 </li>
             </ul>

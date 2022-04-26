@@ -81,9 +81,19 @@ const routes = [
     component: () => import(/* webpackChunkName: "faq" */ '../views/FaqView.vue'),
   },
   {
+    path: '/contact',
+    name: 'contact',
+    component: () => import(/* webpackChunkName: "contact" */ '../views/ContactView.vue'),
+  },
+  {
     path: '/usage',
     name: 'usage',
     component: () => import(/* webpackChunkName: "usage" */ '../views/UsageAgreementsView.vue'),
+  },
+  {
+    path: '/forcustomers',
+    name: 'forcustomers',
+    component: () => import(/* webpackChunkName: "forcustomers" */ '../views/ForCustomersView.vue'),
   },
   {
     path: '/termsofuse',

@@ -89,29 +89,14 @@ import { ref } from "vue";
                                 lg:text-base
                             "
                         >
-                            <a class="hover:text-blue-300" href="#">
-                                Контакты</a
+                            <router-link
+                                to="/contact"
+                                class="
+                                    hover:text-blue-300
+                                "
                             >
-                        </li>
-                    </ul>
-                </div>
-                <div class="">
-                    <h5 class="text-gray-400 text-base xl:text-lg">
-                        Заказчикам
-                    </h5>
-                    <ul>
-                        <li
-                            class="
-                                my-3
-                                text-xs
-                                sm:text-sm
-                                md:text-md
-                                lg:text-base
-                            "
-                        >
-                            <a class="hover:text-blue-300" href="#"
-                                >Создать заявку</a
-                            >
+                                Контакты
+                            </router-link>
                         </li>
                     </ul>
                 </div>
@@ -131,19 +116,6 @@ import { ref } from "vue";
                         >
                             <a class="hover:text-blue-300" href="#"
                                 >Стать специалистом</a
-                            >
-                        </li>
-                        <li
-                            class="
-                                my-3
-                                text-xs
-                                sm:text-sm
-                                md:text-md
-                                lg:text-base
-                            "
-                        >
-                            <a class="hover:text-blue-300" href="#"
-                                >Инструкция по оплате</a
                             >
                         </li>
                     </ul>
@@ -198,7 +170,7 @@ import { ref } from "vue";
                     <div class="my-2">
                         <ul class="flex items-center justify-start">
                             <li class="mr-5">
-                                <a target="_blank" href="#">
+                                <a target="_blank" href="https://www.instagram.com/workbase.uz/">
                                     <img
                                         class="
                                             transition-all
@@ -212,7 +184,7 @@ import { ref } from "vue";
                                 </a>
                             </li>
                             <li class="mr-5">
-                                <a target="_blank" href="#">
+                                <a target="_blank" href="https://www.facebook.com/workbase.uz/">
                                     <img
                                         class="
                                             transition-all
@@ -226,7 +198,7 @@ import { ref } from "vue";
                                 </a>
                             </li>
                             <li class="mr-5">
-                                <a target="_blank" href="#">
+                                <a target="_blank" href="https://t.me/workbaseuz">
                                     <img
                                         class="
                                             transition-all
