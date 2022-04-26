@@ -77,7 +77,7 @@ import { ref } from "vue";
                             "
                         >
                             <a class="hover:text-blue-300" href="#">
-                                Новости
+                                Блог
                             </a>
                         </li>
                         <li

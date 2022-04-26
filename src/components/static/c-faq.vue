@@ -9,10 +9,9 @@ const activeAccordion = ref("open");
 </script>
 
 <template>
-    <section class="bg-white py-5">
+    <section class="bg-white py-12 md:min-h-[500px] min-h-[auto]">
         <div class="mx-auto container px-4">
-
-                <h1 class="text-3xl text-center py-5">Часто задаваемые вопросы</h1>
+            <h1 class="text-3xl font-semibold mb-3">Часто задаваемые вопросы</h1>
                 <!-- <button @click="activeAccoirdion = 'open'" class="cursor-pointer p-5 w-full text-left bg-gray-200 hover:bg-gray-300 hover:bg-gray-300">Как зарегистрироваться на сайте?</button>
                 <Transition>
                     <div v-show="activeAccoirdion == 'open'" class="p-5">
@@ -43,7 +42,7 @@ const activeAccordion = ref("open");
                 </Transition> -->
 
 
-                <div class="max-w-4xl mx-auto">
+                <div class="max-w-4xl">
                 <ul>
                     <li class="mb-4 px-4 lg:px-12 py-8 bg-gray-200 hover:bg-gray-300 rounded-2xl">
                         <button class="flex w-full text-left cursor-pointer" @click="activeAccordion = 'open'">
