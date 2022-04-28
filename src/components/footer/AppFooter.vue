@@ -54,7 +54,7 @@ import { ref } from "vue";
                                 О нас
                             </router-link>
                         </li>
-                        <li
+                        <!-- <li
                             class="
                                 my-3
                                 text-xs
@@ -66,7 +66,7 @@ import { ref } from "vue";
                             <a class="hover:text-blue-300" href="#">
                                 Вакансии
                             </a>
-                        </li>
+                        </li> -->
                         <li
                             class="
                                 my-3
@@ -76,9 +76,14 @@ import { ref } from "vue";
                                 lg:text-base
                             "
                         >
-                            <a class="hover:text-blue-300" href="#">
+                            <router-link
+                                to="/blog"
+                                class="
+                                    hover:text-blue-300
+                                "
+                            >
                                 Блог
-                            </a>
+                            </router-link>
                         </li>
                         <li
                             class="
@@ -114,9 +119,14 @@ import { ref } from "vue";
                                 lg:text-base
                             "
                         >
-                            <a class="hover:text-blue-300" href="#"
-                                >Стать специалистом</a
+                            <router-link
+                                to="/signup"
+                                class="
+                                    hover:text-blue-300
+                                "
                             >
+                                Стать специалистом
+                            </router-link>
                         </li>
                     </ul>
                 </div>
@@ -232,13 +242,13 @@ import { ref } from "vue";
                 <div class="my-2">
                     <ul>
                         <li class="text-xs sm:text-sm md:text-md lg:text-lg">
-                            <a href="#" class="">
+                            <router-link to="/">
                                 <img
                                     src="@/assets/logo-white.svg"
                                     alt=""
                                     class="w-44 mx-auto md:mx-0"
                                 />
-                            </a>
+                            </router-link>
                         </li>
                     </ul>
                 </div>

@@ -91,9 +91,24 @@ const routes = [
     component: () => import(/* webpackChunkName: "usage" */ '../views/UsageAgreementsView.vue'),
   },
   {
+    path: '/signup',
+    name: 'signup',
+    component: () => import(/* webpackChunkName: "signup" */ '../views/SignUpView.vue'),
+  },
+  {
     path: '/forcustomers',
     name: 'forcustomers',
     component: () => import(/* webpackChunkName: "forcustomers" */ '../views/ForCustomersView.vue'),
+  },
+  {
+    path: '/blog',
+    name: 'blog',
+    component: () => import(/* webpackChunkName: "blog" */ '../views/BlogView.vue'),
+  },
+  {
+    path: '/post/:slug',
+    name: 'post',
+    component: () => import(/* webpackChunkName: "post" */ '../views/PostView.vue'),
   },
   {
     path: '/termsofuse',
@@ -104,7 +119,10 @@ const routes = [
 
 const router = createRouter({
   history: createWebHistory(process.env.BASE_URL),
-  routes
+  routes,
+  scrollBehavior() {
+    document.getElementById('app').scrollIntoView();
+  }
 })
 
 export default router

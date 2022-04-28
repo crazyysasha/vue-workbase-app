@@ -23,8 +23,9 @@ const headerType = computed(() => {
 const navOpen = ref(false);
 </script>
 <template>
+    <marquee behavior="scroll"  scrollamount="10" direction="left" height="28" bgcolor="#fb923c"><span class="text-white">Сервис работает в тестовом режиме!</span></marquee>
     <header
-        class="sticky top-0 z-50 text-white"
+        class="sticky top-0 z-50 text-white mt-[-6px]"
         :class="{
             'bg-primary': headerType == 'secondary',
             'bg-white': headerType == 'primary',
