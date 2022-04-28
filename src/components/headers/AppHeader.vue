@@ -448,7 +448,7 @@ const navOpen = ref(false);
               Регистрация
             </button>
           </li>
-          <li
+          <!-- <li
             class="
               xl:hidden
               flex
@@ -473,8 +473,8 @@ const navOpen = ref(false);
             "
           >
             Служба поддержки
-          </li>
-          <li
+          </li> -->
+          <!-- <li
             class="
               xl:hidden
               flex
@@ -499,8 +499,8 @@ const navOpen = ref(false);
             "
           >
             Частые вопросы
-          </li>
-          <li
+          </li> -->
+          <!-- <li
             class="
               xl:hidden
               flex
@@ -525,7 +525,7 @@ const navOpen = ref(false);
             "
           >
             Условия использования
-          </li>
+          </li> -->
           <li>
             <c-language></c-language>
           </li>
