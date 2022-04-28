@@ -19,9 +19,7 @@ instance.interceptors.request.use(async function (config) {
 });
 
 instance.interceptors.response.use(async function (response) {
-
     return response;
-
 }, async function (error) {
     const { config, response } = error;
     if (response?.status == 401 && !config._retry && isAuthentificated.value) {

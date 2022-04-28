@@ -22,8 +22,9 @@
                 'animate-pulse': loading,
                 '!bg-primary/10': saving,
                 'animate-pulse': saving,
+                ...classes,
             }"
-            :disabled="disabled"
+            :disabled="disabled || saving"
             :value="modelValue"
             @input="onInput"
             :placeholder="placeholder"
@@ -72,7 +73,13 @@ const props = defineProps({
         type: Boolean,
         default() {
             return false;
-        }
+        },
+    },
+    classes: {
+        type: Object,
+        default: function () {
+            return {};
+        },
     },
 });
 

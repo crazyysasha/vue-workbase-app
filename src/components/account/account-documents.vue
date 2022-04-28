@@ -2,8 +2,10 @@
     <section class="bg-white rounded-md shadow-md shadow-primary/25">
         <div class="p-4">
             <div class="">
-                <h2 class="font-medium text-2xl text-primary">Работы</h2>
-                <p class="text-gray-500">Загрузите ваши работы</p>
+                <h2 class="font-medium text-2xl text-primary">
+                    Сертификаты и дипломы
+                </h2>
+                <p class="text-gray-500">Загрузите ваши документы</p>
             </div>
             <div
                 class="
@@ -33,7 +35,6 @@
                         mb-3
                         h-40
                     "
-                    @click="showWorksModal = true"
                 >
                     <div
                         class="
@@ -67,44 +68,32 @@
                         </div>
                     </div>
                     <div class="">
-                        <p class="text-gray-400 m-auto">
-                            Добавить новую работу
-                        </p>
+                        <p class="text-gray-400 m-auto">Добавить документ</p>
                     </div>
                 </div>
             </div>
         </div>
-        <c-modal v-model="showWorksModal" v-slot="{ close }">
-            <button
-                class="
-                    absolute
-                    top-3
-                    right-3
-                    bg-gray-300
-                    hover:bg-primary hover:text-white
-                    transition
-                    duration-200
-                    rounded-full
-                    p-2
-                "
-                @click="close"
-            >
-                <h-x class="w-3 h-3"></h-x>
-            </button>
-            <c-works></c-works>
-        </c-modal>
     </section>
 </template>
 
 <script setup>
-import { ref } from "vue";
+import { useUser } from "@/composables/auth";
+import { onMounted, ref } from "vue";
 import AccountSection from "./account-section.vue";
 import WbButton from "./wb-button.vue";
 import WbSelect from "./wb-select.vue";
-import cWorks from "@/components/account/c-works";
-
-const showWorksModal = ref(false);
 
 const isActiveRapair = ref(false);
 const isAddNew = ref(true);
+
+const { onGetMe } = useUser();
+
+const { promise, isLoading } = onGetMe();
+onMounted(async () => {
+    if (isLoading.value) {
+        console.log("waiting");
+        await promise.value;
+        console.log("waited");
+    }
+});
 </script>

@@ -1,5 +1,5 @@
-import { getMe, update } from "@/api/auth";
-import { ref, watch, computed } from "vue";
+import { getProfile, update } from "@/api/auth";
+import { ref, watch, computed, readonly } from "vue";
 const userRef = ref(JSON.parse(localStorage.getItem('user')) || null);
 
 watch(userRef, (userData) => {
@@ -19,32 +19,36 @@ export const user = computed({
         userRef.value = value;
     }
 });
-
+const getProfilePromise = ref(null);
+const getProfileIsLoading = ref(false);
 export function useUser() {
 
     const onGetMe = () => {
-        const isLoading = ref(false);
         const error = ref();
         const exec = async () => {
-            isLoading.value = true;
+            getProfileIsLoading.value = true;
             error.value = null;
-            
-            return getMe().then( async (response) => {
+            const _promise = getProfile().then(async (response) => {
                 return response.data?.data;
             }).then(data => {
-                isLoading.value = false;
+                getProfileIsLoading.value = false;
                 user.value = data;
+                getProfilePromise.value = null;
             }).catch(error => {
                 if (error?.response?.error) {
                     error.value = error.response.error;
                 }
-                isLoading.value = false;
+                getProfileIsLoading.value = false;
+                getProfilePromise.value = null;
             });
+            getProfilePromise.value = _promise;
+            return _promise;
         }
         return {
             exec,
-            isLoading,
-            error,
+            isLoading: readonly(getProfileIsLoading),
+            error: readonly(error),
+            promise: getProfilePromise,
         };
     };
 

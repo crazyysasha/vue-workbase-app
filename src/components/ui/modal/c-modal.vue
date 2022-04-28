@@ -31,9 +31,29 @@
                     >
                         <div
                             v-if="isShownModal"
-                            class="bg-white shadow-lg p-10 rounded-sm absolute"
+                            class="
+                                bg-white
+                                shadow-lg shadow-primary/50
+                                rounded-md
+                                absolute
+                                border border-primary/25
+                            "
                         >
-                            <slot :close="closeModal"></slot>
+                            <div
+                                v-if="slots.header"
+                                class="p-4 border-b border-primary/25"
+                            >
+                                <slot :close="closeModal" name="header"></slot>
+                            </div>
+                            <div v-if="slots.default" class="p-4">
+                                <slot :close="closeModal" name="default"></slot>
+                            </div>
+                            <div
+                                v-if="slots.footer"
+                                class="p-4 border-t border-primary/25 flex"
+                            >
+                                <slot :close="closeModal" name="footer"></slot>
+                            </div>
                         </div>
                     </transition>
                 </div>
@@ -43,7 +63,7 @@
 </template>
 
 <script setup>
-import { onBeforeUnmount, ref, toRefs, watch } from "vue";
+import { onBeforeUnmount, ref, toRefs, useSlots, watch } from "vue";
 
 const props = defineProps({
     modelValue: {
@@ -51,6 +71,8 @@ const props = defineProps({
         default: false,
     },
 });
+
+const slots = useSlots();
 
 const { modelValue: isShownWrapper } = toRefs(props);
 

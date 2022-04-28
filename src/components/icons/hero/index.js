@@ -11,4 +11,9 @@ export * as HCheck from './h-check';
 export * as HChevronRight from './h-chevron-right';
 export * as HInformationCircle from './h-information-circle';
 
+export * as HLink from './h-link';
+export * as HFolder from './h-folder';
+export * as HTrash from './h-trash';
+export * as HPlusCircle from './h-plus-circle.vue';
+
 export * as HCloudUpload from './h-cloud-upload';

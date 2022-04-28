@@ -2,7 +2,7 @@ import axios from "@/utils/axios";
 
 export const login = async (credentials = { username, password, type }) => {
     return axios.post(
-        '/crazy/workbase/v1.0.1/login',
+        '/crazy/workbase/v1.0.1/auth/login',
         credentials,
     );
 }
@@ -11,25 +11,15 @@ export const register = async (credentials = { name, surname, username, email, p
     credentials = { password_confirmation: credentials.passwordConfirmation, ...credentials };
     console.log(credentials);
     return axios.post(
-        '/crazy/workbase/v1.0.1/register',
+        '/crazy/workbase/v1.0.1/auth/register',
         credentials,
     );
 }
 
 export const logout = async () => {
-    return axios.get('/crazy/workbase/v1.0.1/logout');
+    return axios.get('/crazy/workbase/v1.0.1/auth/logout');
 }
 
 export const refresh = async () => {
-    return axios.get('/crazy/workbase/v1.0.1/refresh');
+    return axios.get('/crazy/workbase/v1.0.1/auth/refresh');
 }
-
-export const getMe = () => {
-    return axios.get('/crazy/workbase/v1.0.1/getMe');
-}
-
-export const update = ({ name, surname, patronymic, username, email, gender, birthday, address }) => {
-    return axios.post('/crazy/workbase/v1.0.1/update', {
-        name, surname, patronymic, username, email, gender, birthday, address,
-    });
-};

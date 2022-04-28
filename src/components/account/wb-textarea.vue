@@ -14,7 +14,8 @@
                 group-hover:border-opacity-70
                 focus:!border-opacity-100 focus:outline-none
                 disabled:bg-transparent
-                h-24 disabled:resize-none
+                h-24
+                disabled:resize-none
             "
             :class="{
                 '!border-opacity-0 ': disabled,
@@ -23,8 +24,9 @@
                 'animate-pulse': loading,
                 '!bg-primary/10': saving,
                 'animate-pulse': saving,
+                ...classes,
             }"
-            :disabled="disabled"
+            :disabled="disabled || saving"
             :value="modelValue"
             @input="onInput"
             :placeholder="placeholder"
@@ -73,7 +75,19 @@ const props = defineProps({
         type: Boolean,
         default() {
             return false;
-        }
+        },
+    },
+    classes: {
+        type: Object,
+        default: function () {
+            return {};
+        },
+    },
+    classes: {
+        type: Object,
+        default: function () {
+            return {};
+        },
     },
 });
 

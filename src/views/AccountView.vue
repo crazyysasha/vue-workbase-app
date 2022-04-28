@@ -83,7 +83,7 @@
             </div>
         </div>
         <div class="col-span-4">
-            <div id="cv" class="spy scroll-mt-28">
+            <!-- <div id="cv" class="spy scroll-mt-28">
                 <account-cv class="mb-5"></account-cv>
             </div>
 
@@ -99,12 +99,12 @@
             <div id="specialties" class="spy scroll-mt-28">
                 <account-specialties class="mb-5"></account-specialties>
             </div>
-            <div id="certificates" class="spy scroll-mt-28">
-                <account-certificates class="mb-5"></account-certificates>
-            </div>
+            <div id="documents" class="spy scroll-mt-28">
+                <account-documents class="mb-5"></account-documents>
+            </div> -->
 
             <div id="works" class="spy scroll-mt-28">
-                <account-works class="mb-5"></account-works>
+                <profile-works-section class="mb-5"></profile-works-section>
             </div>
 
             <!-- <account-fileUpload class="mb-3"></account-fileUpload> -->
@@ -1078,8 +1078,8 @@ import AccountCv from "@/components/account/account-cv.vue";
 import AccountAbout from "@/components/account/account-about.vue";
 import AccountLocations from "@/components/account/account-locations.vue";
 import AccountSpecialties from "@/components/account/account-specialties.vue";
-import AccountCertificates from "@/components/account/account-certificates.vue";
-import AccountWorks from "@/components/account/account-works.vue";
+import AccountDocuments from "@/components/account/account-documents.vue";
+import ProfileWorksSection from "@/components/account/works/c-section.vue";
 import AccountFileUpload from "@/components/account/account-fileUpload.vue";
 import { onMounted, reactive } from "vue";
 import { useResizeObserver } from "@vueuse/core";
@@ -1110,7 +1110,7 @@ const items = reactive({
         isActive: false,
         top: 9999999,
     },
-    certificates: {
+    documents: {
         label: "Сертификаты и дипломы",
         isActive: false,
         top: 9999999,

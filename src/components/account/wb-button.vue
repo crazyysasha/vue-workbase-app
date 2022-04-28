@@ -12,7 +12,6 @@
                 shadow-lg
                 transform
                 scale-100
-                active:scale-95
             "
             :class="{
                 'bg-primary': isPrimary,
@@ -23,8 +22,14 @@
                 'hover:bg-orange-500/80': isSecondary,
                 'disabled:bg-orange-500/50': isSecondary,
                 'shadow-orange-500/25': isSecondary,
+                'bg-red-500': isError,
+                'hover:bg-red-500/80': isError,
+                'disabled:bg-red-500/50': isError,
+                'shadow-red-500/25': isError,
                 'animate-pulse': isLoading,
+                'active:scale-95': !isDisabled,
             }"
+            :disabled="isDisabled"
         >
             <slot></slot>
         </button>
@@ -38,7 +43,7 @@ const props = defineProps({
         type: String,
         required: false,
         validator(value) {
-            return ["primary", "secondary"].includes(value);
+            return ["primary", "secondary", "error"].includes(value);
         },
         default() {
             return "primary";
@@ -51,10 +56,19 @@ const props = defineProps({
             return false;
         },
     },
+    disabled: {
+        type: Boolean,
+        required: false,
+        default() {
+            return false;
+        },
+    },
 });
 
 const isPrimary = computed(() => props.type == "primary");
 const isSecondary = computed(() => props.type == "secondary");
+const isError = computed(() => props.type == "error");
 
 const isLoading = computed(() => props.loading);
+const isDisabled = computed(() => props.disabled);
 </script>
