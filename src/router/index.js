@@ -111,6 +111,21 @@ const routes = [
     component: () => import(/* webpackChunkName: "post" */ '../views/PostView.vue'),
   },
   {
+    path: '/wallet',
+    name: 'wallet',
+    component: () => import(/* webpackChunkName: "wallet" */ '../views/WalletView.vue'),
+  },
+  {
+    path: '/bonus',
+    name: 'bonus',
+    component: () => import(/* webpackChunkName: "bonus" */ '../views/BonusView.vue'),
+  },
+  {
+    path: '/support',
+    name: 'support',
+    component: () => import(/* webpackChunkName: "support" */ '../views/SupportView.vue'),
+  },
+  {
     path: '/termsofuse',
     name: 'termsofuse',
     component: () => import(/* webpackChunkName: "termsofuse" */ '../views/TermsOfUseView.vue'),
