@@ -476,7 +476,7 @@ const navOpen = ref(false);
           >
             <router-link
                 to="/about"
-                class="
+                class="w-full h-full
                     
                 "
             >
@@ -510,7 +510,7 @@ const navOpen = ref(false);
           >
             <router-link
                 to="/faq"
-                class="
+                class="w-full h-full
                     
                 "
             >
@@ -544,7 +544,7 @@ const navOpen = ref(false);
           >
             <router-link
                 to="/legal"
-                class="
+                class="w-full h-full
                     
                 "
             >
