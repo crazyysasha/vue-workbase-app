@@ -83,7 +83,7 @@ const navOpen = ref(false);
           >
             <svg
               viewBox="0 0 28 28"
-              class="fill-current text-black h-7 w-7"
+              class="fill-current text-white h-7 w-7"
               xmlns="http://www.w3.org/2000/svg"
               v-if="navOpen"
             >
@@ -96,7 +96,7 @@ const navOpen = ref(false);
             </svg>
             <svg
               v-else
-              class="fill-current h-7 w-7"
+              class="fill-current text-white h-7 w-7"
               xmlns="http://www.w3.org/2000/svg"
               viewBox="0 0 384.97 384.97"
             >
@@ -378,7 +378,7 @@ const navOpen = ref(false);
                 </button>                    </li> -->
           <li>
             <button
-              @click="showLoginModal = true"
+              @click="showLoginModal = true, navOpen = !navOpen"
               type="button"
               class="
                 flex
@@ -401,6 +401,7 @@ const navOpen = ref(false);
                 text-lg
                 outline-0
               "
+              
               :class="{
                 'xl:border-white xl:hover:bg-white xl:hover:text-primary':
                   headerType == 'secondary',
@@ -414,7 +415,7 @@ const navOpen = ref(false);
           </li>
           <li>
             <button
-              @click="showRegisterModal = true"
+              @click="showRegisterModal = true, navOpen = !navOpen"
               type="button"
               class="
                 flex
@@ -448,7 +449,7 @@ const navOpen = ref(false);
               Регистрация
             </button>
           </li>
-          <!-- <li
+            <li
             class="
               xl:hidden
               flex
@@ -471,10 +472,18 @@ const navOpen = ref(false);
               text-lg
               outline-0
             "
+            @click="navOpen = !navOpen"
           >
-            Служба поддержки
-          </li> -->
-          <!-- <li
+            <router-link
+                to="/about"
+                class="
+                    
+                "
+            >
+                О нас
+            </router-link>
+          </li>
+          <li
             class="
               xl:hidden
               flex
@@ -497,10 +506,18 @@ const navOpen = ref(false);
               text-lg
               outline-0
             "
+            @click="navOpen = !navOpen"
           >
-            Частые вопросы
-          </li> -->
-          <!-- <li
+            <router-link
+                to="/faq"
+                class="
+                    
+                "
+            >
+                Частые вопросы
+            </router-link>
+          </li>
+          <li
             class="
               xl:hidden
               flex
@@ -523,9 +540,17 @@ const navOpen = ref(false);
               text-lg
               outline-0
             "
+            @click="navOpen = !navOpen"
           >
-            Условия использования
-          </li> -->
+            <router-link
+                to="/legal"
+                class="
+                    
+                "
+            >
+                Условия использования
+            </router-link>
+          </li>
           <li>
             <c-language></c-language>
           </li>

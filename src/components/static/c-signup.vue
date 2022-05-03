@@ -6,7 +6,7 @@
             <div class="block bg-white shadow-lg rounded-lg h-full">
                 <div class="lg:flex lg:flex-wrap g-0">
                     <div class="lg:w-6/12 px-4 md:px-0">
-                        <div class="md:p-12 md:mx-6 mt-12">
+                        <div class="md:p-12 md:mx-6 pt-12">
                             <div class="text-center">
                                 <img class="mx-auto w-48 mb-2" src="http://api.workbase.uz/storage/app/media/logo-color.png" alt="logo" />
                             
