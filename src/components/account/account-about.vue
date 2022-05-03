@@ -9,16 +9,19 @@
                 v-model="state.excerpt"
                 :disabled="!isEditing"
                 label="Коротко о себе"
+                :loading="isLoading"
             ></wb-textarea>
             <wb-textarea
                 v-model="state.description"
                 :disabled="!isEditing"
                 label="Подробно о себе"
+                :loading="isLoading"
             ></wb-textarea>
             <wb-textarea
                 v-model="state.education"
                 :disabled="!isEditing"
                 label="Образование и опыт работы"
+                :loading="isLoading"
             ></wb-textarea>
         </template>
         <template #footer>
@@ -47,18 +50,22 @@
 </template>
 
 <script setup>
-import { reactive, ref } from "vue";
+import { onMounted, reactive, ref, watch } from "vue";
 import AccountSection from "./account-section.vue";
 import WbTextarea from "./wb-textarea.vue";
 import WbButton from "./wb-button.vue";
+import useProfile from "@/composables/profile";
 const isEditing = ref(false);
+const { profile, onGet } = useProfile();
+
+const { isLoaded, isLoading } = onGet();
+watch(isLoaded, () => {
+    if (isLoaded.value) Object.assign(state, profile.value);
+});
 
 const state = reactive({
-    education:
-        'Ташкентский государственный технический унивеситет, работал в компании "Электромонтаж Сервис" с 2010 по 2019 год, на данный момент работаю со своей командой.',
-    excerpt:
-        "Техник-электрик, большой опыт в решении ваших электромонтажных задач. Выбрав меня вы облегчите себе текущий или наступаюшую стадию электрофикации. Обещаю,результатом останетесь довольны! Работу сделаю быстро и качественно.",
-    description:
-        "Техник-электрик, большой опыт в решении ваших электромонтажных задач. Выбрав меня вы облегчите себе текущий или наступаюшую стадию электрофикации. Обещаю,результатом останетесь довольны! Работу сделаю быстро и качественно.",
+    education: "",
+    excerpt: "",
+    description: "",
 });
 </script>

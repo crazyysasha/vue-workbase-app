@@ -9,28 +9,28 @@
                 <wb-input
                     label="Имя"
                     :disabled="!isEditing"
-                    :loading="isLoadingProfile"
+                    :loading="isLoading"
                     v-model="state.name"
                 >
                 </wb-input>
                 <wb-input
                     label="Фамилия"
                     :disabled="!isEditing"
-                    :loading="isLoadingProfile"
+                    :loading="isLoading"
                     v-model="state.surname"
                 >
                 </wb-input>
                 <wb-input
                     label="Отчество"
                     :disabled="!isEditing"
-                    :loading="isLoadingProfile"
+                    :loading="isLoading"
                     v-model="state.patronymic"
                 >
                 </wb-input>
                 <wb-input
                     label="День рождения"
                     :disabled="!isEditing"
-                    :loading="isLoadingProfile"
+                    :loading="isLoading"
                     v-model="state.birthday"
                     placeholder="Не указан"
                     type="date"
@@ -49,7 +49,7 @@
                 <wb-input
                     label="Адрес"
                     :disabled="!isEditing"
-                    :loading="isLoadingProfile"
+                    :loading="isLoading"
                     v-model="state.address"
                     placeholder="Не указан"
                     type="text"
@@ -82,22 +82,21 @@
 </template>
 
 <script setup>
-import { onMounted, reactive, ref } from "vue";
+import { onMounted, reactive, ref, watch } from "vue";
 import WbInput from "./wb-input";
 import WbSelect from "./wb-select";
 import WbButton from "./wb-button";
 import AccountSection from "./account-section";
-import { user, useUser } from "@/composables/auth/user";
+import useProfile from "@/composables/profile";
 
 const isEditing = ref(false);
+const { onGet, profile } = useProfile();
 
-const { onGetMe } = useUser();
+const { isLoading, isLoaded } = onGet();
 
-const {
-    exec: execProfile,
-    isLoading: isLoadingProfile,
-    error: errorInLoadingProfile,
-} = onGetMe();
+watch(isLoaded, () => {
+    if (isLoaded.value) Object.assign(state, profile.value);
+});
 
 const state = reactive({
     name: "",
@@ -106,11 +105,5 @@ const state = reactive({
     birthday: "",
     gender: null,
     address: "",
-});
-onMounted(async () => {
-    await execProfile();
-    console.log(state, user);
-    Object.assign(state, user.value);
-    console.log(state, user);
 });
 </script>

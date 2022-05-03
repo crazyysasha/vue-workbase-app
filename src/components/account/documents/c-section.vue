@@ -79,9 +79,9 @@
 <script setup>
 import { useUser } from "@/composables/auth";
 import { onMounted, ref } from "vue";
-import AccountSection from "./account-section.vue";
-import WbButton from "./wb-button.vue";
-import WbSelect from "./wb-select.vue";
+import AccountSection from "../account-section.vue";
+import WbButton from "../wb-button.vue";
+import WbSelect from "../wb-select.vue";
 
 const isActiveRapair = ref(false);
 const isAddNew = ref(true);
