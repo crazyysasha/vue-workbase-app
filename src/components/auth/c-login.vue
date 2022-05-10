@@ -1,13 +1,13 @@
 <template>
-    <form @submit.prevent="onLoginHandler" class="block w-72">
-        <h3 class="font-semibold block text-xl md:text-xl text-center mb-6">
+    <form @submit.prevent="onLoginHandler" class="block w-96">
+        <h3 class="block text-xl md:text-xl text-center mb-6">
             Авторизация
         </h3>
         <p v-if="error" class="mb-6 text-red-500 font-thin text-sm">
             {{ error.message }}
         </p>
-        <div class="grid grid-cols-2 gap-4 mb-6">
-            <c-radio-toggler
+        <!--<div class="grid grid-cols-2 gap-4 mb-6">
+             <c-radio-toggler
                 name="type"
                 v-model="state.type"
                 :value="'executor'"
@@ -20,8 +20,9 @@
                 :value="'customer'"
             >
                 Заказчик
-            </c-radio-toggler>
-        </div>
+            </c-radio-toggler> 
+
+        </div>-->
         <div class="flex flex-col">
             <c-input
                 v-model="state.username"
@@ -54,7 +55,20 @@
             </div>
         </div>
         <div class="py-4">
-            <button
+            <button 
+                type="submit"
+                :value="'customer'"
+                class="w-full mb-3 2select-none text-white rounded-md px-4 py-2 transition-all duration-200 shadow-lg transform scale-100 bg-primary hover:bg-primary/80 disabled:bg-primary/50 shadow-primary/25 active:scale-95">
+                
+                Войти как исполнитель
+            </button>
+            <button 
+                type="submit"
+                :value="'customer'"
+                class="w-full mb-3 2select-none text-white rounded-md px-4 py-2 transition-all duration-200 shadow-lg transform scale-100 bg-orange-400 hover:bg-orange-400/80 disabled:bg-orange-400/50 shadow-orange-400/25 active:scale-95">
+                Войти как заказчик
+            </button>
+            <!-- <button
                 type="submit"
                 class="
                     w-full
@@ -95,7 +109,7 @@
                         d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
                     ></path>
                 </svg>
-            </button>
+            </button> -->
         </div>
     </form>
 </template>
