@@ -110,8 +110,8 @@ const { settings } = useSettings();
                 <div class="w-full pt-4 md:pt-0">
                     <div class="relative md:w-10/12 w-full md:ml-auto ml-0">
                         <img
-                            :src="question.image.path"
-                            :alt="question.image.title"
+                            :src="question.image"
+                            :alt="question.title"
                             class="w-full"
                         />
                     </div>
