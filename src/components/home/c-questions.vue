@@ -18,7 +18,9 @@ const { settings } = useSettings();
                     gap-4
                 "
             >
-                <div class="w-full">
+                <div class="w-full"                 
+                    :class="{' order-2':  index % 2 === 1}"
+                >
                     <h2
                         class="
                             text-2xl text-center
@@ -108,11 +110,12 @@ const { settings } = useSettings();
                     </ul> -->
                 </div>
                 <div class="w-full pt-4 md:pt-0">
-                    <div class="relative md:w-10/12 w-full md:ml-auto ml-0">
+                    <div class="relative md:w-10/12 w-full "
+                        :class="{' md:ml-auto ml-0':  index % 2 === 0}">
                         <img
                             :src="question.image"
                             :alt="question.title"
-                            class="w-full"
+                            class="w-full rounded-tl-2xl rounded-br-2xl"
                         />
                     </div>
                 </div>
