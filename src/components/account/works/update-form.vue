@@ -70,17 +70,31 @@
                         Файлы
                     </label>
                     <div>
-                        <a
-                            v-for="(file, index) in files"
-                            :href="file.path"
-                            :key="file.id"
-                            class="hover:text-primary/75 text-primary block"
-                            download
-                            target="__blank"
-                        >
-                            {{ file.file_name
-                            }}{{ index != files.length ? ", " : "" }}
-                        </a>
+                        <ul>
+                            <li
+                                class="list-decimal ml-6"
+                                v-for="(file, index) in files"
+                                :href="file.path"
+                                :key="file.id"
+                            >
+                                <a
+                                    class="
+                                        hover:text-primary/75
+                                        text-primary
+                                        block
+                                        text-ellipsis
+                                        w-full
+                                        overflow-hidden
+                                        whitespace-nowrap
+                                    "
+                                    download
+                                    target="__blank"
+                                >
+                                    {{ file.file_name
+                                    }}{{ index != files.length ? ", " : "" }}
+                                </a>
+                            </li>
+                        </ul>
                     </div>
                 </div>
             </div>

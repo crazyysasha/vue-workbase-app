@@ -2,8 +2,6 @@ import { createApp } from 'vue'
 import App from './App.vue'
 import './registerServiceWorker'
 import router from './router'
-import store from './store'
-import CButton from "@/components/buttons/c-button";
 import CGrid from "@/components/c-grid";
 import CDropdown from "@/components/c-dropdown";
 import CDropdownItem from "@/components/c-dropdown-item";
@@ -24,10 +22,8 @@ for (const component in UI) {
     app.component(component, UI[component].default);
 }
 
-app.component('c-button', CButton)
-    .component('c-grid', CGrid)
+app.component('c-grid', CGrid)
     .component('c-dropdown', CDropdown)
     .component('c-dropdown-item', CDropdownItem)
-    .use(store)
     .use(router)
     .mount('#app')

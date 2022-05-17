@@ -1,36 +1,39 @@
-import { get, getCategories } from "@/api/categories";
-import { computed, ref } from "vue";
+import { get, getByIdOrSlug } from "@/api/categories";
+import { computed, readonly, ref } from "vue";
 
-const categoriesRef = ref([]);
+const categories = ref([]);
 
-const isLoadingRef = ref(false);
+const isLoading = ref(false);
 
-function useCategories() {
+const isLoaded = ref(false);
 
-    const categories = computed(() => categoriesRef.value);
+const promise = ref();
 
-    const isLoading = computed(() => isLoadingRef.value);
+export function useCategories() {
 
-    const getAll = async (params = {}) => {
-        isLoadingRef.value = true;
+    const exec = async (params = {}) => {
+        isLoading.value = true;
 
-        const { data } = await getCategories(params);
+        promise.value = get(params);
 
-        categoriesRef.value = data;
-
-        isLoadingRef.value = false;
+        const { data } = await promise.value;
+        
+        categories.value = data?.data || [];
+        isLoading.value = false;
+        isLoaded.value = true;
 
     };
 
     return {
-        categories,
-        isLoading,
-        getAll,
-        //  getByIdOrSlug,
+        categories: readonly(categories),
+        isLoaded: readonly(isLoaded),
+        isLoading: readonly(isLoading),
+        promise: readonly(promise),
+        exec,
     };
 }
 
-function useCategory() {
+export function useCategory() {
     const category = ref();
     const isLoading = ref(false);
     const getByIdOrSlug = (idOrSlug) => {

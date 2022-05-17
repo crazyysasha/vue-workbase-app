@@ -4,6 +4,7 @@ import HomeHeader from "@/components/home/home-header.vue";
 import CAdvantages from "@/components/home/c-advantages.vue";
 import CQuestions from "@/components/home/c-questions.vue";
 import CApplication from "@/components/home/c-application.vue";
+
 </script>
 <template>
     <home-header></home-header>

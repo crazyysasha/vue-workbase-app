@@ -1,4 +1,4 @@
-import axios from "axios";
+import axios from "@/utils/axios";
 
 export const getById = async (id) => {
     const { data, status } = await axios.get(
@@ -17,4 +17,17 @@ export const get = async (params) => {
     );
 
     return data;
+}
+
+/**
+ * 
+ * @param  data 
+ * @param {import("axios").AxiosRequestConfig} config 
+ * @returns {Promise<import("axios").AxiosResponse>}
+ */
+export const create = (data = { services }, config = {}) => {
+    return axios.post('crazy/freelancer/v1.0.1/orders', data, config);
+}
+export const update = (id, params = { services }, config = {}) => {
+    return axios.post(`crazy/freelancer/v1.0.1/orders/${id}`, { params, ...config });
 }

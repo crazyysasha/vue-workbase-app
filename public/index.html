@@ -7,17 +7,47 @@
   <meta name="viewport" content="width=device-width,initial-scale=1.0">
   <link rel="icon" href="<%= BASE_URL %>favicon.ico">
   <title>WorkBase</title>
+  <meta property="og:title" content="Workbase.uz">
+  <meta property="og:site_name" content="www.workbase.uz">
+  <meta property="og:url" content="https://workbase.uz/">
+  <meta property="og:description" content="Для Вашего удобства, мы собрали более 10 000 услуг в одном удобном сервисе">
+  <meta property="og:type" content="website">
+  <meta property="og:image" content="<%= BASE_URL %>favicon.ico">
+  <% if (NODE_ENV == 'production') { %>
+  <!-- Yandex.Metrika counter -->
+  <script type="text/javascript">
+    (function (m, e, t, r, i, k, a) {
+      m[i] = m[i] || function () { (m[i].a = m[i].a || []).push(arguments) };
+      m[i].l = 1 * new Date(); k = e.createElement(t), a = e.getElementsByTagName(t)[0], k.async = 1, k.src = r, a.parentNode.insertBefore(k, a)
+    })
+      (window, document, "script", "https://mc.yandex.ru/metrika/tag.js", "ym");
+
+    ym(88726354, "init", {
+      clickmap: true,
+      trackLinks: true,
+      accurateTrackBounce: true,
+      webvisor: true
+    });
+  </script>
+  <noscript>
+    <div><img src="https://mc.yandex.ru/watch/88726354" style="position:absolute; left:-9999px;" alt="" /></div>
+  </noscript>
+  <!-- /Yandex.Metrika counter -->
+  <% } %>
 </head>
 
 <body class="font-aeroport">
-  
   <noscript>
     <strong>We're sorry but <%= htmlWebpackPlugin.options.title %> doesn't work properly without JavaScript enabled.
       Please enable it to continue.</strong>
   </noscript>
   <div id="app"></div>
+
+  <% if (NODE_ENV == 'production') { %>
+
   <script src="//code.jivosite.com/widget/2FwJNuQLUu" async></script>
   <!-- built files will be auto injected -->
+  <% } %>
 </body>
 
 </html>

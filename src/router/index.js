@@ -1,4 +1,4 @@
-import { isAuthentificated } from '@/composables/auth';
+
 import { createRouter, createWebHistory } from 'vue-router'
 import HomeView from '../views/HomeView.vue'
 
@@ -9,56 +9,36 @@ const routes = [
     component: HomeView,
     meta: { header: 'primary' }
   },
-
-  // {
-  //   path: '/help',
-  //   name: 'help',
-  //   component: () => import(/* webpackChunkName: "faq" */ '../views/HelpView.vue')
-  // },
-  // {
-  //   path: '/wallet',
-  //   name: 'wallet',
-  //   component: () => import(/* webpackChunkName: "wallet" */ '../views/WalletView.vue')
-  // },
+  {
+    path: "/:categorySlug",
+    name: "order.index",
+    component: () => import(/* webpackChunkName: "order-index" */ '../views/order/IndexView.vue'),
+    props: true,
+    children: [
+      {
+        path: ":serviceSlugs*",
+        name: "order.create",
+        component: () => import(/* webpackChunkName: "order-create" */ "../views/order/CreateView.vue"),
+        props: true,
+      },
+      {
+        path: ":serviceSlugs+/:form",
+        name: "order.update",
+        component: () => import(/* webpackChunkName: "order-update" */ "../views/order/UpdateView.vue"),
+        props: true,
+      },
+    ],
+  },
   {
     path: '/account',
     name: 'account',
     component: () => import(/* webpackChunkName: "account" */ '../views/AccountView.vue'),
     beforeEnter(to, from) {
 
-      if (!isAuthentificated.value)
-        return false
+      // if (!isAuthentificated.value)
+      //   return false
 
     }
-  },
-  // {
-  //   path: '/:category',
-  //   name: 'makeOrder',
-  //   component: () => import(/* webpackChunkName: "orderIndex" */ '../views/makeOrder/IndexView.vue'),
-  //   // meta: { header: 'secondary' },
-  //   // props: true,
-  //   children: [
-  //     {
-  //       path: '',
-  //       name: 'SearchService',
-  //       // props: true,
-  //       component: () => import(/* webpackChunkName: "orderSearchService" */ '../views/makeOrder/SearchServiceView.vue'),
-  //       // meta: { header: 'secondary' },
-  //     },
-  //     {
-
-  //       path: ':services+',
-  //       name: 'SearchService',
-  //       component: () => import(/* webpackChunkName: "orderSelectService" */ '../views/makeOrder/SelectServiceView.vue'),
-  //       meta: { header: 'secondary' },
-  //     },
-  //   ],
-  // },
-  // { path: '/test', name: 'test', component: () => import(/* webpackChunkName: "test" */ '../views/TestView.vue') },
-  {
-    path: '/:pathMath(.*)*',
-    name: '404',
-    component: () => import(/* webpackChunkName: "404" */ '../views/NotFoundView.vue'),
   },
   {
     path: '/orders',
@@ -130,6 +110,12 @@ const routes = [
     name: 'termsofuse',
     component: () => import(/* webpackChunkName: "termsofuse" */ '../views/TermsOfUseView.vue'),
   },
+  {
+    path: '/:pathMath(.*)*',
+    name: '404',
+    component: () => import(/* webpackChunkName: "404" */ '../views/NotFoundView.vue'),
+  },
+
 ]
 
 const router = createRouter({
