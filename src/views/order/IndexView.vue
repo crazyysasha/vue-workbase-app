@@ -31,9 +31,13 @@ onMounted(async () => {
         "
     >
         <div class="md:col-span-7"></div>
+
+        <div class="md:col-span-5 w-full">
+            <router-view></router-view>
+        </div>
         <div class="md:col-span-2 w-full">
             <div class="rounded-lg bg-white shadow shadow-primary/25 p-4">
-                <button
+                <!-- <button
                     class="
                         block
                         px-4
@@ -50,14 +54,23 @@ onMounted(async () => {
                     "
                 >
                     Заказ
-                </button>
+                </button> -->
+                <router-link
+                    to="/faq"
+                    class="hover:text-blue-600 text-lg mb-2 block"
+                >
+                    Частые вопросы
+                </router-link>
+                <a
+                    href="javascript:jivo_api.open()"
+                    class="hover:text-blue-600 text-lg mb-2 block"
+                >
+                    Поддержка
+                </a>
             </div>
 
             <adv-widget class="hidden md:block"></adv-widget>
             <adv-widget class="hidden md:block"></adv-widget>
-        </div>
-        <div class="md:col-span-5 w-full">
-            <router-view></router-view>
         </div>
         <div class="md:hidden grid grid-cols-2 gap-4">
             <adv-widget></adv-widget>
