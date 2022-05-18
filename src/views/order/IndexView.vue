@@ -1,8 +1,8 @@
 
 <script setup>
 import useCategoryApi from "@/composables/categories/instance";
-import { onMounted, toRefs, defineProps } from "vue";
-
+import { onMounted, toRefs } from "vue";
+import AdvWidget from "@/components/adv/filter-widget.vue";
 const props = defineProps({
     categorySlug: {
         type: String,
@@ -15,17 +15,53 @@ const { category, isLoading, isLoaded, promise, onGet, onGetWhenNotLoaded } =
     useCategoryApi();
 
 onMounted(async () => {
-    console.log(await onGetWhenNotLoaded(categorySlug.value));
+    await onGetWhenNotLoaded(categorySlug.value);
 });
 </script>
 <template>
-    <div class="container mx-auto my-4 h-10"></div>
-    <div class="container mx-auto gap-4 py-4 grid md:grid-cols-7">
-        <div class="md:col-span-2">
-            <div class="rounded-lg bg-white shadow shadow-primary/25 p-4"></div>
+    <div
+        class="
+            container
+            mx-auto
+            gap-4
+            py-4
+            grid grid-cols-1
+            md:grid-cols-7
+            px-4
+        "
+    >
+        <div class="md:col-span-7"></div>
+        <div class="md:col-span-2 w-full">
+            <div class="rounded-lg bg-white shadow shadow-primary/25 p-4">
+                <button
+                    class="
+                        block
+                        px-4
+                        p-2
+                        bg-blue-900
+                        w-full
+                        rounded-lg
+                        text-left
+                        font-medium
+                        shadow
+                        transition
+                        duration-200
+                        text-white
+                    "
+                >
+                    Заказ
+                </button>
+            </div>
+
+            <adv-widget class="hidden md:block"></adv-widget>
+            <adv-widget class="hidden md:block"></adv-widget>
         </div>
-        <div class="md:col-span-5">
+        <div class="md:col-span-5 w-full">
             <router-view></router-view>
+        </div>
+        <div class="md:hidden grid grid-cols-2 gap-4">
+            <adv-widget></adv-widget>
+            <adv-widget></adv-widget>
         </div>
         <!-- <div class="basis-5/7 bg-white shadow-md rounded-lg p-4">
             <div></div>

@@ -4,7 +4,7 @@ import useCategoryApi from "@/composables/categories/instance";
 import useServicesApi from "@/composables/services";
 import { useCreateOrderApi } from "@/composables/orders/instance&storage";
 import debounce from "lodash.debounce";
-import { onMounted, ref, toRefs, watch } from "vue";
+import { onMounted, onUnmounted, ref, toRefs, watch } from "vue";
 import { useRoute, useRouter } from "vue-router";
 
 const route = useRoute();
@@ -12,19 +12,20 @@ const route = useRoute();
 const router = useRouter();
 
 const back = (e) => {
-    console.log(e);
+    router.back();
 };
 const props = defineProps({
     categorySlug: {},
     serviceSlugs: {},
 });
+
 const { categorySlug } = toRefs(props);
 
 const { promise, category, isLoading, isLoaded, onGetWhenNotLoaded } =
     useCategoryApi();
 
 onMounted(async () => {
-    await onGetWhenNotLoaded(categorySlug?.value);
+    await onGetWhenNotLoaded(categorySlug.value);
 });
 
 const {
@@ -34,18 +35,22 @@ const {
     onGet: onGetServices,
     cancel: searchCancel,
     promise: servicesApiPromise,
+    clear: clearServices,
 } = useServicesApi();
 
 const service = ref();
 const search = ref("");
 
 const onSelectItem = (item) => {
-    service.value = item.id;
+    service.value = item.slug;
     search.value = item.name;
 };
 
 watch(search, () => {
-    service.value = null;
+    const searched = services.value.find((s) => search.value == s.name);
+    if (searched) {
+        service.value = searched.slug;
+    }
     debounce(() => {
         if (isLoadingServices.value) {
             searchCancel();
@@ -58,20 +63,25 @@ watch(search, () => {
     }, 200)();
 });
 
+onUnmounted(() => {
+    clearServices();
+});
+
 const { onCreate, isCreating, isCreated, draftedOrders, currentDraftedOrder } =
     useCreateOrderApi(categorySlug);
-console.log(
-    isCreating.value,
-    isCreated.value,
-    draftedOrders.value,
-    currentDraftedOrder
-);
+// console.log(
+//     isCreating.value,
+//     isCreated.value,
+//     draftedOrders.value,
+//     currentDraftedOrder
+// );
 const onSubmit = async (e) => {
+    console.log([service.value]);
     router.push({
         name: "order.update",
         params: {
-            categorySlug: "repetitory",
-            serviceSlugs: ["angliyskiy-yazik"],
+            categorySlug: categorySlug.value,
+            serviceSlugs: [service.value],
             form: "service",
         },
     });
@@ -117,6 +127,7 @@ const onSubmit = async (e) => {
                     :disabled="isLoading"
                     :placeholder="isLoading ? '' : 'Услуга или специалист'"
                     v-model="search"
+                    :loading="!isLoadedServices"
                     :items="services"
                     @on-select-item="onSelectItem"
                 >
@@ -127,14 +138,17 @@ const onSubmit = async (e) => {
                     class="h-4 w-20 bg-primary/10 rounded-md animate-pulse"
                 ></div>
             </div>
-            <p v-else class="mb-3">Например:</p>
-            <div class="flex gap-4 flex-wrap min-h-[2.375rem]">
+            <p v-else-if="isLoaded && category.priority_services" class="mb-3">
+                Например:
+            </p>
+            <div class="flex gap-4 flex-wrap min-h-[2.375rem]" v-if="isLoaded">
                 <c-button
-                    v-for="service in category.priority_services"
+                    v-for="service in category?.priority_services || []"
                     class="rounded-full py-1 text-sm"
                     outlined
                     :loading="isLoading"
                     :key="service.id"
+                    @click="onSelectItem(service)"
                 >
                     {{ service.name }}
                 </c-button>

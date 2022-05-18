@@ -1,8 +1,34 @@
 
 <script setup>
 import useCategoryApi from "@/composables/categories/instance";
-import { onMounted, ref } from "vue";
+import { onMounted, ref, toRefs } from "vue";
 import { useRouter } from "vue-router";
+
+const forms = {
+    service: () =>
+        import(
+            /* webpackChunkName: "order-form-service" */ "@/components/order/forms/service-form.vue"
+        ),
+    "work-place": import(
+        /* webpackChunkName: "order-form-work-place" */ "@/components/order/forms/work-place-form.vue"
+    ),
+    address: import(
+        /* webpackChunkName: "order-form-address" */ "@/components/order/forms/address-form.vue"
+    ),
+    "exit-locations": import(
+        /* webpackChunkName: "order-form-exit-locations" */ "@/components/order/forms/exit-locations-form.vue"
+    ),
+    time: import(
+        /* webpackChunkName: "order-form-time" */ "@/components/order/forms/time-form.vue"
+    ),
+    price: import(
+        /* webpackChunkName: "order-form-price" */ "@/components/order/forms/price-form.vue"
+    ),
+    
+    auth: import(
+        /* webpackChunkName: "order-form-price" */ "@/components/order/forms/auth-form.vue"
+    ),
+};
 
 const onSubmit = (e) => {
     router.push("");
@@ -18,6 +44,8 @@ const props = defineProps({
     serviceSlugs: {},
     form: {},
 });
+
+const { categorySlug, serviceSlugs, form } = toRefs(props);
 const services = ref([]);
 
 const { promise, category, isLoading, isLoaded, onGetWhenNotLoaded } =
@@ -65,9 +93,9 @@ onMounted(async () => {
         </div>
         <div class="p-4 sticky bottom-0 bg-white flex justify-between">
             <c-button scheme="secondary" type="button" @click="back">
-                отмена
+                Назад
             </c-button>
-            <c-button>Продолжить</c-button>
+            <c-button> Продолжить </c-button>
         </div>
     </form>
 </template>
