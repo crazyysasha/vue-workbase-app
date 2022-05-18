@@ -21,11 +21,24 @@ onMounted(async () => {
 <template>
     <div class="container mx-auto my-4 h-10"></div>
     <div class="container mx-auto gap-4 py-4 grid md:grid-cols-7">
-        <div class="md:col-span-2">
-            <div class="rounded-lg bg-white shadow shadow-primary/25 p-4"></div>
-        </div>
         <div class="md:col-span-5">
             <router-view></router-view>
+        </div>
+        <div class="md:col-span-2">
+            <div class="rounded-lg bg-white shadow shadow-primary/25 p-4">
+                <router-link
+                    to="/faq"
+                    class="
+                        hover:text-blue-600 text-lg mb-2 block
+                    "
+                >
+                    Частые вопросы
+                </router-link>
+                <a href="javascript:jivo_api.open()" 
+                    class="hover:text-blue-600 text-lg mb-2 block">
+                    Поддержка
+                </a>
+            </div>
         </div>
         <!-- <div class="basis-5/7 bg-white shadow-md rounded-lg p-4">
             <div></div>

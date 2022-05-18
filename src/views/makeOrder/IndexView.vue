@@ -19,6 +19,7 @@
             <h1 class="text-2xl sm:text-3xl md:text-4xl mb-4">
                 По какому предмету нужен репититор ?
             </h1>
+            
             <input
                 type="text"
                 class="

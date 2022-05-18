@@ -131,12 +131,18 @@
                         </div>
                     </div>
                     <div class="lg:w-6/12 py-20">
-                        <h2 class="text-center text-2xl mb-10 font-bold">Станьте исполнителем и выполняйте интересные задания от заказчиков
-в удобное для вас время.</h2>
-                        <div class="grid sm:grid-cols-2 md:grid-cols-2 gap-4 mb-10">
-                            <div class="text-center">
-                                <div class="rounded-full mb-3 bg-orange-400 text-4xl w-32 h-32 flex justify-center items-center text-white mx-auto">
-                                    <svg version="1.1" id="Capa_1" class="w-20 h-20 fill-white" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 489.003 489.003" style="enable-background:new 0 0 489.003 489.003;" xml:space="preserve">
+                              <div class="border-l-2 mt-10">
+                                <!-- Card 1 -->
+                                <div class="transform transition cursor-pointer hover:-translate-y-2 ml-10 relative flex items-center px-6 py-4 bg-blue-600 text-white rounded mb-10 flex-col md:flex-row space-y-4 md:space-y-0">
+                                <!-- Dot Follwing the Left Vertical Line -->
+                                <div class="w-5 h-5 bg-blue-600 absolute -left-10 transform -translate-x-2/4 rounded-full z-10 mt-2 md:mt-0"></div>
+
+                                <!-- Line that connecting the box with the vertical line -->
+                                <div class="w-10 h-1 bg-blue-300 absolute -left-10 z-0"></div>
+
+                                <!-- Content that showing in the box -->
+                                <div class="flex items-center">
+                                    <svg version="1.1" id="Capa_1" class="w-20 h-20 fill-white mr-5" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 489.003 489.003" style="enable-background:new 0 0 489.003 489.003;" xml:space="preserve">
                                         <g>
                                             <path d="M305.802,156.814c-33.8-19.5-88.4-19.5-122,0s-33.4,51.2,0.4,70.7s88.4,19.5,122,0
                                             C339.802,207.914,339.602,176.314,305.802,156.814z M290.302,187.514c-2.9,0.9-5.8,1.9-8.7,2.8c-1.8,0.5-2.9,0.6-3.7,0.2
@@ -161,27 +167,42 @@
                                             l278.5,160.8l150.6-87.5c6.6-3.8,17.2-3.8,23.8,0C489.102,331.714,489.202,337.914,482.602,341.714z" />
                                         </g>
                                     </svg>
+                                    <h1 class="text-xl font-bold">Достойный заработок</h1>
                                 </div>
-                                
-                                <span class="text-xl"> Достойный заработок
-                                    </span>
-                            </div>
-                            <div class="text-center">
-                                <div class="rounded-full mb-3 bg-orange-400 text-4xl w-32 h-32 flex justify-center items-center text-white mx-auto">
-                                    <svg version="1.1" class="w-20 h-20 fill-white" id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 60 60" style="enable-background:new 0 0 60 60;" xml:space="preserve">
+                                </div>
+
+                                <!-- Card 2 -->
+                                <div class="transform transition cursor-pointer hover:-translate-y-2 ml-10 relative flex items-center px-6 py-4 bg-pink-600 text-white rounded mb-10 flex-col md:flex-row space-y-4 md:space-y-0">
+                                <!-- Dot Follwing the Left Vertical Line -->
+                                <div class="w-5 h-5 bg-pink-600 absolute -left-10 transform -translate-x-2/4 rounded-full z-10 mt-2 md:mt-0"></div>
+
+                                <!-- Line that connecting the box with the vertical line -->
+                                <div class="w-10 h-1 bg-pink-300 absolute -left-10 z-0"></div>
+
+                                <!-- Content that showing in the box -->
+                                <div class="flex items-center">
+                                    <svg version="1.1" class="w-20 h-20 mr-5 fill-white" id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 60 60" style="enable-background:new 0 0 60 60;" xml:space="preserve">
                                         <g>
                                             <path d="M30,0C13.458,0,0,13.458,0,30s13.458,30,30,30s30-13.458,30-30S46.542,0,30,0z M30,58C14.561,58,2,45.439,2,30
                                             S14.561,2,30,2s28,12.561,28,28S45.439,58,30,58z" />
                                             <path d="M30,6c-0.552,0-1,0.447-1,1v23H14c-0.552,0-1,0.447-1,1s0.448,1,1,1h16c0.552,0,1-0.447,1-1V7C31,6.447,30.552,6,30,6z" />
                                         </g>
                                     </svg>
+                                    <h1 class="text-xl font-bold">Свободный график</h1>
                                 </div>
-                                <span class="text-xl"> Свободный график
-                                    </span>
-                            </div>
-                            <div class="text-center">
-                                <div class="rounded-full mb-3 bg-orange-400 text-4xl w-32 h-32 flex justify-center items-center text-white mx-auto">
-                                    <svg version="1.1" class="w-20 h-20 fill-white" id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 214.27 214.27" style="enable-background:new 0 0 214.27 214.27;" xml:space="preserve">
+                                </div>
+
+                                <!-- Card 3 -->
+                                <div class="transform transition cursor-pointer hover:-translate-y-2 ml-10 relative flex items-center px-6 py-4 bg-green-600 text-white rounded mb-10 flex-col md:flex-row space-y-4 md:space-y-0">
+                                <!-- Dot Follwing the Left Vertical Line -->
+                                <div class="w-5 h-5 bg-green-600 absolute -left-10 transform -translate-x-2/4 rounded-full z-10 mt-2 md:mt-0"></div>
+
+                                <!-- Line that connecting the box with the vertical line -->
+                                <div class="w-10 h-1 bg-green-300 absolute -left-10 z-0"></div>
+
+                                <!-- Content that showing in the box -->
+                                <div class="flex items-center">
+                                    <svg version="1.1" class="w-20 h-20 mr-5 fill-white" id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 214.27 214.27" style="enable-background:new 0 0 214.27 214.27;" xml:space="preserve">
                                         <g>
                                             <path d="M196.926,55.171c-0.11-5.785-0.215-11.25-0.215-16.537c0-4.142-3.357-7.5-7.5-7.5c-32.075,0-56.496-9.218-76.852-29.01
                                             c-2.912-2.832-7.546-2.831-10.457,0c-20.354,19.792-44.771,29.01-76.844,29.01c-4.142,0-7.5,3.358-7.5,7.5
@@ -195,13 +216,21 @@
                                             c2.93-2.929,2.93-7.678,0.001-10.606C140.636,78.154,135.887,78.153,132.958,81.082z" />
                                         </g>
                                     </svg>
+                                    <h1 class="text-xl font-bold">Безопасный сервис</h1>
                                 </div>
-                                <span class="text-xl"> Безопасный сервис
-                                    </span>
-                            </div>
-                            <div class="text-center">
-                                <div class="rounded-full mb-3 bg-orange-400 text-4xl w-32 h-32 flex justify-center items-center text-white mx-auto">
-                                    <svg version="1.1" class="w-20 h-20 fill-white" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 512 512" style="enable-background:new 0 0 512 512;" xml:space="preserve">
+                                </div>
+
+                                <!-- Card 4 -->
+                                <div class="transform transition cursor-pointer hover:-translate-y-2 ml-10 relative flex items-center px-6 py-4 bg-purple-600 text-white rounded mb-10 flex-col md:flex-row space-y-4 md:space-y-0">
+                                <!-- Dot Follwing the Left Vertical Line -->
+                                <div class="w-5 h-5 bg-purple-600 absolute -left-10 transform -translate-x-2/4 rounded-full z-10 mt-2 md:mt-0"></div>
+
+                                <!-- Line that connecting the box with the vertical line -->
+                                <div class="w-10 h-1 bg-purple-300 absolute -left-10 z-0"></div>
+
+                                <!-- Content that showing in the box -->
+                                <div class="flex items-center">
+                                    <svg version="1.1" class="w-20 h-20 mr-5 fill-white" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 512 512" style="enable-background:new 0 0 512 512;" xml:space="preserve">
                                         <g>
                                             <g>
                                                 <g>
@@ -250,14 +279,48 @@
                                             </g>
                                         </g>
                                     </svg>
+                                    <h1 class="text-xl font-bold">Экономия на рекламе</h1>
                                 </div>
-                                <span class="text-xl"> Экономия на рекламе
+                                </div>
+
+      
+                            </div>
+                        <!-- <h2 class="text-center text-2xl mb-10 font-bold">Станьте исполнителем и выполняйте интересные задания от заказчиков
+в удобное для вас время.</h2>
+                        <div class="grid sm:grid-cols-2 md:grid-cols-2 gap-4 mb-10">
+                            <div class="text-center">
+                                <div class="rounded-full mb-3 bg-orange-400 text-4xl w-32 h-32 flex justify-center items-center text-white mx-auto">
+
+                                </div>
+                                
+                                <span class="text-xl"> Достойный заработок
+                                    </span>
+                            </div>
+                            <div class="text-center">
+                                <div class="rounded-full mb-3 bg-orange-400 text-4xl w-32 h-32 flex justify-center items-center text-white mx-auto">
+                                    
+                                </div>
+                                <span class="text-xl"> 
+                                    </span>
+                            </div>
+                            <div class="text-center">
+                                <div class="rounded-full mb-3 bg-orange-400 text-4xl w-32 h-32 flex justify-center items-center text-white mx-auto">
+                                    
+                                </div>
+                                <span class="text-xl"> 
+                                    </span>
+                            </div>
+                            <div class="text-center">
+                                <div class="rounded-full mb-3 bg-orange-400 text-4xl w-32 h-32 flex justify-center items-center text-white mx-auto">
+                                    
+                                </div>
+                                <span class="text-xl"> 
                                     </span>
                             </div>
                         </div>
                         <h2 class="text-center text-2xl mb-10 font-bold">
                             "Work Base" оможет найти новых клиентов и зарабатывать на выполнении любых услуг.
-                        </h2>
+                        </h2> -->
                     </div>
                 </div>
             </div>
