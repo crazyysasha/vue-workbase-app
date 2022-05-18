@@ -45,7 +45,7 @@ const navOpen = ref(false);
             <div
                 class="
                     flex
-                    z-20
+                    
                     py-5
                     xl:py-0
                     justify-between
@@ -86,7 +86,7 @@ const navOpen = ref(false);
                     >
                         <svg
                             viewBox="0 0 28 28"
-                            class="fill-current text-white h-7 w-7"
+                            class="fill-current text-black h-7 w-7"
                             xmlns="http://www.w3.org/2000/svg"
                             v-if="navOpen"
                         >
@@ -99,7 +99,7 @@ const navOpen = ref(false);
                         </svg>
                         <svg
                             v-else
-                            class="fill-current text-white h-7 w-7"
+                            class="fill-current text-black h-7 w-7"
                             xmlns="http://www.w3.org/2000/svg"
                             viewBox="0 0 384.97 384.97"
                         >
