@@ -56,7 +56,7 @@ const onSlideChange = () => {
                         бесплатным мобильным <br />
                         приложением
                     </span>
-                    «WorkBase»
+                    «WorkBase» 
                 </h2>
                 <div class="flex justify-center md:justify-start">
                     <a

@@ -10,6 +10,9 @@ import './assets/fonts/Aeroport/stylesheet.css';
 
 import * as HeroIcons from '@/components/icons/hero';
 import * as UI from '@/components/ui';
+import i18n from './I18n';
+
+
 
 const app = createApp(App);
 
@@ -25,5 +28,6 @@ for (const component in UI) {
 app.component('c-grid', CGrid)
     .component('c-dropdown', CDropdown)
     .component('c-dropdown-item', CDropdownItem)
+    .use(i18n)
     .use(router)
     .mount('#app')

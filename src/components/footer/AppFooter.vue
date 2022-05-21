@@ -128,6 +128,24 @@ import { ref } from "vue";
                                 Стать специалистом
                             </router-link>
                         </li>
+                                                <li
+                            class="
+                                my-3
+                                text-xs
+                                sm:text-sm
+                                md:text-md
+                                lg:text-base
+                            "
+                        >
+                            <router-link
+                                to="/services"
+                                class="
+                                    hover:text-blue-300
+                                "
+                            >
+                                Все услуги
+                            </router-link>
+                        </li>
                     </ul>
                 </div>
                 <div class="">

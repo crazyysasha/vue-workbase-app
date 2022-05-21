@@ -5,7 +5,7 @@ const { collection } = usePosts();
 <template>
     <section v-for="post in collection"
         :key="post.id" class="bg-white pb-12">
-        <div class="mx-auto container px-4">
+        <!-- <div class="mx-auto container px-4">
             <nav class="flex py-12" aria-label="Breadcrumb">
                 <ol class="inline-flex items-center space-x-1 md:space-x-3">
                     <li class="inline-flex items-center">
@@ -34,6 +34,19 @@ const { collection } = usePosts();
             <h2 class="text-2xl font-medium mb-10">{{ post.title }}</h2>
             <p class="mb-8">{{ post.description }}</p>
             <span class="italic">{{ post.date }}</span>
-        </div>
+        </div> -->
+        
+
+
+            <article class="container px-4 2xl:px-20 mx-auto py-8">
+                <img class="md:w-1/3 w-full rounded-2xl md:float-left mr-5" :src="post.img" alt="" />
+                <h1 class="text-2xl font-bold">{{ post.title }}</h1>
+                <h2 class="mt-2 text-sm text-gray-500">{{ post.date }}</h2>
+
+                <p class="mt-6">
+                    {{ post.description }}
+                </p>
+            </article>
+            
     </section>
 </template>
