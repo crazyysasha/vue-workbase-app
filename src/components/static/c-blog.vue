@@ -5,98 +5,129 @@ const { collection } = usePosts();
 <template>
   <section class="bg-white pb-12">
     <div class="mx-auto container px-4">
-      <nav class="flex py-12" aria-label="Breadcrumb">
-          <ol class="inline-flex items-center space-x-1 md:space-x-3">
-              <li class="inline-flex items-center">
-                    <router-link to="/" class="inline-flex items-center text-sm font-medium text-gray-700 hover:text-gray-900">
-                      <svg class="mr-2 w-4 h-4" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path d="M10.707 2.293a1 1 0 00-1.414 0l-7 7a1 1 0 001.414 1.414L4 10.414V17a1 1 0 001 1h2a1 1 0 001-1v-2a1 1 0 011-1h2a1 1 0 011 1v2a1 1 0 001 1h2a1 1 0 001-1v-6.586l.293.293a1 1 0 001.414-1.414l-7-7z"></path></svg>
-                      Главная
-                  </router-link>
-              </li>
-              <li aria-current="page">
-                  <div class="flex items-center">
-                  <svg class="w-6 h-6 text-gray-400" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clip-rule="evenodd"></path></svg>
-                  <span class="ml-1 text-sm font-medium text-gray-400 md:ml-2">Блог</span>
-                  </div>
-              </li>
-          </ol>
-      </nav>
-      <h2 class="text-3xl font-bold mb-10">Блог</h2>
-
-      <div class="mb-10">
-        <a class="mr-4 w-full mb-3 2select-none text-white rounded-md px-4 py-2 transition-all duration-200 shadow-lg transform scale-100 bg-orange-400 hover:bg-orange-400/80 disabled:bg-orange-400/50 shadow-orange-400/25 active:scale-95" href="#">Все категории</a>
-        <a class="mr-4 w-full mb-3 2select-none text-white rounded-md px-4 py-2 transition-all duration-200 shadow-lg transform scale-100 bg-primary hover:bg-primary/80 disabled:bg-primary/50 shadow-primary/25 active:scale-95" href="#">Новости на рынке труда и услуг</a>
-        <a class="mr-4 w-full mb-3 2select-none text-white rounded-md px-4 py-2 transition-all duration-200 shadow-lg transform scale-100 bg-primary hover:bg-primary/80 disabled:bg-primary/50 shadow-primary/25 active:scale-95" href="#">Лайфхаки и советы</a>
-        <a class="mr-4 w-full mb-3 2select-none text-white rounded-md px-4 py-2 transition-all duration-200 shadow-lg transform scale-100 bg-primary hover:bg-primary/80 disabled:bg-primary/50 shadow-primary/25 active:scale-95" href="#">Истории успеха пользователей WorkBase</a>
-      </div>
-
-      <div class="grid sm:grid-cols-2 md:grid-cols-3 gap-4">
-        <router-link
-          v-for="post in collection"
-          :key="post.id"
-          :to="`/post/${post.slug}`"
-        >
-            <div class="p-4">
-              <div class="h-full rounded-xl shadow-cla-blue bg-gradient-to-r from-indigo-50 to-blue-50 overflow-hidden">
-                <img class="lg:h-48 md:h-36 w-full object-cover object-center scale-110 transition-all duration-400 hover:scale-100" :src="post.img" alt="blog">
-                <div class="p-6">
-                  <h1 class="text-xl font-bold tracking-tight text-black mb-3">{{ post.title }}</h1>
-                  <p v-html="post.excerpt" class="leading-relaxed mb-3"></p>
-                  <div class="flex items-center justify-between">
-                    <div class="flex">
-                      <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 mr-2 stroke-gray-500 fill-transporent"  fill="none"  viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-                        <path stroke-linecap="round" stroke-linejoin="round" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
-                      </svg>
-                      <span class="italic">05.05.2020 г.</span>
-                    </div>
-                    <div>
-                      <div class="flex">
-                        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 mr-2 stroke-gray-500" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-                          <path stroke-linecap="round" stroke-linejoin="round" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
-                          <path stroke-linecap="round" stroke-linejoin="round" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
-                        </svg>
-                        <span class="italic">105</span>
-                      </div>
-                    </div>
-                  </div>
-                </div>
+      <nav class="w-full py-4 border-t border-b">
+          <div  class="w-full flex-grow sm:flex sm:items-center sm:w-auto">
+              <div class="w-full container mx-auto flex flex-col sm:flex-row items-center justify-center text-sm font-bold uppercase mt-0 px-6 py-2">
+                  <a href="#" class="hover:bg-primary hover:text-white text-md rounded py-2 px-2">Новости на рынке труда и услуг</a>
+                  <a href="#" class="hover:bg-primary hover:text-white text-md rounded py-2 px-2">Лайфхаки и советы</a>
+                  <a href="#" class="hover:bg-primary hover:text-white text-md rounded py-2 px-2">Истории успеха пользователей WorkBase</a>
+                  <a href="#" class="hover:bg-primary hover:text-white text-md rounded py-2 px-2">Рекомендации по использованию сайта</a>
               </div>
-            </div>
-        </router-link>
-        <!-- <router-link
-          v-for="post in collection"
-          :key="post.id"
-          :to="`/post/${post.slug}`"
-          class="
-            flex flex-col
-            items-center
-            bg-white
-            rounded-lg
-            border
-            shadow-md
-            md:flex-row md:max-w-xl
-            hover:bg-gray-100
-          "
-        >
-          <img
-            class="
-              object-cover
-              w-full
-              h-96
-              rounded-t-lg
-              md:h-auto md:w-48 md:rounded-none md:rounded-l-lg
-            "
-            :src="post.img"
-            alt=""
-          />
-          <div class="flex flex-col justify-between p-3 leading-normal">
-            <h5 class="mb-2 text-xl leading-5 font-bold tracking-tight text-black">
-               {{ post.title }}
-            </h5>
-            <p v-html="post.excerpt" class="mb-3 leading-5  text-md font-normal text-gray-700"></p>
           </div>
-        </router-link> -->
-      </div>
+      </nav>
+
+
+    <div class="container mx-auto flex flex-wrap py-6">
+
+        <!-- Posts Section -->
+        <section class="w-full md:w-2/3 flex flex-col items-center px-3">
+
+            <article class="flex flex-col shadow my-4">
+                <!-- Article Image -->
+                <a href="#" class="hover:opacity-75">
+                    <img src="https://source.unsplash.com/collection/1346951/1000x500?sig=1">
+                </a>
+                <div class="bg-white flex flex-col justify-start p-6">
+                    <a href="#" class="text-blue-700 text-sm font-bold uppercase pb-4">Technology</a>
+                    <a href="#" class="text-3xl font-bold hover:text-gray-700 pb-4">Lorem Ipsum Dolor Sit Amet Dolor Sit Amet</a>
+                    <p href="#" class="text-sm pb-3">
+                        By <a href="#" class="font-semibold hover:text-gray-800">David Grzyb</a>, Published on April 25th, 2020
+                    </p>
+                    <a href="#" class="pb-6">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus quis porta dui. Ut eu iaculis massa. Sed ornare ligula lacus, quis iaculis dui porta volutpat. In sit amet posuere magna..</a>
+                    <a href="#" class="uppercase text-gray-800 hover:text-black">Continue Reading <i class="fas fa-arrow-right"></i></a>
+                </div>
+            </article>
+
+            <article class="flex flex-col shadow my-4">
+                <!-- Article Image -->
+                <a href="#" class="hover:opacity-75">
+                    <img src="https://source.unsplash.com/collection/1346951/1000x500?sig=2">
+                </a>
+                <div class="bg-white flex flex-col justify-start p-6">
+                    <a href="#" class="text-blue-700 text-sm font-bold uppercase pb-4">Automotive, Finance</a>
+                    <a href="#" class="text-3xl font-bold hover:text-gray-700 pb-4">Lorem Ipsum Dolor Sit Amet Dolor Sit Amet</a>
+                    <p href="#" class="text-sm pb-3">
+                        By <a href="#" class="font-semibold hover:text-gray-800">David Grzyb</a>, Published on January 12th, 2020
+                    </p>
+                    <a href="#" class="pb-6">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus quis porta dui. Ut eu iaculis massa. Sed ornare ligula lacus, quis iaculis dui porta volutpat. In sit amet posuere magna..</a>
+                    <a href="#" class="uppercase text-gray-800 hover:text-black">Continue Reading <i class="fas fa-arrow-right"></i></a>
+                </div>
+            </article>
+
+            <article class="flex flex-col shadow my-4">
+                <!-- Article Image -->
+                <a href="#" class="hover:opacity-75">
+                    <img src="https://source.unsplash.com/collection/1346951/1000x500?sig=3">
+                </a>
+                <div class="bg-white flex flex-col justify-start p-6">
+                    <a href="#" class="text-blue-700 text-sm font-bold uppercase pb-4">Sports</a>
+                    <a href="#" class="text-3xl font-bold hover:text-gray-700 pb-4">Lorem Ipsum Dolor Sit Amet Dolor Sit Amet</a>
+                    <p href="#" class="text-sm pb-3">
+                        By <a href="#" class="font-semibold hover:text-gray-800">David Grzyb</a>, Published on October 22nd, 2019
+                    </p>
+                    <a href="#" class="pb-6">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus quis porta dui. Ut eu iaculis massa. Sed ornare ligula lacus, quis iaculis dui porta volutpat. In sit amet posuere magna..</a>
+                    <a href="#" class="uppercase text-gray-800 hover:text-black">Continue Reading <i class="fas fa-arrow-right"></i></a>
+                </div>
+            </article>
+
+            <!-- Pagination -->
+            <div class="flex items-center py-8">
+                <a href="#" class="h-10 w-10 bg-blue-800 hover:bg-blue-600 font-semibold text-white text-sm flex items-center justify-center">1</a>
+                <a href="#" class="h-10 w-10 font-semibold text-gray-800 hover:bg-blue-600 hover:text-white text-sm flex items-center justify-center">2</a>
+                <a href="#" class="h-10 w-10 font-semibold text-gray-800 hover:text-gray-900 text-sm flex items-center justify-center ml-3">
+                  Далее
+                </a>
+            </div>
+
+        </section>
+
+        <!-- Sidebar Section -->
+        <aside class="w-full md:w-1/3 flex flex-col items-center px-3">
+
+            <div class="w-full bg-white shadow flex flex-col my-4 p-6">
+                <p class="text-xl font-semibold pb-5">О нас</p>
+                <p class="pb-2">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas mattis est eu odio sagittis tristique. Vestibulum ut finibus leo. In hac habitasse platea dictumst.</p>
+  
+                <router-link
+                    to="/about"
+                    class="w-full bg-blue-800 text-white font-bold text-sm uppercase rounded hover:bg-blue-700 flex items-center justify-center px-2 py-3 mt-4"
+                >
+                    Подробнее
+                </router-link>
+            </div>
+
+            <div class="w-full bg-white shadow flex flex-col my-4 p-6">
+                <p class="text-xl font-semibold pb-5">Instagram</p>
+                <div class="grid grid-cols-3 gap-3">
+                    <img class="hover:opacity-75" src="https://source.unsplash.com/collection/1346951/150x150?sig=1">
+                    <img class="hover:opacity-75" src="https://source.unsplash.com/collection/1346951/150x150?sig=2">
+                    <img class="hover:opacity-75" src="https://source.unsplash.com/collection/1346951/150x150?sig=3">
+                    <img class="hover:opacity-75" src="https://source.unsplash.com/collection/1346951/150x150?sig=4">
+                    <img class="hover:opacity-75" src="https://source.unsplash.com/collection/1346951/150x150?sig=5">
+                    <img class="hover:opacity-75" src="https://source.unsplash.com/collection/1346951/150x150?sig=6">
+                    <img class="hover:opacity-75" src="https://source.unsplash.com/collection/1346951/150x150?sig=7">
+                    <img class="hover:opacity-75" src="https://source.unsplash.com/collection/1346951/150x150?sig=8">
+                    <img class="hover:opacity-75" src="https://source.unsplash.com/collection/1346951/150x150?sig=9">
+                </div>
+                <a target="_blank" href="https://www.instagram.com/workbase.uz/" class="w-full bg-blue-800 text-white font-bold text-sm uppercase rounded hover:bg-blue-700 flex items-center justify-center px-2 py-3 mt-6">
+                    <img
+                        class="
+                            transition-all
+                            duration-500
+                            transform
+                            hover:scale-110
+                            mr-3
+                        "
+                        src="@/assets/images/instagram.svg"
+                        alt=""
+                    />
+                    workbase.uz
+                </a>
+            </div>
+
+        </aside>
+
+    </div>
     </div>
   </section>
 </template>
