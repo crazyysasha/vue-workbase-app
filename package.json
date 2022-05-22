@@ -20,6 +20,7 @@
     "swiper": "^8.0.6",
     "typed.js": "^2.0.12",
     "vue": "^3.2.31",
+    "vue-i18n": "^9.1.10",
     "vue-imask": "^6.4.1-alpha.0",
     "vue-modal-wizard": "^1.0.6",
     "vue-router": "^4.0.3",
@@ -77,6 +78,7 @@
     "last 2 versions",
     "not dead",
     "not ie 11",
-    "iOS > 7", "safari > 9"
+    "iOS > 7",
+    "safari > 9"
   ]
 }

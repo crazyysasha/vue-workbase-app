@@ -17,7 +17,7 @@
         </div>
         <div class="container px-4 z-10 2xl:px-20 mx-auto">
             <h1 class="md:text-5xl text-3xl font-semibold text-white leading-3">
-                Работа в Узбекистане
+                {{ $t("home.title") }}
             </h1>
             <p class="text-md md:text-2xl font-normal md:my-10 my-5 text-white">
                 Вы ищете? Мы находим!
