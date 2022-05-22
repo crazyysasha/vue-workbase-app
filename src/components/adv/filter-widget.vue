@@ -37,21 +37,21 @@ import "swiper/css/effect-fade";
                 >
                     <swiper-slide>
                         <img
-                            class="w-full h-44 rounded-md"
+                            class="w-full rounded-md"
                             src="@/assets/images/el-banner1.jpg"
                             alt=""
                         />
                     </swiper-slide>
                     <swiper-slide>
                         <img
-                            class="w-full h-44 rounded-md"
+                            class="w-full rounded-md"
                             src="@/assets/images/el-banner6.jpg"
                             alt=""
                         />
                     </swiper-slide>
                     <swiper-slide>
                         <img
-                            class="w-full h-44 rounded-md"
+                            class="w-full rounded-md"
                             src="@/assets/images/el-banner5.jpg"
                             alt=""
                         />

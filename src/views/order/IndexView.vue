@@ -15,7 +15,9 @@ const { category, isLoading, isLoaded, promise, onGet, onGetWhenNotLoaded } =
     useCategoryApi();
 
 onMounted(async () => {
-    await onGetWhenNotLoaded(categorySlug.value);
+    await onGetWhenNotLoaded(categorySlug.value, {
+        with: ["priority_services", "image"],
+    });
 });
 </script>
 <template>
@@ -31,9 +33,8 @@ onMounted(async () => {
         "
     >
         <div class="md:col-span-7"></div>
-
         <div class="md:col-span-5 w-full">
-            <router-view></router-view>
+            <router-view :key="$route.fullPath"></router-view>
         </div>
         <div class="md:col-span-2 w-full">
             <div class="rounded-lg bg-white shadow shadow-primary/25 p-4">

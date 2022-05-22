@@ -1,0 +1,42 @@
+<script setup>
+import { useRouter } from "vue-router";
+
+const emit = defineEmits(["onSubmit"]);
+const router = useRouter();
+const onSubmit = (e) => emit("onSubmit", e);
+const back = () => {
+    router.back();
+};
+</script>
+<template>
+    <form
+        class="
+            flex flex-col
+            relative
+            w-full
+            min-h-full
+            rounded-lg
+            bg-white
+            shadow shadow-primary/25
+            overflow-clip
+        "
+        @submit.prevent="onSubmit"
+    >
+        <div class="p-4">
+            <slot name="header"> </slot>
+        </div>
+        <div class="px-4 mb-auto">
+            <slot> </slot>
+        </div>
+
+        <div class="p-4 sticky bottom-0 bg-white flex justify-between z-40">
+            <slot name="footer">
+                <c-button scheme="secondary" type="button" @click="back">
+                    Отмена
+                </c-button>
+                <c-button> Продолжить </c-button>
+            </slot>
+        </div>
+    </form>
+</template>
+
