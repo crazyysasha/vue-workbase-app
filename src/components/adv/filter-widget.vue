@@ -38,21 +38,21 @@ import "swiper/css/effect-fade";
                     <swiper-slide>
                         <img
                             class="w-full h-44 rounded-md"
-                            src="@/assets/images/el-banner1.jpg"
+                            src="@/assets/images/s1.jpg"
                             alt=""
                         />
                     </swiper-slide>
                     <swiper-slide>
                         <img
                             class="w-full h-44 rounded-md"
-                            src="@/assets/images/el-banner6.jpg"
+                            src="@/assets/images/s2.jpg"
                             alt=""
                         />
                     </swiper-slide>
                     <swiper-slide>
                         <img
                             class="w-full h-44 rounded-md"
-                            src="@/assets/images/el-banner5.jpg"
+                            src="@/assets/images/s3.jpg"
                             alt=""
                         />
                     </swiper-slide>
