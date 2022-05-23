@@ -2,7 +2,7 @@
     <!-- TODO: в дальнейшем для темной темы будем использовать этот цвет "dark:bg-slate-900" -->
     <div class="min-h-screen bg-gray-100 flex flex-col">
         <app-header></app-header>
-        <router-view class="flex-1"></router-view>
+        <router-view class="flex-1" :key="$route.fullPath"></router-view>
         <app-footer class="mt-auto"></app-footer>
     </div>
 </template>

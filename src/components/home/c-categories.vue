@@ -1,12 +1,13 @@
 
 <script setup>
 import CCard from "./c-card";
-import { useCategories } from "@/composables/categories";
+import useCategoriesApi from "@/composables/categories/collection";
 import { onMounted } from "vue";
-const { isLoaded, isLoading, exec, categories, promise } = useCategories();
+const { isLoaded, isLoading, categories, promise, onGetWhenNotLoaded } =
+    useCategoriesApi();
 
 onMounted(async () => {
-    if (!isLoaded.value) await exec({ with: ["image", "priority_services"] });
+    await onGetWhenNotLoaded({ with: ["image", "priority_services"] });
 });
 </script>
 <template>

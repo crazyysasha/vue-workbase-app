@@ -108,9 +108,9 @@ onUnmounted(() => {
             v-show="isResultOpen"
         >
             <li :style="{ minHeight: `${inputContainerHeight}px` }"></li>
-            <li v-if="loading && isResultOpen">
+            <li v-if="loading && isResultOpen" class="px-3 py-2">
                 <svg
-                    class="animate-spin h-5 w-5 text-white"
+                    class="animate-spin h-5 w-5 text-primary mx-auto"
                     xmlns="http://www.w3.org/2000/svg"
                     fill="none"
                     viewBox="0 0 24 24"
@@ -130,7 +130,7 @@ onUnmounted(() => {
                     ></path>
                 </svg>
             </li>
-            <slot name="list-item" v-else>
+            <slot name="list-item" v-else-if="items.length > 0">
                 <li
                     v-for="item in items"
                     :key="item[itemKey]"
@@ -140,6 +140,9 @@ onUnmounted(() => {
                     {{ item.name }}
                 </li>
             </slot>
+            <li class="px-3 py-2" v-else-if="$slots['no-items']">
+                <slot name="no-items"></slot>
+            </li>
         </ul>
         <div class="bg-white absolute rounded-lg w-full z-20">
             <div

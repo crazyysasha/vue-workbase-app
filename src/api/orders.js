@@ -26,8 +26,9 @@ export const get = async (params) => {
  * @returns {Promise<import("axios").AxiosResponse>}
  */
 export const create = (data = { services }, config = {}) => {
+
     return axios.post('crazy/freelancer/v1.0.1/orders', data, config);
 }
-export const update = (id, params = { services }, config = {}) => {
-    return axios.post(`crazy/freelancer/v1.0.1/orders/${id}`, { params, ...config });
+export const update = (id, data = { services }, config = {}) => {
+    return axios.post(`crazy/freelancer/v1.0.1/orders/${id}`, data, config);
 }

@@ -78,7 +78,6 @@ const props = defineProps({
     },
     iconPath: {
         type: String,
-        required: true,
     },
     slug: {
         type: String,
@@ -92,6 +91,3 @@ const props = defineProps({
     },
 });
 </script>
-
-<style>
-</style>

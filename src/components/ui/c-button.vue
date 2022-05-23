@@ -56,18 +56,23 @@ const isDisabled = computed(() => props.disabled);
             shadow-lg
             transform
             scale-100
+            focus:ring-4
+            focus:outline-none
         "
         :class="{
             'bg-primary text-white': isPrimary && !isOutlined,
+            'focus:ring-primary/50': isPrimary && !isOutlined,
             'hover:bg-primary/80': isPrimary && !isOutlined,
             'disabled:bg-primary/50': isPrimary && !isOutlined,
             'shadow-primary/25': isPrimary && !isOutlined,
             'border border-primary text-primary': isPrimary && isOutlined,
-            'hover:bg-primary hover:text-white': isPrimary && isOutlined,
+            'hover:bg-primary hover:text-white':
+                isPrimary && isOutlined && !isDisabled,
             'disabled:border-primary/50 disabled:text-primary/50':
                 isPrimary && isOutlined,
             'shadow-primary/25': isPrimary && isOutlined,
             'bg-orange-500 text-white': isSecondary,
+            'focus:ring-orange-500/50': isSecondary,
             'hover:bg-orange-500/80': isSecondary,
             'disabled:bg-orange-500/50': isSecondary,
             'shadow-orange-500/25': isSecondary,
@@ -81,6 +86,7 @@ const isDisabled = computed(() => props.disabled);
             'shadow-gray-300/25': isGray,
             'animate-pulse': isLoading,
             'active:scale-95': !isDisabled,
+            
         }"
         :disabled="isDisabled"
         :loading="isLoading"

@@ -1,16 +1,16 @@
 import { get } from "@/api/services";
-import { Axios } from "axios";
-import { readonly, ref } from "vue";
+import { computed, readonly, ref } from "vue";
 
 
 const services = ref([]);
 const isLoading = ref(false);
-const isLoaded = ref(false);
 const promise = ref(null);
+const isLoaded = ref(false);
 
 const cancelController = ref(null);
 
 export default function useServicesApi(params = { page: 1, perPage: 10, search: null, category: null, parent: null, nested: null, }) {
+
     const onGet = async (extraParams = { page: 1, perPage: 10, search: null, category: null, parent: null, nested: null, }) => {
         isLoading.value = true;
         const mergedParams = {};
@@ -22,7 +22,7 @@ export default function useServicesApi(params = { page: 1, perPage: 10, search: 
                 services.value = data.collection;
                 isLoaded.value = true;
                 return readonly(services);
-            }).finally(() => isLoading.value = false);
+            }).finally(() => { isLoading.value = false; });
 
         return await promise.value;
     };
@@ -32,6 +32,10 @@ export default function useServicesApi(params = { page: 1, perPage: 10, search: 
             cancelController.value.abort();
         }
     }
+    const clear = () => {
+        services.value = [];
+        isLoaded.value = false;
+    }
     return {
         isLoading: readonly(isLoading),
         isLoaded: readonly(isLoaded),
@@ -39,5 +43,6 @@ export default function useServicesApi(params = { page: 1, perPage: 10, search: 
         promise: readonly(promise),
         onGet,
         cancel,
+        clear,
     };
 }
