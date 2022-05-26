@@ -34,7 +34,7 @@ onMounted(async () => {
     >
         <div class="md:col-span-7"></div>
         <div class="md:col-span-5 w-full">
-            <router-view :key="$route.fullPath"></router-view>
+            <router-view></router-view>
         </div>
         <div class="md:col-span-2 w-full">
             <div class="rounded-lg bg-white shadow shadow-primary/25 p-4">

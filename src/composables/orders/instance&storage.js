@@ -59,6 +59,8 @@ export function useUpdateOrderApi(categorySlug) {
         at_customer: null,
         exit_locations: null,
         address: null,
+        lat: null,
+        lng: null,
     }) => {
         isUpdating.value = true;
         isUpdated.value = false;

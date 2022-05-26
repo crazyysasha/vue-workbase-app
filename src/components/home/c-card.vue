@@ -2,28 +2,24 @@
     <div class="bg-white rounded-xl px-5 py-5 flex flex-col">
         <div class="flex items-center mb-5">
             <div class="p-3 rounded-full bg-gray-100">
-                <img :src="props.iconPath" class="h-9 w-9" alt="" />
+                <img :src="iconPath" class="h-9 w-9" alt="" />
             </div>
 
             <div class="ml-2">
                 <h3 class="md:text-xl font-medium text-xl">
-                    <router-link :to="`/${props.slug}`">
-                        {{ props.name }}
+                    <router-link :to="`/${slug}`">
+                        {{ name }}
                     </router-link>
-                    <span class="text-base text-gray-300"> (2)</span>
+                    <!-- <span class="text-base text-gray-300"> (2)</span> -->
                 </h3>
             </div>
         </div>
         <div class="mt-2">
             <ul class="mb-5">
-                <li
-                    class="mb-2"
-                    v-for="service in props.services"
-                    :key="service.id"
-                >
+                <li class="mb-2" v-for="service in services" :key="service.id">
                     <router-link
                         class="flex items-center"
-                        :to="`/${props.slug}/${service.slug}`"
+                        :to="`/${slug}/${service.slug}`"
                     >
                         <svg
                             xmlns="http://www.w3.org/2000/svg"
@@ -47,10 +43,10 @@
 
         <div class="border-t border-dashed pt-3 border-gray-400 mt-auto">
             <router-link
-                :to="`category/${props.slug}`"
+                :to="`category/${slug}`"
                 class="text-blue-900 flex items-center"
             >
-                Посмотреть все услуги
+                Посмотреть все {{ count }} услуги
                 <svg
                     xmlns="http://www.w3.org/2000/svg"
                     class="h-5 w-5 text-blue-900 ml-2"
@@ -88,6 +84,10 @@ const props = defineProps({
         default() {
             return [];
         },
+    },
+    count: {
+        type: Number,
+        default: 0,
     },
 });
 </script>

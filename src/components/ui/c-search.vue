@@ -130,16 +130,22 @@ onUnmounted(() => {
                     ></path>
                 </svg>
             </li>
-            <slot name="list-item" v-else-if="items.length > 0">
-                <li
-                    v-for="item in items"
-                    :key="item[itemKey]"
-                    class="px-3 py-2 cursor-pointer hover:bg-primary/10"
-                    @click="onSelectItem(item)"
-                >
-                    {{ item.name }}
-                </li>
-            </slot>
+            <li
+                v-for="(item, index) in items"
+                :key="index"
+                v-else-if="items.length > 0"
+            >
+                <slot name="list-item-container" :item="item" :index="index">
+                    <div
+                        class="px-3 py-2 cursor-pointer hover:bg-primary/10"
+                        @click="onSelectItem(item)"
+                    >
+                        <slot name="list-item" :item="item" :index="index">
+                            {{ item.name }}
+                        </slot>
+                    </div>
+                </slot>
+            </li>
             <li class="px-3 py-2" v-else-if="$slots['no-items']">
                 <slot name="no-items"></slot>
             </li>

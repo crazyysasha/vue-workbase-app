@@ -23,7 +23,7 @@ const routes = [
         props: true,
       },
       {
-        path: ":serviceSlugs+/:form",
+        path: "/:categorySlug/:serviceSlugs+/:form",
         name: "order.update",
         component: () => import(/* webpackChunkName: "order-update" */ "../views/order/UpdateView.vue"),
         props: true,

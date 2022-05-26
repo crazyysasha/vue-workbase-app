@@ -7,7 +7,7 @@ const { isLoaded, isLoading, categories, promise, onGetWhenNotLoaded } =
     useCategoriesApi();
 
 onMounted(async () => {
-    await onGetWhenNotLoaded({ with: ["image", "priority_services"] });
+    await onGetWhenNotLoaded({ with: ["image", "priority_services"], count: ["services"] });
 });
 </script>
 <template>
@@ -91,6 +91,7 @@ onMounted(async () => {
                     :name="category.name"
                     :slug="category.slug"
                     :services="category.priority_services"
+                    :count="category.services_count"
                     :iconPath="category.image?.path"
                 ></c-card>
             </div>

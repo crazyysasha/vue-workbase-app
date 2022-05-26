@@ -6,6 +6,7 @@ import {
     useUpdateOrderApi,
 } from "@/composables/orders/instance&storage";
 import useServicesApi from "@/composables/services";
+import useServiceApi from "@/composables/services/instance";
 import {
     computed,
     onMounted,
@@ -91,6 +92,7 @@ watch(search, () => {
             search: search.value,
         });
     }, 200)();
+
     $externalResults.service = null;
 });
 
@@ -106,10 +108,18 @@ const v = useVuelidate(
     { $externalResults }
 );
 
+const {
+    service: fetchedService,
+    onGet: onGetService,
+    isLoading: serviceIsLoading,
+} = useServiceApi();
+
 const onSubmit = async (e) => {
     if (!(await v.value.$validate())) {
         return;
     }
+
+    await onGetService(service.value, { count: ["children"] });
 
     if (currentDraftedOrder.value) {
         await onUpdateOrder({
@@ -144,9 +154,7 @@ const onSubmit = async (e) => {
             categorySlug: categorySlug.value,
             serviceSlugs: [service.value],
             form:
-                currentDraftedOrder?.value?.services?.find(
-                    (s) => s.slug == service.value || s.id == service.value
-                )?.children?.length > 0
+                fetchedService.value.children_count > 0
                     ? "select"
                     : "work-place",
         },
@@ -157,7 +165,8 @@ const isLoading = computed(
     () =>
         categoryIsLoading.value ||
         orderIsCreating.value ||
-        orderIsUpdating.value
+        orderIsUpdating.value ||
+        serviceIsLoading.value
 );
 </script>
 <template>
@@ -165,13 +174,7 @@ const isLoading = computed(
         <template #header>
             <div class="pt-1.5 pb-0.5" v-if="categoryIsLoading">
                 <div
-                    class="
-                        h-[1.875rem]
-                        w-96
-                        bg-primary/10
-                        rounded-lg
-                        animate-pulse
-                    "
+                    class="h-7 w-96 bg-primary/10 rounded-lg animate-pulse"
                 ></div>
             </div>
             <h1
@@ -185,13 +188,13 @@ const isLoading = computed(
                         : "Что нужно сделать?"
                 }}
             </h1>
-            <div v-if="categoryIsLoading" class="pt-1.5 pb-0.5 mb-3">
+            <div v-if="categoryIsLoading" class="pt-1.5 pb-0.5">
                 <div
                     class="h-4 w-64 bg-primary/10 rounded-md animate-pulse"
                 ></div>
             </div>
             <p
-                class="mb-3 text-orange-500"
+                class="text-orange-500"
                 :class="{ 'animate-pulse': isLoading }"
                 v-else
             >
