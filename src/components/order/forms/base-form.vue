@@ -25,7 +25,7 @@ const back = () => {
         <div class="p-4">
             <slot name="header"> </slot>
         </div>
-        <div class="px-4 mb-auto">
+        <div class="px-4 flex-1">
             <slot> </slot>
         </div>
 

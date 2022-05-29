@@ -18,6 +18,7 @@ import {
     useCreateOrderApi,
     useUpdateOrderApi,
 } from "@/composables/orders/instance&storage";
+import useServiceApi from "@/composables/services/instance";
 
 const props = defineProps({ categorySlug: {}, serviceSlugs: {} });
 const { categorySlug, serviceSlugs } = toRefs(props);
@@ -121,6 +122,12 @@ const {
 const { onCreate: onCreateOrder, isCreating: orderIsCreating } =
     useCreateOrderApi(categorySlug.value);
 
+const {
+    service: fetchedService,
+    onGet: onGetService,
+    isLoading: serviceIsLoading,
+} = useServiceApi();
+
 const onSubmit = async (e) => {
     if (!(await v.value.$validate())) {
         return;
@@ -144,13 +151,17 @@ const onSubmit = async (e) => {
         });
         if (!!!newService?.id) return;
         console.log(newService);
+    } else {
+        await onGetService(service.value, { count: ["children"] });
     }
+
     const servicesList = serviceSlugs.value || [];
     if (service.value) {
         servicesList.push(service.value);
     } else {
         servicesList.push(newService.slug);
     }
+
     if (!!!currentDraftedOrder.value)
         await onCreateOrder({
             category: categorySlug.value,
@@ -161,39 +172,28 @@ const onSubmit = async (e) => {
             services: servicesList,
         });
 
-    location.href =
-        "/" +
-        Object.values({
-            categorySlug: categorySlug.value,
-            serviceSlugs: servicesList,
-            form:
-                currentDraftedOrder?.value?.services?.find(
-                    (s) => s.slug == service.value || s.id == service.value
-                )?.children?.length > 0
-                    ? "select"
-                    : "work-place",
-        })
-            .map((element) =>
-                Array.isArray(element) ? element.join("/") : element
-            )
-            .join("/");
-    // router.push(
-    //     "/" +
-    //         Object.values({
-    //             categorySlug: categorySlug.value,
-    //             serviceSlugs: servicesList,
-    //             form:
-    //                 currentDraftedOrder?.value?.services?.find(
-    //                     (s) => s.slug == service.value || s.id == service.value
-    //                 )?.children?.length > 0
-    //                     ? "select"
-    //                     : "work-place",
-    //         })
-    //             .map((element) =>
-    //                 Array.isArray(element) ? element.join("/") : element
-    //             )
-    //             .join("/")
-    // );
+    if (fetchedService?.value?.children_count > 0) {
+        location.href =
+            "/" +
+            Object.values({
+                categorySlug: categorySlug.value,
+                serviceSlugs: servicesList,
+                form: "select",
+            })
+                .map((element) =>
+                    Array.isArray(element) ? element.join("/") : element
+                )
+                .join("/");
+    } else {
+        router.push({
+            name: "order.update",
+            params: {
+                categorySlug: categorySlug.value,
+                serviceSlugs: servicesList,
+                form: "work-place",
+            },
+        });
+    }
 };
 </script>
 
@@ -206,7 +206,7 @@ const onSubmit = async (e) => {
                 ></div>
             </div>
             <h1 class="text-2xl text-primary" v-else>Выберите услугу</h1>
-            <div v-if="categoryIsLoading" class="pt-1.5 pb-0.5 mb-3">
+            <div v-if="categoryIsLoading" class="pt-1.5 pb-0.5">
                 <div
                     class="h-4 w-64 bg-primary/10 rounded-md animate-pulse"
                 ></div>

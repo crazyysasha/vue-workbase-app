@@ -36,6 +36,12 @@ const forms = {
         )
     ),
 
+    other: defineAsyncComponent(() =>
+        import(
+            /* webpackChunkName: "order-form-other" */ "@/components/order/forms/other-form.vue"
+        )
+    ),
+
     auth: defineAsyncComponent(() =>
         import(
             /* webpackChunkName: "order-form-auth" */ "@/components/order/forms/auth-form.vue"
