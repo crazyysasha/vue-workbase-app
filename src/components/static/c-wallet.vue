@@ -16,7 +16,7 @@
                                         border border-gray-300 rounded-md py-2 px-3 
                                         text-gray-400 font-medium focus:outline-none
                                         w-full text-xs sm:text-sm md:text-md lg:text-lg" type="number" placeholder="Сумма">
-                                    <div x-data="{ cards: [] }">
+                                    <div>
                                         <div class="my-3 h-8 sm:h-9 md:h-10 grid grid-cols-5 
                                             border border-gray-300 rounded-md px-3 relative
                                             w-full text-xs sm-text-sm md:text-md lg:text-lg">

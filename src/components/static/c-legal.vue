@@ -46,6 +46,16 @@
                         Пользовательское соглашение
                     </router-link>
                 </li>
+                <li>
+                    <router-link
+                        to="/patent"
+                        class="
+                            underline decoration-1 text-lg
+                        "
+                    >
+                        Патент
+                    </router-link>
+                </li>
             </ul>
         </div>
     </section>

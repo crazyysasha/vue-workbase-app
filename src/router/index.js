@@ -112,6 +112,11 @@ const routes = [
     component: () => import(/* webpackChunkName: "support" */ '../views/SupportView.vue'),
   },
   {
+    path: '/patent',
+    name: 'patent',
+    component: () => import(/* webpackChunkName: "patent" */ '../views/PatentView.vue'),
+  },
+  {
     path: '/termsofuse',
     name: 'termsofuse',
     component: () => import(/* webpackChunkName: "termsofuse" */ '../views/TermsOfUseView.vue'),
