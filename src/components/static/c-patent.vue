@@ -1,5 +1,5 @@
 <script setup>
-import { Fancybox, Carousel, Panzoom } from "@fancyapps/ui";
+import { Fancybox, Panzoom } from "@fancyapps/ui";
 import "@fancyapps/ui/dist/fancybox.css";
 </script>
 <style scoped>
