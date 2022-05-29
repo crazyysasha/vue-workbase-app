@@ -73,7 +73,7 @@ const onSubmit = async (e) => {
         params: {
             categorySlug: categorySlug.value,
             serviceSlugs: serviceSlugs.value,
-            form: "price",
+            form: "publish",
         },
     });
 };
@@ -95,7 +95,9 @@ const onSubmit = async (e) => {
             <p class="text-orange-500">{{ category.name }}</p>
         </template>
         <div>
-            <label for="" class="mb-3">Дополнительные пожелания</label>
+            <label for="" class="mb-3 inline-block">
+                Дополнительные пожелания
+            </label>
             <textarea
                 class="
                     block
@@ -105,7 +107,14 @@ const onSubmit = async (e) => {
                     hover:border-primary/50
                     focus:border-primary
                     bg-primary/10
+                    rounded-md
+                    py-1.5
+                    px-2
                 "
+                placeholder="В этом поле Вы можете написать дополнительные условия и уточняющте детали по работе. 
+Например:
+1. Прошу приобрести розетки и лампочки самостоятельно, дополнительные расходы будут покрыты Заказчиком. 
+2. По мимо уборки квартиры, необходимо постирать и погладить одежду."
                 v-model="description"
                 rows="10"
             ></textarea>

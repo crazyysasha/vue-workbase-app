@@ -42,9 +42,9 @@ const forms = {
         )
     ),
 
-    auth: defineAsyncComponent(() =>
+    publish: defineAsyncComponent(() =>
         import(
-            /* webpackChunkName: "order-form-auth" */ "@/components/order/forms/auth-form.vue"
+            /* webpackChunkName: "order-form-publish" */ "@/components/order/forms/publish-form.vue"
         )
     ),
 };
