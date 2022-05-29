@@ -1,44 +1,122 @@
 
 <script setup>
-import useCategoryApi from "@/composables/categories/instance";
-import { onMounted, toRefs } from "vue";
-import AdvWidget from "@/components/adv/filter-widget.vue";
-const props = defineProps({
-    categorySlug: {
-        type: String,
-        required: true,
-    },
-});
-const { categorySlug } = toRefs(props);
+	import useCategoryApi from "@/composables/categories/instance";
+	import { onMounted, toRefs } from "vue";
+	import AdvWidget from "@/components/adv/filter-widget.vue";
+	const props = defineProps({
+		categorySlug: {
+			type: String,
+			required: true,
+		},
+	});
+	const { categorySlug } = toRefs(props);
 
-const { category, isLoading, isLoaded, promise, onGet, onGetWhenNotLoaded } =
-    useCategoryApi();
+	const { category, isLoading, isLoaded, promise, onGet, onGetWhenNotLoaded } =
+		useCategoryApi();
 
-onMounted(async () => {
-    await onGetWhenNotLoaded(categorySlug.value, {
-        with: ["priority_services", "image"],
-    });
-});
+	onMounted(async () => {
+		await onGetWhenNotLoaded(categorySlug.value, {
+			with: ["priority_services", "image"],
+		});
+	});
 </script>
 <template>
-    <div
-        class="
-            container
-            mx-auto
-            gap-4
-            py-4
-            grid grid-cols-1
-            md:grid-cols-7
-            px-4
-        "
-    >
-        <div class="md:col-span-7"></div>
-        <div class="md:col-span-5 w-full">
-            <router-view></router-view>
-        </div>
-        <div class="md:col-span-2 w-full">
-            <div class="rounded-lg bg-white shadow shadow-primary/25 p-4">
-                <!-- <button
+	<div
+		class="
+			container
+			mx-auto
+			gap-4
+			py-4
+			grid grid-cols-1
+			md:grid-cols-7
+			px-4
+		"
+	>
+		<div class="md:col-span-7"></div>
+		<div class="md:col-span-5 w-full">
+			<router-view v-slot="{ Component }">
+				<template v-if="Component">
+					<KeepAlive>
+						<Suspense>
+							<Component :is="Component"></Component>
+							<template #fallback>
+								<div
+									class="
+										flex flex-col
+										relative
+										w-full
+										min-h-full
+										rounded-lg
+										bg-white
+										shadow shadow-primary/25
+										overflow-clip
+									"
+								>
+									<div class="p-4">
+										<div class="pt-1.5 pb-0.5">
+											<div
+												class="
+													h-7
+													w-96
+													inline-block
+													bg-primary/10
+													rounded-lg
+													animate-pulse
+												"
+											></div>
+										</div>
+										<div class="pt-1.5 pb-0.5">
+											<div
+												class="
+													h-4
+													w-64
+													bg-primary/10
+													rounded-md
+													animate-pulse
+												"
+											></div>
+										</div>
+									</div>
+
+									<div
+										class="px-4 flex-1 min-h-[18rem]"
+									></div>
+
+									<div
+										class="
+											p-4
+											sticky
+											bottom-0
+											bg-white
+											flex
+											justify-between
+											z-40
+										"
+									>
+										<slot name="footer">
+											<c-button
+												scheme="secondary"
+												type="button"
+												disabled
+												loading
+											>
+												отмена
+											</c-button>
+											<c-button disabled loading>
+												продолжить
+											</c-button>
+										</slot>
+									</div>
+								</div>
+							</template>
+						</Suspense>
+					</KeepAlive>
+				</template>
+			</router-view>
+		</div>
+		<div class="md:col-span-2 w-full">
+			<div class="rounded-lg bg-white shadow shadow-primary/25 p-4">
+				<!-- <button
                     class="
                         block
                         px-4
@@ -56,28 +134,28 @@ onMounted(async () => {
                 >
                     Заказ
                 </button> -->
-                <router-link
-                    to="/faq"
-                    class="hover:text-blue-600 text-lg mb-2 block"
-                >
-                    Частые вопросы
-                </router-link>
-                <a
-                    href="javascript:jivo_api.open()"
-                    class="hover:text-blue-600 text-lg mb-2 block"
-                >
-                    Поддержка
-                </a>
-            </div>
+				<router-link
+					to="/faq"
+					class="hover:text-blue-600 text-lg mb-2 block"
+				>
+					Частые вопросы
+				</router-link>
+				<a
+					href="javascript:jivo_api.open()"
+					class="hover:text-blue-600 text-lg mb-2 block"
+				>
+					Поддержка
+				</a>
+			</div>
 
-            <adv-widget class="hidden md:block"></adv-widget>
-            <adv-widget class="hidden md:block"></adv-widget>
-        </div>
-        <div class="md:hidden grid grid-cols-2 gap-4">
-            <adv-widget></adv-widget>
-            <adv-widget></adv-widget>
-        </div>
-        <!-- <div class="basis-5/7 bg-white shadow-md rounded-lg p-4">
+			<adv-widget class="hidden md:block"></adv-widget>
+			<adv-widget class="hidden md:block"></adv-widget>
+		</div>
+		<div class="md:hidden grid grid-cols-2 gap-4">
+			<adv-widget></adv-widget>
+			<adv-widget></adv-widget>
+		</div>
+		<!-- <div class="basis-5/7 bg-white shadow-md rounded-lg p-4">
             <div></div>
             <div v-show="true">
                 <div>
@@ -712,7 +790,7 @@ onMounted(async () => {
                 </div>
             </div> 
         </div> -->
-        <!-- <div class="basis-2/7 flex flex-col">
+		<!-- <div class="basis-2/7 flex flex-col">
             <div class="bg-white shadow-md rounded-lg p-4 flex flex-col gap-4">
                 <button
                     class="
@@ -750,5 +828,5 @@ onMounted(async () => {
                 </button>
             </div>
         </div> -->
-    </div>
+	</div>
 </template>
