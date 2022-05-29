@@ -2,7 +2,7 @@
 <script setup>
 	import useCategoryApi from "@/composables/categories/instance";
 	import { onMounted, toRefs } from "vue";
-	import AdvWidget from "@/components/adv/filter-widget.vue";
+    import MakeOrder from "@/components/adv/make-order.vue";
 	const props = defineProps({
 		categorySlug: {
 			type: String,
@@ -148,12 +148,12 @@
 				</a>
 			</div>
 
-			<adv-widget class="hidden md:block"></adv-widget>
-			<adv-widget class="hidden md:block"></adv-widget>
+			<make-order class="hidden md:block" :category="categorySlug" index="0"></make-order>
+			<make-order class="hidden md:block" :category="categorySlug" index="2"></make-order>
 		</div>
 		<div class="md:hidden grid grid-cols-2 gap-4">
-			<adv-widget></adv-widget>
-			<adv-widget></adv-widget>
+			<make-order></make-order>
+			<make-order></make-order>
 		</div>
 		<!-- <div class="basis-5/7 bg-white shadow-md rounded-lg p-4">
             <div></div>
