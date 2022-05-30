@@ -35,53 +35,58 @@ onMounted(async () => {
   await onGetWhenNotLoaded(categorySlug.value);
 });
 
-const {
-  services,
-  isLoading: servicesIsLoading,
-  isLoaded: servicesIsLoaded,
-  onGet: onGetServices,
-} = useServicesApi({
-  perPage: 1000,
-  category: categorySlug.value,
-  parent: serviceSlugs.value?.[serviceSlugs.value?.length - 1],
-});
-const isExpanded = ref(false);
-onMounted(async () => {
-  await onGetServices({});
-  if (services.value.length < 10) {
-    isExpanded.value = true;
-  }
-  if (!!!currentDraftedOrder.value) return;
-  const s = currentDraftedOrder.value.services.find((ss) =>
-    services.value.find((sss) => sss.slug == ss.slug)
-  );
-  service.value = s?.slug;
-  // const serv = currentDraftedOrder?.value?.services.find(
-  //     (s) =>
-  //         !s.is_active &&
-  //         s.parent?.slug ==
-  //             serviceSlugs.value?.[serviceSlugs.value?.length - 1]
-  // );
-  // console.log(serv);
-});
+	const {
+		services,
+		isLoading: servicesIsLoading,
+		isLoaded: servicesIsLoaded,
+		onGet: onGetServices,
+	} = useServicesApi({
+		perPage: 1000,
+		category: categorySlug.value,
+		parent: serviceSlugs.value?.[serviceSlugs.value?.length - 1],
+	});
+	const isExpanded = ref(false);
+	onMounted(async () => {
+		await onGetServices({});
+		if (services.value.length < 8) {
+			isExpanded.value = true;
+		}
+		if (!!!currentDraftedOrder.value) return;
+		const s = currentDraftedOrder.value.services.find((ss) =>
+			services.value.find((sss) => sss.slug == ss.slug)
+		);
+		service.value = s?.slug;
+		// const serv = currentDraftedOrder?.value?.services.find(
+		//     (s) =>
+		//         !s.is_active &&
+		//         s.parent?.slug ==
+		//             serviceSlugs.value?.[serviceSlugs.value?.length - 1]
+		// );
+		// console.log(serv);
+	});
 
-const back = () => {
-  router.back();
-};
-const computedServices = computed(() => {
-  if (isExpanded.value) {
-    return services.value;
-  }
-  const index =
-    services.value?.findIndex((s) =>
-      currentDraftedOrder.value?.services?.find((ss) => ss.slug == s.slug)
-    ) + 1;
-  return services.value?.slice(0, index > 10 ? index : 10);
-});
+	const back = () => {
+		router.back();
+	};
+	const computedServices = computed(() => {
+		if (isExpanded.value) {
+			return services.value;
+		}
+		const index =
+			services.value?.findIndex((s) =>
+				currentDraftedOrder.value?.services?.find((ss) => ss.slug == s.slug)
+			) + 1;
+		return services.value?.slice(0, index > 8 ? index : 8);
+	});
 
-const isLoading = computed(
-  () => categoryIsLoading.value || servicesIsLoading.value
-);
+	const isLoading = computed(
+		() =>
+			categoryIsLoading.value ||
+			servicesIsLoading.value ||
+			orderIsUpdating.value ||
+			orderIsCreating.value ||
+			serviceIsLoading.value
+	);
 
 const service = ref();
 const newEntry = ref(false);

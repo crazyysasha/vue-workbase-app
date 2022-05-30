@@ -72,7 +72,6 @@ const onSubmit = async () => {
     if (!(await v.value.$validate())) {
         return;
     }
-    console.log(state);
     if (!!!currentDraftedOrder.value)
         await onCreateOrder({
             category: categorySlug.value,

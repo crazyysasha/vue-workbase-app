@@ -4,7 +4,12 @@
 	import { ref, toRefs } from "@vue/reactivity";
 	import { onMounted } from "@vue/runtime-core";
 	import useVuelidate from "@vuelidate/core";
-	import { helpers, requiredIf, requiredUnless } from "@vuelidate/validators";
+	import {
+		helpers,
+		required,
+		requiredIf,
+		requiredUnless,
+	} from "@vuelidate/validators";
 	import { useRouter } from "vue-router";
 	import BaseForm from "./base-form.vue";
 	const props = defineProps({
@@ -36,34 +41,17 @@
 		onUpdate: onUpdateOrder,
 	} = useUpdateOrderApi(categorySlug.value);
 
-	const price = ref(currentDraftedOrder.value?.price || "");
 	const minPrice = ref(currentDraftedOrder.value?.price_min || "");
 	const maxPrice = ref(currentDraftedOrder.value?.price_max || "");
-	const isRangedPrice = ref(currentDraftedOrder.value?.is_ranged_price || false);
 
-	const v = useVuelidate(
-		{
-			price: {
-				requiredIf: helpers.withMessage(
-					"Укажите цену",
-					requiredUnless(!isRangedPrice.value)
-				),
-			},
-			minPrice: {
-				requiredIf: helpers.withMessage(
-					"Укажите минимальную цену",
-					requiredIf(!isRangedPrice.value)
-				),
-			},
-			maxPrice: {
-				requiredIf: helpers.withMessage(
-					"Укажите максимальную цену",
-					requiredIf(!isRangedPrice.value)
-				),
-			},
+	const rules = {
+		minPrice: {},
+		maxPrice: {
+			required: helpers.withMessage("Укажите максимальную цену", required),
 		},
-		{ price, minPrice, maxPrice, isRangedPrice }
-	);
+	};
+
+	const v = useVuelidate(rules, { minPrice, maxPrice });
 
 	const onSubmit = async (e) => {
 		if (!(await v.value.$validate())) {
@@ -71,10 +59,9 @@
 		}
 
 		await onUpdateOrder({
-			price: !isRangedPrice.value ? price.value : 0,
-			price_min: isRangedPrice.value ? minPrice.value : 0,
-			price_max: isRangedPrice.value ? maxPrice.value : 0,
-			is_ranged_price: isRangedPrice.value,
+			price_min: minPrice.value,
+			price_max: maxPrice.value,
+			is_ranged_price: true,
 		});
 		router.push({
 			name: "order.update",
@@ -103,7 +90,7 @@
 			<p class="text-orange-500">{{ category.name }}</p>
 		</template>
 		<div class="grid gap-4 grid-cols-2">
-			<div class="col-span-2" v-if="!isRangedPrice">
+			<!-- <div class="col-span-2">
 				<label for="priceField" class="mb-2 inline-block">
 					Цена за работу:
 				</label>
@@ -144,13 +131,10 @@
 						{{ error.$message }}
 					</div>
 				</div>
-			</div>
-			<div
-				class="col-span-2 sm:col-span-1 md:col-span-2 lg:col-span-1"
-				v-if="isRangedPrice"
-			>
+			</div> -->
+			<div class="col-span-2 sm:col-span-1 md:col-span-2 lg:col-span-1">
 				<label for="minPriceField" class="mb-2 inline-block">
-					Минимальная цена за работу:
+					Минимальный бюджет за работу:
 				</label>
 				<label
 					class="
@@ -192,12 +176,9 @@
 					</div>
 				</div>
 			</div>
-			<div
-				class="col-span-2 sm:col-span-1 md:col-span-2 lg:col-span-1"
-				v-if="isRangedPrice"
-			>
+			<div class="col-span-2 sm:col-span-1 md:col-span-2 lg:col-span-1">
 				<label for="maxPriceField" class="mb-2 inline-block">
-					Максимальная цена за работу:
+					Максимальный бюджет за работу:
 				</label>
 				<label
 					class="
@@ -237,16 +218,6 @@
 						{{ error.$message }}
 					</div>
 				</div>
-			</div>
-			<div class="col-span-2">
-				<label for="isRangedPriceField">
-					<input
-						type="checkbox"
-						id="isRangedPriceField"
-						v-model="isRangedPrice"
-					/>
-					Указать диапазон
-				</label>
 			</div>
 		</div>
 		<template #footer>

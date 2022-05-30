@@ -2,7 +2,7 @@
 <script setup>
 	import useCategoryApi from "@/composables/categories/instance";
 	import { onMounted, toRefs } from "vue";
-    import MakeOrder from "@/components/adv/make-order.vue";
+	import MakeOrder from "@/components/adv/make-order.vue";
 	const props = defineProps({
 		categorySlug: {
 			type: String,
@@ -148,12 +148,28 @@
 				</a>
 			</div>
 
-			<make-order class="hidden md:block" :category="categorySlug" index="0"></make-order>
-			<make-order class="hidden md:block" :category="categorySlug" index="2"></make-order>
+			<make-order
+				class="hidden md:block"
+				:category="categorySlug"
+				:index="0"
+			></make-order>
+			<make-order
+				class="hidden md:block"
+				:category="categorySlug"
+				:index="2"
+			></make-order>
 		</div>
 		<div class="md:hidden grid grid-cols-2 gap-4">
-			<make-order></make-order>
-			<make-order></make-order>
+			<make-order
+				:category="categorySlug"
+				:index="0"
+				class="col-span-2 sm:col-span-1"
+			></make-order>
+			<make-order
+				:category="categorySlug"
+				:index="2"
+				class="col-span-2 sm:col-span-1"
+			></make-order>
 		</div>
 		<!-- <div class="basis-5/7 bg-white shadow-md rounded-lg p-4">
             <div></div>
