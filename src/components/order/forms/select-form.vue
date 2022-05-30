@@ -80,7 +80,11 @@
 	});
 
 	const isLoading = computed(
-		() => categoryIsLoading.value || servicesIsLoading.value
+		() =>
+			categoryIsLoading.value ||
+			servicesIsLoading.value ||
+			orderIsUpdating.value ||
+			orderIsCreating.value || serviceIsLoading.value
 	);
 
 	const service = ref();
@@ -217,13 +221,25 @@
 					class="h-7 w-96 bg-primary/10 rounded-lg animate-pulse"
 				></div>
 			</div>
-			<h1 class="text-3xl text-primary" v-else>Выберите услугу</h1>
+			<h1
+				class="text-3xl text-primary"
+				:class="{ 'animate-pulse': isLoading }"
+				v-else
+			>
+				Выберите услугу
+			</h1>
 			<div v-if="categoryIsLoading" class="pt-1.5 pb-0.5">
 				<div
 					class="h-4 w-64 bg-primary/10 rounded-md animate-pulse"
 				></div>
 			</div>
-			<p class="text-orange-500">{{ category.name }}</p>
+			<p
+				class="text-orange-500"
+				:class="{ 'animate-pulse': isLoading }"
+				v-else
+			>
+				{{ category.name }}
+			</p>
 		</template>
 		<ul v-if="servicesIsLoading">
 			<li
@@ -249,7 +265,7 @@
 				</div>
 			</li>
 		</ul>
-		<ul v-else>
+		<ul v-else :class="{ 'animate-pulse': isLoading }">
 			<li
 				v-for="s in computedServices"
 				:key="s.id"
@@ -368,6 +384,7 @@
 		</div>
 		<a
 			class="text-primary hover:text-primary/75 mt-2 inline-block"
+			:class="{ 'animate-pulse': isLoading }"
 			href="javascript:;"
 			@click="isExpanded = true"
 			v-else-if="!isExpanded"

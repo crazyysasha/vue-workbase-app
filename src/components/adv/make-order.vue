@@ -18,62 +18,61 @@
 
 	const props = defineProps({
 		category: {},
-        index: {
-            type: Number,
-            required: true
-        },
+		index: {
+			type: Number,
+			required: true,
+		},
 	});
 
 	const banners = {
 		"obrazovanie-i-repetitorstvo": [
 			"http://api.workbase.uz/storage/app/media/banners/tutors/1.jpg",
 			"http://api.workbase.uz/storage/app/media/banners/tutors/2.jpg",
-            "http://api.workbase.uz/storage/app/media/banners/tutors/3.jpg",
-            "http://api.workbase.uz/storage/app/media/banners/tutors/4.jpg",
+			"http://api.workbase.uz/storage/app/media/banners/tutors/3.jpg",
+			"http://api.workbase.uz/storage/app/media/banners/tutors/4.jpg",
 		],
-        "mastera-po-remontu": [
-            "http://api.workbase.uz/storage/app/media/banners/masters/1.jpg",
-            "http://api.workbase.uz/storage/app/media/banners/masters/2.jpg",
-            "http://api.workbase.uz/storage/app/media/banners/masters/3.jpg",
-            "http://api.workbase.uz/storage/app/media/banners/masters/4.jpg",
-            
-        ],
-        "zdorove-i-krasota": [
-            "http://api.workbase.uz/storage/app/media/banners/beauty/1.jpg",
-            "http://api.workbase.uz/storage/app/media/banners/beauty/2.jpg",
-            "http://api.workbase.uz/storage/app/media/banners/beauty/3.jpg",
-            "http://api.workbase.uz/storage/app/media/banners/beauty/4.jpg",
-        ],
-        "vrachi-i-meditsina": [
-            "http://api.workbase.uz/storage/app/media/banners/doctors/1.jpg",
-            "http://api.workbase.uz/storage/app/media/banners/doctors/2.jpg",
-            "http://api.workbase.uz/storage/app/media/banners/doctors/3.jpg",
-            "http://api.workbase.uz/storage/app/media/banners/doctors/4.jpg",
-        ],
-        "it-i-frilansery": [
-            "http://api.workbase.uz/storage/app/media/banners/it/1.jpg",
-            "http://api.workbase.uz/storage/app/media/banners/it/2.jpg",
-            "http://api.workbase.uz/storage/app/media/banners/it/3.jpg",
-            "http://api.workbase.uz/storage/app/media/banners/it/4.jpg",
-        ],
-        "domashniy-personal": [
-            "http://api.workbase.uz/storage/app/media/banners/staff/1.jpg",
-            "http://api.workbase.uz/storage/app/media/banners/staff/2.jpg",
-            "http://api.workbase.uz/storage/app/media/banners/staff/3.jpg",
-            "http://api.workbase.uz/storage/app/media/banners/staff/4.jpg",
-        ],
-        "bukhgaltery-i-yuristy": [
-            "http://api.workbase.uz/storage/app/media/banners/accountants/1.jpg",
-            "http://api.workbase.uz/storage/app/media/banners/accountants/2.jpg",
-            "http://api.workbase.uz/storage/app/media/banners/accountants/3.jpg",
-            "http://api.workbase.uz/storage/app/media/banners/accountants/4.jpg",
-        ],
-        "artisty": [
-            "http://api.workbase.uz/storage/app/media/banners/artists/1.jpg",
-            "http://api.workbase.uz/storage/app/media/banners/artists/2.jpg",
-            "http://api.workbase.uz/storage/app/media/banners/artists/3.jpg",
-            "http://api.workbase.uz/storage/app/media/banners/artists/4.jpg",
-        ],
+		"mastera-po-remontu": [
+			"http://api.workbase.uz/storage/app/media/banners/masters/1.jpg",
+			"http://api.workbase.uz/storage/app/media/banners/masters/2.jpg",
+			"http://api.workbase.uz/storage/app/media/banners/masters/3.jpg",
+			"http://api.workbase.uz/storage/app/media/banners/masters/4.jpg",
+		],
+		"zdorove-i-krasota": [
+			"http://api.workbase.uz/storage/app/media/banners/beauty/1.jpg",
+			"http://api.workbase.uz/storage/app/media/banners/beauty/2.jpg",
+			"http://api.workbase.uz/storage/app/media/banners/beauty/3.jpg",
+			"http://api.workbase.uz/storage/app/media/banners/beauty/4.jpg",
+		],
+		"vrachi-i-meditsina": [
+			"http://api.workbase.uz/storage/app/media/banners/doctors/1.jpg",
+			"http://api.workbase.uz/storage/app/media/banners/doctors/2.jpg",
+			"http://api.workbase.uz/storage/app/media/banners/doctors/3.jpg",
+			"http://api.workbase.uz/storage/app/media/banners/doctors/4.jpg",
+		],
+		"it-i-frilansery": [
+			"http://api.workbase.uz/storage/app/media/banners/it/1.jpg",
+			"http://api.workbase.uz/storage/app/media/banners/it/2.jpg",
+			"http://api.workbase.uz/storage/app/media/banners/it/3.jpg",
+			"http://api.workbase.uz/storage/app/media/banners/it/4.jpg",
+		],
+		"domashniy-personal": [
+			"http://api.workbase.uz/storage/app/media/banners/staff/1.jpg",
+			"http://api.workbase.uz/storage/app/media/banners/staff/2.jpg",
+			"http://api.workbase.uz/storage/app/media/banners/staff/3.jpg",
+			"http://api.workbase.uz/storage/app/media/banners/staff/4.jpg",
+		],
+		"bukhgaltery-i-yuristy": [
+			"http://api.workbase.uz/storage/app/media/banners/accountants/1.jpg",
+			"http://api.workbase.uz/storage/app/media/banners/accountants/2.jpg",
+			"http://api.workbase.uz/storage/app/media/banners/accountants/3.jpg",
+			"http://api.workbase.uz/storage/app/media/banners/accountants/4.jpg",
+		],
+		artisty: [
+			"http://api.workbase.uz/storage/app/media/banners/artists/1.jpg",
+			"http://api.workbase.uz/storage/app/media/banners/artists/2.jpg",
+			"http://api.workbase.uz/storage/app/media/banners/artists/3.jpg",
+			"http://api.workbase.uz/storage/app/media/banners/artists/4.jpg",
+		],
 	};
 </script>
 <template>
@@ -96,10 +95,16 @@
 					@slideChange="() => {}"
 				>
 					<swiper-slide
-						v-for="banner in banners?.[category]?.slice(index, index+2) || []"
+						v-for="banner in banners?.[category]?.slice(
+							index,
+							index + 2
+						) || []"
 						:key="banner"
 					>
-						<img class="w-full h-44 object-cover rounded-md" :src="banner" />
+						<img
+							class="w-full object-cover rounded-md"
+							:src="banner"
+						/>
 					</swiper-slide>
 				</swiper>
 			</div>
