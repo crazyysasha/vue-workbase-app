@@ -134,7 +134,7 @@
 			</div> -->
 			<div class="col-span-2 sm:col-span-1 md:col-span-2 lg:col-span-1">
 				<label for="minPriceField" class="mb-2 inline-block">
-					Минимальная цена за работу:
+					Минимальный бюджет за работу:
 				</label>
 				<label
 					class="
@@ -178,7 +178,7 @@
 			</div>
 			<div class="col-span-2 sm:col-span-1 md:col-span-2 lg:col-span-1">
 				<label for="maxPriceField" class="mb-2 inline-block">
-					Максимальная цена за работу:
+					Максимальный бюджет за работу:
 				</label>
 				<label
 					class="
@@ -218,16 +218,6 @@
 						{{ error.$message }}
 					</div>
 				</div>
-			</div>
-			<div class="col-span-2">
-				<label for="isRangedPriceField">
-					<input
-						type="checkbox"
-						id="isRangedPriceField"
-						v-model="isRangedPrice"
-					/>
-					Указать диапазон
-				</label>
 			</div>
 		</div>
 		<template #footer>

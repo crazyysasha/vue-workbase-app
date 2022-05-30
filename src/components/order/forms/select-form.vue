@@ -48,7 +48,7 @@
 	const isExpanded = ref(false);
 	onMounted(async () => {
 		await onGetServices({});
-		if (services.value.length < 10) {
+		if (services.value.length < 8) {
 			isExpanded.value = true;
 		}
 		if (!!!currentDraftedOrder.value) return;
@@ -76,7 +76,7 @@
 			services.value?.findIndex((s) =>
 				currentDraftedOrder.value?.services?.find((ss) => ss.slug == s.slug)
 			) + 1;
-		return services.value?.slice(0, index > 10 ? index : 10);
+		return services.value?.slice(0, index > 8 ? index : 8);
 	});
 
 	const isLoading = computed(
@@ -84,7 +84,8 @@
 			categoryIsLoading.value ||
 			servicesIsLoading.value ||
 			orderIsUpdating.value ||
-			orderIsCreating.value || serviceIsLoading.value
+			orderIsCreating.value ||
+			serviceIsLoading.value
 	);
 
 	const service = ref();
@@ -243,7 +244,7 @@
 		</template>
 		<ul v-if="servicesIsLoading">
 			<li
-				v-for="item in 10"
+				v-for="item in 8"
 				:key="`service-item-skeleton${item}`"
 				class="border border-transparent"
 			>
@@ -389,7 +390,7 @@
 			@click="isExpanded = true"
 			v-else-if="!isExpanded"
 		>
-			показать все услуги
+			Показать все услуги
 			<h-chevron-down class="h-4 w-4 inline"></h-chevron-down>
 		</a>
 		<div class="h-4"></div>
