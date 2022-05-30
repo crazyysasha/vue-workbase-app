@@ -148,34 +148,13 @@ const back = () => router.back();
         </template>
         <ul>
             <li>
-                <label class="select-none">
-                    <input
-                        v-model="state.at_executor"
-                        type="checkbox"
-                        :value="true"
-                    />
-                    у исполнителя
-                </label>
+                <c-checkbox v-model="state.at_executor">У исполнителя</c-checkbox>
             </li>
             <li>
-                <label class="select-none">
-                    <input
-                        v-model="state.at_customer"
-                        type="checkbox"
-                        :value="true"
-                    />
-                    у заказчика
-                </label>
+                <c-checkbox v-model="state.at_customer">У заказчика</c-checkbox>
             </li>
             <li>
-                <label class="select-none">
-                    <input
-                        v-model="state.is_online"
-                        type="checkbox"
-                        :value="true"
-                    />
-                    дистанционно
-                </label>
+                <c-checkbox v-model="state.is_online">Дистанционно</c-checkbox>
             </li>
         </ul>
         <div
