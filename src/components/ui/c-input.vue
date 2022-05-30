@@ -1,52 +1,92 @@
 <template>
-    <label :for="fieldName + 'Field'">
-        <slot></slot>
-        <input
-            :type="type"
-            :value="modelValue"
-            @input="emit('update:modelValue', $event.target.value)"
-            :placeholder="placeholder"
-            class="
-                border
-                rounded-sm
-                focus:border-orange-500
-                py-2
-                px-6
-                focus:outline-none
-                w-full
-                font-medium
-                text-sm
-                md:text-md
-            "
-            :class="classes || {}"
-        />
+  <div class="relative group">
+    <label
+      :for="fieldName + 'Field'"
+      class="
+        text-primary
+        absolute
+        pointer-events-none
+        rounded-full
+        -translate-y-1/2
+        group-focus-within:top-0
+        group-focus-within:text-sm
+        group-focus-within:px-1
+        group-focus-within:!left-3
+        transition-all
+        duration-200
+        before:-z-10
+        before:h-px
+        before:w-full
+        before:bg-[#e8ecf7]
+        before:absolute
+        before:top-1/2
+        before:left-0
+      "
+      :class="{
+        'top-1/2': !!!modelValue,
+        'text-sm': !!modelValue,
+        'px-1': !!modelValue,
+        'left-4': !!!modelValue,
+        'left-3': !!modelValue,
+        'text-red-500': isInvalid,
+      }"
+      v-if="$slots.default"
+    >
+      <slot></slot>
     </label>
+    <input
+      :type="type"
+      :value="modelValue"
+      @input="emit('update:modelValue', $event.target.value)"
+      :placeholder="placeholder"
+      class="
+        focus:outline-none
+        bg-primary/10
+        px-3
+        py-1
+        rounded-md
+        border border-primary/10
+        focus:border-primary
+        disabled:cursor-pointer
+        placeholder:transition placeholder:duration-200
+         placeholder:select-none
+        focus:placeholder:text-gray-400
+        transition duration-200
+        focus:shadow-md
+        focus:shadow-primary/10
+      "
+      :class="{'placeholder:text-transparent': $slots.default}"
+    />
+  </div>
 </template>
 <script setup>
 import { toRefs } from "vue";
 
 const props = defineProps({
-    name: { type: String, required: true },
-    modelValue: {
-        type: [String, Number],
-        required: true,
-        default: null,
+  name: { type: String, required: true },
+  modelValue: {
+    type: [String, Number],
+    required: true,
+    default: null,
+  },
+  placeholder: {
+    type: [String, Number],
+  },
+  type: {
+    type: [String],
+    default: "text",
+  },
+  classes: {
+    type: Object,
+    default: function () {
+      return {};
     },
-    placeholder: {
-        type: [String, Number],
-    },
-    type: {
-        type: [String],
-        default: "text",
-    },
-    classes: {
-        type: Object,
-        default: function () {
-            return {};
-        },
-    },
+  },
 });
 const { value, classes, modelValue, name: fieldName } = toRefs(props);
 
 const emit = defineEmits(["update:modelValue"]);
+
+
+
 </script>
