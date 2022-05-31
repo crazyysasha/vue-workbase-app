@@ -1,12 +1,16 @@
 <template>
 	<div class="relative group">
 		<input
+			ref="input"
 			:type="type"
 			:value="modelValue"
 			@input="emit('update:modelValue', $event.target.value)"
 			:name="name"
 			:disabled="disabled"
 			:placeholder="placeholder"
+			:step="step"
+			:min="min"
+			:max="max"
 			class="
 				focus:outline-none
 				px-3
@@ -25,12 +29,14 @@
 				peer
 			"
 			:class="[
-				{ 'placeholder:text-transparent': $slots.default },
+				{ 'placeholder:text-transparent': !!$slots.default },
 				{ '!border-red-500/50': isInvalid },
 				{ 'focus:!border-red-500': isInvalid },
 				inputClass,
 			]"
+			:autofocus="autofocus"
 		/>
+
 		<label
 			:for="fieldName + 'Field'"
 			class="
@@ -67,10 +73,34 @@
 		>
 			<slot></slot>
 		</label>
+		<label
+			:for="fieldName + 'Field'"
+			class="
+				absolute
+				flex
+				pointer-events-none
+				items-center
+				inset-y-0
+				pl-3
+				pr-2
+				border border-transparent
+				transition
+				duration-200
+			"
+			:class="{
+				'text-transparent group-focus-within:text-primary':
+					!!!modelValue,
+				'text-primary': !!modelValue,
+			}"
+			v-if="$slots.sufix"
+			ref="suffixContainer"
+		>
+			<slot name="sufix"></slot>
+		</label>
 	</div>
 </template>
 <script setup>
-	import { computed, toRefs } from "vue";
+	import { onMounted, ref, computed, toRefs, useSlots } from "vue";
 
 	const props = defineProps({
 		name: { type: String, required: false },
@@ -106,17 +136,52 @@
 			required: false,
 			default: false,
 		},
+		autofocus: {
+			type: Boolean,
+			required: false,
+			default: false,
+		},
+		step: {
+			type: [Number, String],
+			required: false,
+			default: 1,
+		},
+		min: {
+			type: [Number, String],
+			required: false,
+		},
+		max: {
+			type: [Number, String],
+			required: false,
+		},
 	});
 	const {
-		value,
 		class: inputClass,
 		modelValue,
 		name: fieldName,
 		valid,
 		disabled,
+		autofocus,
 	} = toRefs(props);
 
 	const isInvalid = computed(() => !valid.value);
-
+	const input = ref();
+	const suffixContainer = ref();
+	onMounted(() => {
+		if (autofocus.value) {
+			input.value.focus();
+		}
+		if (suffixContainer.value) {
+			input.value.style.paddingLeft = `${suffixContainer.value.clientWidth}px`;
+		}
+	});
 	const emit = defineEmits(["update:modelValue"]);
 </script>
+
+<style>
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+	-webkit-appearance: none;
+	@apply hidden m-0;
+}
+</style>

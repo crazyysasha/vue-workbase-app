@@ -155,38 +155,17 @@
 				</div>
 			</div> -->
 			<div class="col-span-2 sm:col-span-1 md:col-span-2 lg:col-span-1">
-				<label for="minPriceField" class="mb-2 inline-block">
-					Минимальный бюджет за работу:
-				</label>
-				<label
-					class="
-						rounded-md
-						bg-primary/10
-						border border-primary/10
-						hover:border-primary/50
-						focus-within:!border-primary focus-within:outline-none
-						overflow-hidden
-						flex
-					"
-					for="minPriceField"
+				<c-input
+					placeholder="1000"
+					type="number"
+					v-model="minPrice"
+					class="w-full py-2"
+					min="0"
+					name="minPrice"
 				>
-					<div class="py-1.5 px-2">От:</div>
-					<input
-						id="minPriceField"
-						type="number"
-						v-model="minPrice"
-						class="
-							block
-							w-full
-							pr-2
-							py-1.5
-							bg-transparent
-							focus:outline-none
-						"
-						min="1000"
-						placeholder="1000"
-					/>
-				</label>
+					<template #sufix>От:</template>
+					Минимальный бюджет за работу
+				</c-input>
 
 				<div class="mt-1 mb-3">
 					<div
@@ -198,39 +177,27 @@
 					</div>
 				</div>
 			</div>
-			<div class="col-span-2 sm:col-span-1 md:col-span-2 lg:col-span-1">
-				<label for="maxPriceField" class="mb-2 inline-block">
-					Максимальный бюджет за работу:
-				</label>
-				<label
-					class="
-						rounded-md
-						bg-primary/10
-						border border-primary/10
-						hover:border-primary/50
-						focus-within:!border-primary focus-within:outline-none
-						overflow-hidden
-						flex
-					"
-					for="maxPriceField"
+			<div
+				class="
+					col-span-2
+					sm:col-span-1
+					md:col-span-2
+					lg:col-span-1
+					flex flex-col
+				"
+			>
+				<c-input
+					placeholder="10000"
+					type="number"
+					v-model="maxPrice"
+					name="maxPrice"
+					class="w-full py-2"
+					autofocus
+					min="0"
 				>
-					<div class="py-1.5 px-2">До:</div>
-					<input
-						id="maxPriceField"
-						type="number"
-						v-model="maxPrice"
-						class="
-							block
-							w-full
-							pr-2
-							py-1.5
-							bg-transparent
-							focus:outline-none
-						"
-						min="1000"
-						placeholder="1000"
-					/>
-				</label>
+					<template #sufix>До:</template>
+					Максимальный бюджет за работу
+				</c-input>
 				<div class="mt-1 mb-3">
 					<div
 						class="text-red-500"
