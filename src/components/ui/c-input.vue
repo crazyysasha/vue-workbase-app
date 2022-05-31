@@ -34,12 +34,10 @@
     >
       <slot></slot>
     </label>
-    <input
-      :type="type"
-      :value="modelValue"
-      @input="emit('update:modelValue', $event.target.value)"
-      :placeholder="placeholder"
+    <label
       class="
+        flex
+        items-center
         focus:outline-none
         bg-primary/10
         px-3
@@ -48,19 +46,53 @@
         border border-primary/10
         focus:border-primary
         disabled:cursor-pointer
-        placeholder:transition placeholder:duration-200
-         placeholder:select-none
-        focus:placeholder:text-gray-400
-        transition duration-200
-        focus:shadow-md
-        focus:shadow-primary/10
+        transition
+        duration-200
+        focus:shadow-md focus:shadow-primary/10
       "
-      :class="{'placeholder:text-transparent': $slots.default}"
-    />
+    >
+      <div
+        class="transition duration-200 pr-2"
+        :class="{
+          'text-transparent group-focus-within:text-primary': !!!modelValue,
+          'text-primary': !!modelValue,
+        }"
+        v-if="$slots.sufix"
+      >
+        <slot name="sufix"></slot>
+      </div>
+      <input
+        ref="input"
+        :type="type"
+        :value="modelValue"
+        @input="emit('update:modelValue', $event.target.value)"
+        :placeholder="placeholder"
+        :step="step"
+        :min="min"
+        :max="max"
+        class="
+          block
+          w-full
+          pr-2
+          py-1.5
+          bg-transparent
+          focus:outline-none
+          placeholder:transition
+          placeholder:duration-200
+          placeholder:select-none
+          focus:placeholder:text-gray-400
+        "
+        :class="[
+          { 'placeholder:text-transparent': $slots.default },
+          inputClass,
+        ]"
+        :autofocus="autofocus"
+      />
+    </label>
   </div>
 </template>
 <script setup>
-import { toRefs } from "vue";
+import { onMounted, ref, toRefs } from "vue";
 
 const props = defineProps({
   name: { type: String, required: true },
@@ -76,17 +108,46 @@ const props = defineProps({
     type: [String],
     default: "text",
   },
-  classes: {
+  class: {
     type: Object,
     default: function () {
       return {};
     },
   },
+  autofocus: {
+    type: Boolean,
+    required: false,
+    default: false,
+  },
+  step: {
+      type: Number,
+      required: false,
+      default: 1,
+  },
+  min: {
+      type: Number,
+      required: false,
+  },
+  max: {
+      type: Number,
+      required: false,
+  },
 });
-const { value, classes, modelValue, name: fieldName } = toRefs(props);
+const { value, class: inputClass, modelValue, name: fieldName, autofocus } = toRefs(props);
 
 const emit = defineEmits(["update:modelValue"]);
 
-
-
+const input = ref();
+onMounted(() => {
+    if (autofocus.value) {
+        input.value.focus();
+    }
+});
 </script>
+<style>
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    @apply hidden m-0;
+}
+</style>
