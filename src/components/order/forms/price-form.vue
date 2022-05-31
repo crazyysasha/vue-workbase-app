@@ -73,7 +73,7 @@
 		}
 
 		await onUpdateOrder({
-			price_min: minPrice.value,
+			price_min: minPrice.value || 0,
 			price_max: maxPrice.value,
 			is_ranged_price: true,
 		}).catch(({ response }) => {

@@ -53,7 +53,7 @@ const isDisabled = computed(() => props.disabled);
             py-2
             transition-all
             duration-200
-            shadow-lg
+            shadow-md
             transform
             scale-100
             focus:ring-4

@@ -7,3 +7,4 @@ export * as CSearch from './c-search';
 export * as CCheckbox from './c-checkbox';
 export * as CTextarea from './c-textarea';
 export * as CDatepicker from './c-datepicker';
+export * as CRadio from './c-radio';

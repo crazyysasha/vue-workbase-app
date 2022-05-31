@@ -226,20 +226,19 @@
 				{{ error.$message }}
 			</div>
 		</div>
-		<div v-if="categoryIsLoading" class="pt-1.5 pb-0.5 mb-3">
+		<div v-if="categoryIsLoading" class="pt-1.5 pb-0.5">
 			<div class="h-4 w-20 bg-primary/10 rounded-md animate-pulse"></div>
 		</div>
 		<p
 			v-else-if="
 				categoryIsLoaded && category.priority_services?.length > 0
 			"
-			class="mb-3"
 			:class="{ 'animate-pulse': isLoading }"
 		>
 			Например:
 		</p>
 		<div
-			class="flex gap-4 flex-wrap min-h-[2.375rem]"
+			class="flex gap-4 flex-wrap min-h-[2.375rem] py-3"
 			v-if="categoryIsLoaded"
 		>
 			<c-button

@@ -255,12 +255,14 @@
 			</li>
 		</ul>
 		<ul v-else>
+			 {{ service }}
 			<li
 				v-for="s in computedServices"
 				:key="s.id"
 				class="border border-transparent"
 			>
-				<label
+				<c-radio v-model="service" name="service" :value="s.slug">{{ s.name }}</c-radio>
+				<!-- <label
 					class="
 						select-none
 						py-1.5
@@ -296,7 +298,7 @@
 					<span class="peer-checked:text-primary">
 						{{ s.name }}
 					</span>
-				</label>
+				</label> -->
 			</li>
 			<li>
 				<label
