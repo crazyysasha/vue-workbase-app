@@ -36,7 +36,6 @@
 			]"
 			:autofocus="autofocus"
 		/>
-
 		<label
 			:for="fieldName + 'Field'"
 			class="
