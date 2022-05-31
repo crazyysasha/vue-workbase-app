@@ -11,7 +11,8 @@
       :step="step"
       :min="min"
       :max="max"
-      class="
+      :id="fieldName + 'Field'"
+		class="
         focus:outline-none
         px-3
         py-2
@@ -113,8 +114,8 @@
       ref="eyeContainer"
       @click="isEyeClicked = !isEyeClicked"
     >
-      <h-eye :class="{hidden: isEyeClicked}"></h-eye>
-      <h-eye-off :class="{hidden: !isEyeClicked}"></h-eye-off>
+      <h-eye :class="{ hidden: isEyeClicked }"></h-eye>
+      <h-eye-off :class="{ hidden: !isEyeClicked }"></h-eye-off>
     </button>
   </div>
 </template>
@@ -122,7 +123,12 @@
 import { onMounted, ref, computed, toRefs, useSlots } from "vue";
 
 const props = defineProps({
-  name: { type: String, required: false },
+  name: {
+    type: String,
+    default() {
+      return `${parseInt(Math.random() * 1000000)}`;
+    },
+  },
   modelValue: {
     type: [String, Number],
     required: true,
@@ -140,30 +146,25 @@ const props = defineProps({
   },
   class: {
     type: [Object, String, Array],
-    required: false,
     default: function () {
       return {};
     },
   },
   valid: {
     type: Boolean,
-    required: false,
     default: true,
   },
   disabled: {
     type: Boolean,
-    required: false,
     default: false,
   },
   autofocus: {
     type: Boolean,
-    required: false,
     default: false,
   },
   step: {
     type: [Number, String],
-    required: false,
-    default: 1,
+    default: null,
   },
   min: {
     type: [Number, String],
@@ -171,11 +172,11 @@ const props = defineProps({
   },
   max: {
     type: [Number, String],
-    required: false,
+    default: null,
   },
   eye: {
     type: Boolean,
-    required: false,
+    default: false,
   },
 });
 const {
