@@ -107,6 +107,7 @@
 				name="password"
 				class="w-full"
 				type="password"
+				eye
 				:valid="!registerValidator.password.$error"
 			>
 				Пароль
@@ -125,6 +126,7 @@
 				name="passwordConfirmation"
 				class="w-full"
 				type="password"
+				eye
 				:valid="!registerValidator.passwordConfirmation.$error"
 			>
 				Подтверждение пароля

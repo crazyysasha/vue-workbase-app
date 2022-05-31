@@ -29,6 +29,7 @@
 				:valid="!loginValidator.password.$error"
 				type="password"
 				placeholder="Пароль"
+				eye
 				class="w-full"
 			>
 				Пароль

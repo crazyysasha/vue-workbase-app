@@ -9,7 +9,6 @@
       @input="emit('update:modelValue', $event.target.value)"
       :placeholder="placeholder"
       class="
-        overflow-hidden
         focus:outline-none
         px-3
         py-2
@@ -29,7 +28,6 @@
         { 'placeholder:text-transparent': !!$slots.default },
         { '!border-red-500/50': isInvalid },
         { 'focus:!border-red-500': isInvalid },
-        inputClass,
         textareaClass,
       ]"
       :autofocus="autofocus"
