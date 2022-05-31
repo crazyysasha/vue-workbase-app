@@ -1,120 +1,128 @@
 <template>
-  <div class="relative group w-full h-full">
-    <label
-      :for="fieldName + 'Field'"
-      class="
-        text-primary
-        absolute
-        pointer-events-none
-        rounded-full
-        -translate-y-1/2
-        group-focus-within:top-0
-        group-focus-within:left-2
-        group-focus-within:text-sm
-        group-focus-within:px-1
-        transition-all
-        duration-200
-        before:-z-10
-        before:h-px
-        before:w-full
-        before:bg-[#e8ecf7]
-        before:absolute
-        before:top-1/2
-        before:left-0
-      "
-      :class="{
-        'top-5': !!!modelValue,
-        'text-sm': !!modelValue,
-        'px-1': !!modelValue,
-        'left-2': !!!modelValue,
-        '-left-2': !!modelValue,
-        'text-red-500': isInvalid,
-      }"
-      v-if="$slots.default"
-    >
-      <slot></slot>
-    </label>
-    <textarea
-      ref="textarea"
-      :name="name"
-      :value="modelValue"
-      :rows="rows"
-      :cols="cols"
-      @input="emit('update:modelValue', $event.target.value)"
-      :placeholder="placeholder"
-      class="
-        focus:outline-none
-        bg-primary/10
-        px-2
-        py-1.5
-        rounded-md
-        border border-primary/10
-        focus:border-primary
-        disabled:cursor-pointer
-        transition
-        duration-200
-        focus:shadow-md focus:shadow-primary/10
-        block
-        w-full
-        pr-2
-        placeholder:transition placeholder:duration-200 placeholder:select-none
-        focus:placeholder:text-gray-400
-      "
-      :class="[
-        { 'placeholder:text-transparent': $slots.default },
-        textareaClass,
-      ]"
-      :autofocus="autofocus"
-    ></textarea>
-  </div>
+	<div class="relative">
+		<textarea
+			ref="textarea"
+			:name="name"
+			:value="modelValue"
+			:rows="rows"
+			:cols="cols"
+			@input="emit('update:modelValue', $event.target.value)"
+			:placeholder="placeholder"
+			class="
+				focus:outline-none
+				px-3
+				py-2
+				rounded-md
+				border border-primary/20
+				focus:border-primary
+				placeholder:transition
+				placeholder:duration-200
+				placeholder:select-none
+				focus:placeholder:text-gray-400
+				transition
+				duration-200
+				focus:shadow-md focus:shadow-primary/10
+				disabled:bg-gray-50 disabled:cursor-not-allowed
+				peer
+			"
+			:class="[
+				{ 'placeholder:text-transparent': $slots.default },
+				textareaClass,
+			]"
+			:autofocus="autofocus"
+		></textarea>
+		<label
+			:for="fieldName + 'Field'"
+			class="
+				text-primary
+				absolute
+				pointer-events-none
+				rounded-full
+				-translate-y-1/2
+				peer-focus:top-0
+				peer-focus:text-sm
+				peer-focus:px-1
+				peer-focus:!left-2
+				peer-focus:bg-white
+				transition-all
+				duration-200
+				peer-disabled:before:top-1/2
+				peer-disabled:before:h-1/2
+				peer-disabled:before:w-full
+				peer-disabled:before:absolute
+				peer-disabled:before:bg-gray-50
+				peer-disabled:before:-z-10
+				peer-disabled:before:left-0
+			"
+			:class="[
+				{
+					'top-5': !!!modelValue,
+					'text-sm': !!modelValue,
+					'px-1': !!modelValue,
+					'left-4': !!!modelValue,
+					'left-2': !!modelValue,
+					'bg-white': !!modelValue,
+					'!text-red-500': isInvalid,
+				},
+			]"
+			v-if="$slots.default"
+		>
+			<slot></slot>
+		</label>
+	</div>
 </template>
 <script setup>
-import { onMounted, ref, toRefs } from "vue";
+	import { computed, onMounted, ref, toRefs } from "vue";
 
-const props = defineProps({
-  name: { type: String, required: true },
-  modelValue: {
-    type: [String, Number],
-    required: true,
-    default: null,
-  },
-  placeholder: {
-    type: [String, Number],
-  },
-  class: {
-    type: Object,
-    default: function () {
-      return {};
-    },
-  },
-  autofocus: {
-    type: Boolean,
-    required: false,
-    default: false,
-  },
-  rows: {
-    type: Number,
-    required: false,
-  },
-  cols: {
-    type: Number,
-    required: false,
-  },
-});
-const {
-  value,
-  class: textareaClass,
-  modelValue,
-  name: fieldName,
-  autofocus,
-} = toRefs(props);
+	const props = defineProps({
+		name: { type: String, required: true },
+		modelValue: {
+			type: [String, Number],
+			required: true,
+			default: null,
+		},
+		placeholder: {
+			type: [String, Number],
+		},
+		class: {
+			type: [Object, String, Array],
+			default: function () {
+				return {};
+			},
+		},
+		autofocus: {
+			type: Boolean,
+			required: false,
+			default: false,
+		},
+		rows: {
+			type: [Number, String],
+			required: false,
+		},
+		cols: {
+			type: [Number, String],
+			required: false,
+		},
+		valid: {
+			type: Boolean,
+			default: true,
+			required: false,
+		},
+	});
+	const {
+		class: textareaClass,
+		modelValue,
+		name: fieldName,
+		autofocus,
+		valid,
+	} = toRefs(props);
 
-const emit = defineEmits(["update:modelValue"]);
-
-const textarea = ref();
-onMounted(() => {
-  if (autofocus.value) {
-    textarea.value.focus();
-  }
-});
+	const isInvalid = computed(() => !valid.value);
+	const emit = defineEmits(["update:modelValue"]);
+	const textarea = ref();
+	onMounted(() => {
+		if (autofocus.value) {
+			textarea.value.focus();
+		}
+	});
 </script>
