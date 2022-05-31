@@ -18,3 +18,6 @@ export * as HTrash from './h-trash';
 export * as HPlusCircle from './h-plus-circle.vue';
 
 export * as HCloudUpload from './h-cloud-upload';
+
+export * as HEye from './h-eye';
+export * as HEyeOff from './h-eye-off';

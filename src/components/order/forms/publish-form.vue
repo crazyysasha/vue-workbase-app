@@ -232,7 +232,7 @@
 	const isLoginForm = ref(true);
 
 	const fullname = ref(
-		`${profile.value.name} ${profile.value.surname} ${profile.value.patronymic}`
+		`${profile?.value?.name} ${profile?.value?.surname} ${profile?.value?.patronymic}`
 	);
 </script>
 <template>
@@ -303,6 +303,7 @@
 				class="w-full"
 				type="password"
 				:valid="!loginValidator.password.$error"
+				eye
 			>
 				Пароль
 			</c-input>
@@ -437,6 +438,7 @@
 				class="w-full"
 				type="password"
 				:valid="!registerValidator.password.$error"
+				eye
 			>
 				Пароль
 			</c-input>
@@ -455,6 +457,7 @@
 				class="w-full"
 				type="password"
 				:valid="!registerValidator.passwordConfirmation.$error"
+				eye
 			>
 				Подтверждение пароля
 			</c-input>

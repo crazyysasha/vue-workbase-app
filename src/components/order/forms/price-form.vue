@@ -163,7 +163,7 @@
 					min="0"
 					name="minPrice"
 				>
-					<template #sufix>От:</template>
+					<template #prefix>От:</template>
 					Минимальный бюджет за работу
 				</c-input>
 
@@ -195,7 +195,7 @@
 					autofocus
 					min="0"
 				>
-					<template #sufix>До:</template>
+					<template #prefix>До:</template>
 					Максимальный бюджет за работу
 				</c-input>
 				<div class="mt-1 mb-3">
