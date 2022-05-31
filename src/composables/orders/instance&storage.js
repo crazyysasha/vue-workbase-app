@@ -1,4 +1,4 @@
-import { create, update } from "@/api/orders";
+import { create, publish, update } from "@/api/orders";
 import { useLocalStorage } from "@vueuse/core";
 import { computed, readonly, ref } from "vue";
 
@@ -80,6 +80,35 @@ export function useUpdateOrderApi(categorySlug) {
         isUpdating: readonly(isUpdating),
         promise: readonly(updatePromise),
         onUpdate,
+        draftedOrders: readonly(draftedOrders),
+        currentDraftedOrder: readonly(computed(() => draftedOrders.value[categorySlug])),
+    };
+}
+
+
+const isPublishing = ref(false);
+
+const publishPromise = ref(null);
+
+export function usePublishOrderApi(categorySlug) {
+    const isPublished = ref(false);
+
+    const onPublish = () => {
+        isPublishing.value = true;
+        return publishPromise.value = publish(draftedOrders.value[categorySlug]?.id)
+            .then(response => response.data)
+            .then(data => data?.order)
+            .then(order => {
+                isPublished.value = true;
+                delete draftedOrders.value[categorySlug];
+                return order;
+            }).finally(() => isPublishing.value = false);
+    }
+    return {
+        isPublishing: readonly(isPublishing),
+        isPublished: readonly(isPublished),
+        promise: readonly(publishPromise),
+        onPublish,
         draftedOrders: readonly(draftedOrders),
         currentDraftedOrder: readonly(computed(() => draftedOrders.value[categorySlug])),
     };

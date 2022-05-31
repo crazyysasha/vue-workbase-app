@@ -1,7 +1,7 @@
 <script setup>
 	import useCategoryApi from "@/composables/categories/instance";
 	import { useUpdateOrderApi } from "@/composables/orders/instance&storage";
-	import { ref, toRefs } from "@vue/reactivity";
+	import { reactive, ref, toRefs, watch } from "vue";
 	import { onMounted } from "@vue/runtime-core";
 	import useVuelidate from "@vuelidate/core";
 	import {
@@ -43,15 +43,29 @@
 
 	const minPrice = ref(currentDraftedOrder.value?.price_min || "");
 	const maxPrice = ref(currentDraftedOrder.value?.price_max || "");
+	const $externalResults = reactive({
+		minPrice: [],
+		maxPrice: [],
+	});
+
+	watch(minPrice, () => {
+		$externalResults.minPrice = [];
+	});
+
+	watch(maxPrice, () => {
+		$externalResults.maxPrice = [];
+	});
 
 	const rules = {
-		minPrice: {},
+		minPrice: {
+			requiredIf: helpers.withMessage("", requiredIf(false)),
+		},
 		maxPrice: {
 			required: helpers.withMessage("Укажите максимальную цену", required),
 		},
 	};
 
-	const v = useVuelidate(rules, { minPrice, maxPrice });
+	const v = useVuelidate(rules, { minPrice, maxPrice }, { $externalResults });
 
 	const onSubmit = async (e) => {
 		if (!(await v.value.$validate())) {
@@ -62,6 +76,14 @@
 			price_min: minPrice.value,
 			price_max: maxPrice.value,
 			is_ranged_price: true,
+		}).catch(({ response }) => {
+			const { error } = response?.data;
+			if (error?.type == "validation") {
+				$externalResults.minPrice = error.fields.price_min || [];
+				$externalResults.maxPrice = error.fields.price_max || [];
+			}
+
+			throw new Error(error);
 		});
 		router.push({
 			name: "order.update",

@@ -1,8 +1,19 @@
 import { get } from "@/api/profile";
+import { useLocalStorage } from "@vueuse/core";
 import { readonly, ref } from "vue";
 
 
-const data = ref(null);
+export const profile = useLocalStorage('profile', null, {
+    serializer: {
+        write(value) {
+            return JSON.stringify(value);
+        },
+        read(value) {
+            return JSON.parse(value || {});
+        }
+    }
+});
+
 const isLoading = ref(false);
 const isLoaded = ref(false);
 
@@ -24,7 +35,7 @@ export default function useProfile() {
         };
     };
     return {
-        profile: readonly(data),
+        profile: readonly(profile),
         onGet,
     };
 }

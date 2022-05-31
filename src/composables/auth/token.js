@@ -1,25 +1,8 @@
 import { refresh } from "@/api/auth";
 import { computed, ref, watch } from "vue";
+import { useLocalStorage } from "@vueuse/core";
 
-const tokenRef = ref(localStorage.getItem('token'));
-
-watch(tokenRef, (token) => {
-    if (!token)
-        localStorage.removeItem('token');
-    else
-        localStorage.setItem('token', token);
-})
-
-export const token = computed({
-    get() {
-        return tokenRef.value;
-
-    },
-    set(val) {
-        tokenRef.value = val;
-    }
-});
-
+export const token = useLocalStorage('token', null);
 
 export const isAuthentificated = computed(() => !!token.value);
 

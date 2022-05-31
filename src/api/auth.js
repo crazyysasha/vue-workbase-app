@@ -7,9 +7,7 @@ export const login = async (credentials = { username, password, type }) => {
     );
 }
 
-export const register = async (credentials = { name, surname, username, email, password, passwordConfirmation }) => {
-    credentials = { password_confirmation: credentials.passwordConfirmation, ...credentials };
-    console.log(credentials);
+export const register = async (credentials = { name, surname, patronymic, username, email, password, password_confirmation, type }) => {
     return axios.post(
         '/crazy/workbase/v1.0.1/auth/register',
         credentials,

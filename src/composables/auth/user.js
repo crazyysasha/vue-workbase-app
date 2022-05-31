@@ -1,28 +1,13 @@
 import { getProfile, update } from "@/api/auth";
-import { ref, watch, computed, readonly } from "vue";
-const userRef = ref(JSON.parse(localStorage.getItem('user')) || null);
+import { useLocalStorage } from "@vueuse/core";
+import { ref, readonly } from "vue";
 
-watch(userRef, (userData) => {
-    if (!userData)
-        localStorage.removeItem('user');
-    else
-        localStorage.setItem('user', JSON.stringify(userData));
-})
+const user = useLocalStorage('user', null);
 
-export const user = computed({
-    get() {
-
-        return userRef.value;
-
-    },
-    set(value) {
-        userRef.value = value;
-    }
-});
 const getProfilePromise = ref(null);
 const getProfileIsLoading = ref(false);
-export function useUser() {
 
+export function useUser() {
     const onGetMe = () => {
         const error = ref();
         const exec = async () => {

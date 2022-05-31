@@ -1,33 +1,30 @@
 import { login } from "@/api/auth";
 import { readonly, ref } from "vue";
-import { token } from "./token";
-import { useUser } from "./user";
+import { profile as profileRef } from "../profile";
+import { token as tokenRef } from "./token";
 
-
+const isLogining = ref(false);
+const isLogined = ref(false);
 export default function useLogin() {
-    const error = ref(null);
-    const data = ref(null);
-    const isLoading = ref(false);
+
+
     const onLogin = async ({ username, password, type }) => {
-        isLoading.value = true;
-        await login({ username, password, type }).then(response => {
-            return response.data?.data;
-        }).then(response => {
-            if ('token' in response) {
-                token.value = response.token;
-            }
-            if ('user' in response) {
-                const { user } = useUser();
-                user.value = response.user;
-            }
-            data.value = response;
-            isLoading.value = false;
-        }).catch(err => {
-            if (err?.response?.status < 500) {
-                error.value = err.response.data?.error;
-                isLoading.value = false;
-            }
-        });
+        isLogining.value = true;
+        await login({ username, password, type })
+            .then(response => response?.data)
+            .then(data => {
+                const { token, profile } = data;
+                tokenRef.value = token.value;
+                profileRef.value = profile;
+                isLogined.value = true;
+                return readonly(profileRef);
+            }).finally(() => isLogining.value = false);
     };
-    return { onLogin, data, error, isLoading: readonly(isLoading), };
+
+    return {
+        onLogin,
+        isLogining: readonly(isLogining),
+        profile: readonly(profileRef),
+        isLogined: readonly(isLogined),
+    };
 }
