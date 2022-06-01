@@ -2,6 +2,7 @@ export * as HLocation from './h-location';
 export * as HEnter from './h-enter';
 export * as HPencil from './h-pencil';
 export * as HX from './h-x';
+export * as HMenu from './h-menu';
 export * as HOrder from './h-order';
 export * as HWallet from './h-wallet';
 export * as HAccount from './h-account';
