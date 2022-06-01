@@ -6,7 +6,7 @@ import "@fancyapps/ui/dist/fancybox.css";
 
 </style>
 <template>
-    <section class="bg-white pb-12 md:min-h-[500px] min-h-[auto]">
+    <section class="bg-white pb-12 ">
         <div class="mx-auto container px-4">
             <nav class="flex py-12" aria-label="Breadcrumb">
                 <ol class="inline-flex items-center space-x-1 md:space-x-3">
