@@ -7,10 +7,15 @@
 			overflow-auto
 			bg-gray-100
 			flex flex-col
+			scroll-smooth
 		"
 	>
 		<app-header></app-header>
-		<router-view class="flex-1" :key="$route.fullPath"></router-view>
+		<router-view
+			class="flex-1 scroll-mt-96"
+			:key="$route.fullPath"
+			id="page"
+		></router-view>
 		<app-footer class="mt-auto"></app-footer>
 	</div>
 </template>

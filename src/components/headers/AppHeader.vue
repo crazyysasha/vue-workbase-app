@@ -28,7 +28,7 @@ const navOpen = ref(false);
 </style>
 <template>
   <header
-    class="sticky top-0 z-50 text-white mt-[-6px]"
+    class="sticky top-0 z-50 shadow-xl  text-white mt-[-6px]"
     :class="{
       'bg-primary': headerType == 'secondary',
       'bg-white': headerType == 'primary',
@@ -51,11 +51,11 @@ const navOpen = ref(false);
     >
       <swiper-slide>Сервис работает в тестовом режиме!</swiper-slide>
     </swiper>
-    <div class="container px-4 2xl:px-20 mx-auto flex items-stretch xl:py-3">
+    <div class="container px-4 2xl:px-20 mx-auto flex items-stretchx xl:py-1">
       <div
         class="flex py-2 xl:py-0 justify-between w-full xl:w-auto items-center"
       >
-        <router-link to="/" class="py-2 mr-12 my-auto w-36 md:w-40">
+        <router-link to="/" class="py-2 mr-12 my-auto w-36 md:w-40 ">
           <img
             :src="
               require(`@/assets/logo${
@@ -117,7 +117,7 @@ const navOpen = ref(false);
         "
         v-bind:class="{ '-left-full': !navOpen }"
       >
-        <router-link to="/" class="inline-block my-4 mx-3 h-8 z-40">
+        <router-link to="/" class="inline-block my-4 mx-3 md:hidden h-8 z-40">
           <img
             class="w-full h-full object-contain"
             src="@/assets/logo-white.svg"
