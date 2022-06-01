@@ -8,7 +8,7 @@ export const ProfileType = readonly({
     customer: "customer",
     executor: "executor",
 });
-console.log(ProfileType.customer);
+
 /**
  * Gender
  * @enum {String}

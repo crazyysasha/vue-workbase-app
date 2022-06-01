@@ -21,9 +21,8 @@ const headerType = computed(() => {
 const navOpen = ref(false);
 </script>
 <style>
-.swiper-wrapper {
-  -webkit-transition-timing-function: linear !important;
-  @apply !ease-linear;
+header .swiper-wrapper {
+	@apply !ease-linear;
 }
 </style>
 <template>
@@ -34,21 +33,19 @@ const navOpen = ref(false);
       'bg-white': headerType == 'primary',
     }"
   >
-    <swiper
-      :slides-per-view="1"
-      :space-between="50"
-      :speed="20000"
-      :loop="true"
+	<swiper
+		:slides-per-view="1"
+		:space-between="50"
+		:speed="20000"
+		:loop="true"
 		:allowTouchMove="false"
-      :autoplay="{
-        delay: 0,
-        disableOnInteraction: false,
-      }"
-      :modules="[Autoplay]"
-      @swiper="onSwiper"
-      @slideChange="onSlideChange"
-      class="bg-orange-400"
-    >
+		:autoplay="{
+		delay: 0,
+		disableOnInteraction: false,
+		}"
+		:modules="[Autoplay]"
+		class="bg-orange-400"
+	>
       <swiper-slide>Сервис работает в тестовом режиме!</swiper-slide>
     </swiper>
     <div class="container px-4 2xl:px-20 mx-auto flex items-stretch xl:py-3">
