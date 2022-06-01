@@ -255,7 +255,6 @@
 			</li>
 		</ul>
 		<ul v-else>
-			 {{ service }}
 			<li
 				v-for="s in computedServices"
 				:key="s.id"
