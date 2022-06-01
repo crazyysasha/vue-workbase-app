@@ -39,7 +39,7 @@ const navOpen = ref(false);
       :space-between="50"
       :speed="20000"
       :loop="true"
-		:allowTouchMove="false"
+      :allowTouchMove="false"
       :autoplay="{
         delay: 0,
         disableOnInteraction: false,
@@ -55,17 +55,11 @@ const navOpen = ref(false);
       <div
         class="flex py-2 xl:py-0 justify-between w-full xl:w-auto items-center"
       >
-        <router-link to="/" class="py-2 mr-12 my-auto w-36 md:w-40">
+        <router-link
+          to="/"
+          class="py-2 mr-12 my-auto w-36 md:w-40"
+        >
           <img
-            v-if="navOpen == true"
-            :src="
-              require(`@/assets/logo${
-                headerType == 'secondary' ? '-white' : ''
-              }.svg`)
-            "
-          />
-          <img
-            v-else
             :src="
               require(`@/assets/logo${
                 headerType == 'secondary' ? '-white' : ''
@@ -88,7 +82,11 @@ const navOpen = ref(false);
             <svg
               v-if="navOpen"
               xmlns="http://www.w3.org/2000/svg"
-              class="fill-current text-black h-7 w-7"
+              class="fill-current h-7 w-7"
+              :class="{
+                'text-black': headerType != 'secondary',
+                'text-white': headerType == 'secondary',
+              }"
               fill="none"
               viewBox="0 0 24 24"
               stroke="currentColor"
@@ -103,7 +101,11 @@ const navOpen = ref(false);
             <svg
               v-else
               xmlns="http://www.w3.org/2000/svg"
-              class="fill-current text-black h-7 w-7"
+              class="fill-current h-7 w-7"
+              :class="{
+                'text-black': headerType != 'secondary',
+                'text-white': headerType == 'secondary',
+              }"
               fill="none"
               viewBox="0 0 24 24"
               stroke="currentColor"
@@ -140,11 +142,17 @@ const navOpen = ref(false);
         "
         v-bind:class="{ '-left-full': !navOpen }"
       >
+        <router-link
+          to="/"
+          class="inline-block my-4 mx-3 h-8 z-40"
+        >
+          <img class="w-full h-full object-contain" src="@/assets/logo-white.svg" />
+        </router-link>
         <ul
           v-if="isAuthentificated"
           class="
             block
-            mt-20
+            mt-4
             xl:mt-0 xl:flex
             items-center
             px-3
@@ -346,7 +354,7 @@ const navOpen = ref(false);
         <ul
           class="
             block
-            mt-20
+            mt-4
             xl:mt-0 xl:flex
             items-center
             px-3
