@@ -58,6 +58,7 @@ const isDisabled = computed(() => props.disabled);
             scale-100
             focus:ring-4
             focus:outline-none
+            disabled:cursor-not-allowed
         "
         :class="{
             'bg-primary text-white': isPrimary && !isOutlined,
