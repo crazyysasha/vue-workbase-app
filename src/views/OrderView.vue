@@ -1,3 +1,58 @@
+
+<script setup>
+	import { computed, onMounted, reactive, toRefs } from "vue";
+	import useOrderModel from "@/composables/orders/model";
+	import AccordionContainer from "@/components/order/view/accordion/container.vue";
+	import AccordionItem from "@/components/order/view/accordion/item.vue";
+	import useVuelidate from "@vuelidate/core";
+	import { helpers, minLength } from "@vuelidate/validators";
+	import DescriptionForm from "@/components/order/view/forms/description.vue";
+	const props = defineProps({
+		orderId: { type: [Number, String] },
+	});
+
+	const { orderId } = toRefs(props);
+
+	const { onGet, model, onUpdate } = useOrderModel(orderId.value);
+	const {
+		execute: getOrderExecute,
+		isLoading: getOrderIsLoading,
+		isLoaded: getOrderIsLoaded,
+		promise: getOrderPromise,
+	} = onGet({
+		with: ["services", "category", "replies"],
+		count: ["replies", "services"],
+	});
+	const updateHandlers = onUpdate();
+
+	const {
+		execute: updateOrderExecute,
+		isLoading: updateOrderIsLoading,
+		isLoaded,
+	} = updateHandlers;
+
+	onMounted(async () => {
+		await getOrderExecute().catch(({ type }) => {
+			if (type == "validation") {
+				return;
+			}
+			if (type == "not_found") {
+				return;
+			}
+		});
+	});
+
+	const title = computed(() => {
+		if (!!!model.value) {
+			return null;
+		}
+		const { name, category, services } = model.value;
+		if (!!name) {
+			return name;
+		}
+		return `${category?.name}, ${services?.[services?.length - 1]?.name}`;
+	});
+</script>
 <template>
 	<section class="py-12">
 		<div class="container px-4 mx-auto gap-4 grid md:grid-cols-7">
@@ -180,21 +235,57 @@
 				>
 					<div v-if="getOrderIsLoading" class="pt-1.5 pb-0.5 mb-5">
 						<div
-							class="h-6 w-96 bg-primary/10 rounded-md animate-pulse"
+							class="
+								h-6
+								w-96
+								bg-primary/10
+								rounded-md
+								animate-pulse
+							"
 						></div>
 					</div>
-					<h2 class="text-2xl text-primary font-medium mb-5" :class="{ 'animate-pulse': isLoading }" v-else>
+					<h2 class="text-2xl text-primary font-medium mb-5" v-else>
 						{{ title }}
 					</h2>
 					<div v-if="getOrderIsLoading" class="pt-1.5 pb-0.5">
 						<div
-							class="h-4 mb-4 w-full bg-primary/10 rounded-md animate-pulse"
+							class="
+								h-4
+								mb-4
+								w-full
+								bg-primary/10
+								rounded-md
+								animate-pulse
+							"
 						></div>
 					</div>
-					<p class="mb-4" :class="{ 'animate-pulse': isLoading }" v-else>
+					<p class="mb-4" v-else>
 						Откликнуться могут специалисты, которым вы напишете и
 						которые уже видели заказ
 					</p>
+					<accordion-container v-slot="{ expanded, onExpand }">
+						<accordion-item
+							:index="1"
+							:expanded="expanded"
+							@on-expand="onExpand"
+							title="Описание"
+						>
+							<template #subtitle>
+								<pre class="font-aeroport">{{
+									model?.description
+								}}</pre>
+							</template>
+							<div class="p-4 pt-6">
+								<description-form
+									@cancel="onExpand(null)"
+									:default-state="model"
+									:updateHandlers="updateHandlers"
+									@success="onExpand(null)"
+								>
+								</description-form>
+							</div>
+						</accordion-item>
+					</accordion-container>
 					<div>
 						<div>
 							<button
@@ -220,18 +311,6 @@
 										Нет денег на оплату.
 									</div>
 								</div>
-								<svg
-									class="w-6 h-6 rotate-180 shrink-0"
-									fill="currentColor"
-									viewBox="0 0 20 20"
-									xmlns="http://www.w3.org/2000/svg"
-								>
-									<path
-										fill-rule="evenodd"
-										d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
-										clip-rule="evenodd"
-									></path>
-								</svg>
 							</button>
 
 							<div>
@@ -855,46 +934,3 @@
 		</div>
 	</section>
 </template>
-
-<script setup>
-	import { computed, onMounted, toRefs } from "vue";
-	import useOrderModel from "@/composables/orders/model";
-	const props = defineProps({
-		orderId: { type: [Number, String] },
-	});
-
-	const { orderId } = toRefs(props);
-
-	const { onGet, model, onUpdate } = useOrderModel(orderId.value);
-	const {
-		execute: getOrderExecute,
-		isLoading: getOrderIsLoading,
-		isLoaded: getOrderIsLoaded,
-		promise: getOrderPromise,
-	} = onGet({
-		with: ["services", "category", "replies"],
-		count: ["replies", "services"],
-	});
-	//const {execute: updateOrderExecute, isLoading: updateOrderIsLoading, isLoaded} = onUpdate();
-	onMounted(async () => {
-		await getOrderExecute().catch(({ type }) => {
-			if (type == "validation") {
-				return;
-			}
-			if (type == "not_found") {
-				return;
-			}
-		});
-		console.log(model.value);
-	});
-	const title = computed(() => {
-		if (!!!model.value) {
-			return null;
-		}
-		const { name, category, services } = model.value;
-		if (!!name) {
-			return name;
-		}
-		return `${category?.name}, ${services?.[services?.length - 1]?.name}`;
-	});
-</script>
