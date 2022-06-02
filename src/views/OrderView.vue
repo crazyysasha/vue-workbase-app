@@ -178,11 +178,20 @@
 						mb-6
 					"
 				>
-					<div v-if="getOrderIsLoading">zagruzka</div>
-					<h2 class="text-2xl text-primary font-medium mb-5" v-else>
+					<div v-if="getOrderIsLoading" class="pt-1.5 pb-0.5 mb-5">
+						<div
+							class="h-6 w-96 bg-primary/10 rounded-md animate-pulse"
+						></div>
+					</div>
+					<h2 class="text-2xl text-primary font-medium mb-5" :class="{ 'animate-pulse': isLoading }" v-else>
 						{{ title }}
 					</h2>
-					<p class="mb-4">
+					<div v-if="getOrderIsLoading" class="pt-1.5 pb-0.5">
+						<div
+							class="h-4 mb-4 w-full bg-primary/10 rounded-md animate-pulse"
+						></div>
+					</div>
+					<p class="mb-4" :class="{ 'animate-pulse': isLoading }" v-else>
 						Откликнуться могут специалисты, которым вы напишете и
 						которые уже видели заказ
 					</p>
@@ -883,7 +892,7 @@
 			return null;
 		}
 		const { name, category, services } = model.value;
-		if (!!!name) {
+		if (!!name) {
 			return name;
 		}
 		return `${category?.name}, ${services?.[services?.length - 1]?.name}`;
