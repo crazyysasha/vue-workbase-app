@@ -2,19 +2,16 @@ import axios from "@/utils/axios";
 
 export const getById = (id, params = {}, config) => {
     return axios.get(
-        `http://october.loc/api/crazy/freelancer/v1.0.1/orders/${id}`,
+        `crazy/freelancer/v1.0.1/orders/${id}`,
         { params, ...config },
     );
 };
 
-export const get = async (params) => {
-    const { data, status } = await axios.get(
-        `http://october.loc/api/crazy/freelancer/v1.0.1/orders/`,
-        params,
-        { validateStatus: (status) => status < 500, }
+export const get = async (params, config) => {
+    return axios.get(
+        `crazy/freelancer/v1.0.1/orders/`,
+        { params, ...config }
     );
-
-    return data;
 }
 
 /**
