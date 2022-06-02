@@ -178,8 +178,9 @@
 						mb-6
 					"
 				>
-					<h2 class="text-2xl text-primary font-medium mb-5">
-						Вёрстка
+					<div v-if="getOrderIsLoading">zagruzka</div>
+					<h2 class="text-2xl text-primary font-medium mb-5" v-else>
+						{{ title }}
 					</h2>
 					<p class="mb-4">
 						Откликнуться могут специалисты, которым вы напишете и
@@ -847,7 +848,7 @@
 </template>
 
 <script setup>
-	import { onMounted, toRefs } from "vue";
+	import { computed, onMounted, toRefs } from "vue";
 	import useOrderModel from "@/composables/orders/model";
 	const props = defineProps({
 		orderId: { type: [Number, String] },
@@ -861,7 +862,11 @@
 		isLoading: getOrderIsLoading,
 		isLoaded: getOrderIsLoaded,
 		promise: getOrderPromise,
-	} = onGet();
+	} = onGet({
+		with: ["services", "category", "replies"],
+		count: ["replies", "services"],
+	});
+	//const {execute: updateOrderExecute, isLoading: updateOrderIsLoading, isLoaded} = onUpdate();
 	onMounted(async () => {
 		await getOrderExecute().catch(({ type }) => {
 			if (type == "validation") {
@@ -872,5 +877,15 @@
 			}
 		});
 		console.log(model.value);
+	});
+	const title = computed(() => {
+		if (!!!model.value) {
+			return null;
+		}
+		const { name, category, services } = model.value;
+		if (!!!name) {
+			return name;
+		}
+		return `${category?.name}, ${services?.[services?.length - 1]?.name}`;
 	});
 </script>
