@@ -1,12 +1,10 @@
 import axios from "@/utils/axios";
 
-export const getById = async (id) => {
-    const { data, status } = await axios.get(
+export const getById = (id, params = {}, config) => {
+    return axios.get(
         `http://october.loc/api/crazy/freelancer/v1.0.1/orders/${id}`,
-        { validateStatus: (status) => status < 500, }
+        { params, ...config },
     );
-
-    return data
 };
 
 export const get = async (params) => {

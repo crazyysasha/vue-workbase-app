@@ -31,7 +31,7 @@ const routes = [
     ],
   },
   {
-    path: "/order/:id",
+    path: "/order/:orderId",
     name: "order.view",
     component: () => import(/* webpackChunkName: "order-view" */ "../views/OrderView.vue"),
     props: true,
