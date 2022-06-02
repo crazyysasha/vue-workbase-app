@@ -2,17 +2,14 @@ import { readonly, ref, warn } from "vue";
 
 
 export default function useApi(promise, onSerialize) {
-    if (typeof promise !== Function) {
-        warn("");
-    }
 
     const isLoading = ref(false);
     const isLoaded = ref(false);
     const promiseRef = ref();
 
-    const execute = () => {
+    const execute = (...args) => {
         isLoading.value = true;
-        return promiseRef.value = promise()
+        return promiseRef.value = promise(...args)
             .then(response => response.data)
             .then(data => {
                 isLoading.value = false;
