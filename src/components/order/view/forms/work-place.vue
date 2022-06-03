@@ -2,17 +2,17 @@
 	<form @submit.prevent.stop="onSubmit">
 		<ul>
 			<li>
-				<c-checkbox v-model="state.at_executor">
+				<c-checkbox v-model="state.at_executor" :disabled="isLoading">
 					У исполнителя
 				</c-checkbox>
 			</li>
 			<li>
-				<c-checkbox v-model="state.at_customer">
+				<c-checkbox v-model="state.at_customer" :disabled="isLoading">
 					У заказчика
 				</c-checkbox>
 			</li>
 			<li>
-				<c-checkbox v-model="state.is_online">
+				<c-checkbox v-model="state.is_online" :disabled="isLoading">
 					Дистанционно
 				</c-checkbox>
 			</li>

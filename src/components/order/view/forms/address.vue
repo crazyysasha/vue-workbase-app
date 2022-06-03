@@ -1,44 +1,37 @@
 <template>
 	<form @submit.prevent.stop="onSubmit">
-		<ul>
-			<li>
-				<c-checkbox v-model="state.at_executor">
-					У исполнителя
-				</c-checkbox>
-			</li>
-			<li>
-				<c-checkbox v-model="state.at_customer">
-					У заказчика
-				</c-checkbox>
-			</li>
-			<li>
-				<c-checkbox v-model="state.is_online">
-					Дистанционно
-				</c-checkbox>
-			</li>
-		</ul>
-		<div
-			class="text-red-500"
-			v-for="error in validator.at_customer.$errors"
-			:key="error.$uid"
-		>
-			{{ error.$message }}
-		</div>
-		<div
-			class="text-red-500"
-			v-for="error in validator.is_online.$errors"
-			:key="error.$uid"
-		>
-			{{ error.$message }}
-		</div>
-		<div
-			class="text-red-500"
-			v-for="error in validator.at_executor.$errors"
-			:key="error.$uid"
-		>
-			{{ error.$message }}
-		</div>
-
+		<c-search
+            v-model="address"
+            :items="searchedItems"
+            @on-select-item="onSelectItem"
+            placeholder="Город, район, улица, дом"
+        >
+            <template #list-item="{ item }">
+                {{ item.getAddressLine() }}
+            </template>
+        </c-search>
+		<yandex-map
+            :settings="mapSettings"
+            :coords="
+                placemark?.length
+                    ? placemark
+                    : [41.31377189085043, 69.25741676336806]
+            "
+            :zoom="10"
+            init-without-markers
+            class="h-96 rounded-md overflow-clip"
+            @click="onClickInMap"
+            @map-was-initialized="map = $event"
+        >
+            <div></div>
+            <ymap-marker
+                markerId="address"
+                :coords="placemark"
+                v-if="placemark?.length == 2"
+            ></ymap-marker>
+            <!-- @dragend="onDragEnd"
+                :options="{ draggable: true }" -->
+        </yandex-map>
 		<div class="flex justify-between mt-4">
 			<c-button
 				type="button"
@@ -59,6 +52,7 @@
 	import useVuelidate from "@vuelidate/core";
 	import { helpers, requiredIf, requiredUnless } from "@vuelidate/validators";
 	import { reactive, toRefs, unref, watch } from "vue";
+	import { yandexMap, ymapMarker, loadYmap } from "vue-yandex-maps";
 
 	const props = defineProps({
 		defaultState: {

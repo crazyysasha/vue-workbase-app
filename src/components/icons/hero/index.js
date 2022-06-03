@@ -9,6 +9,7 @@ export * as HAccount from './h-account';
 export * as HSupport from './h-support';
 export * as HBonus from './h-bonus';
 export * as HCheck from './h-check';
+export * as HBadgeCheck from './h-badge-check';
 export * as HChevronRight from './h-chevron-right';
 export * as HChevronDown from './h-chevron-down';
 export * as HInformationCircle from './h-information-circle';
