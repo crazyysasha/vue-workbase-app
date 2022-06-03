@@ -3,7 +3,14 @@
 		:class="{
 			'hover:bg-primary/10 border-transparent': !isExpanded,
 		}"
-		class="flex flex-col transition duration-200 border rounded-md"
+		class="
+			flex flex-col
+			transition
+			duration-200
+			border
+			rounded-md
+			overflow-hidden
+		"
 	>
 		<button
 			class="
@@ -14,6 +21,7 @@
 				justify-between
 				items-center
 				border-b
+				focus:outline-none
 			"
 			@click="onExpand"
 			:class="{
@@ -59,9 +67,9 @@
 			</div>
 			<div>
 				<h-chevron-down
-					class="h-6 w-6"
+					class="h-6 w-6 transition duration-200 text-primary"
 					:class="{
-						'rotate-180': isExpanded,
+						'-rotate-180': isExpanded,
 					}"
 				>
 				</h-chevron-down>

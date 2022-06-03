@@ -1,619 +1,555 @@
 
 <script setup>
-import { computed, onMounted, reactive, toRefs } from "vue";
-import useOrderModel from "@/composables/orders/model";
-import AccordionContainer from "@/components/order/view/accordion/container.vue";
-import AccordionItem from "@/components/order/view/accordion/item.vue";
-import useVuelidate from "@vuelidate/core";
-import { helpers, minLength } from "@vuelidate/validators";
-import DescriptionForm from "@/components/order/view/forms/description.vue";
-import PriceForm from "@/components/order/view/forms/price.vue";
-import MeetingForm from "@/components/order/view/forms/meeting-place.vue";
-const props = defineProps({
-  orderId: { type: [Number, String] },
-});
+	import { computed, onMounted, reactive, toRefs } from "vue";
+	import useOrderModel from "@/composables/orders/model";
+	import AccordionContainer from "@/components/order/view/accordion/container.vue";
+	import AccordionItem from "@/components/order/view/accordion/item.vue";
+	import useVuelidate from "@vuelidate/core";
+	import { helpers, minLength } from "@vuelidate/validators";
+	import DescriptionForm from "@/components/order/view/forms/description.vue";
+	import PriceForm from "@/components/order/view/forms/price.vue";
+	import WorkPlaceForm from "@/components/order/view/forms/work-place.vue";
+	const props = defineProps({
+		orderId: { type: [Number, String] },
+	});
 
-const { orderId } = toRefs(props);
+	const { orderId } = toRefs(props);
 
-const { onGet, model, onUpdate } = useOrderModel(orderId.value);
-const {
-  execute: getOrderExecute,
-  isLoading: getOrderIsLoading,
-  isLoaded: getOrderIsLoaded,
-  promise: getOrderPromise,
-} = onGet({
-  with: ["services", "category", "replies"],
-  count: ["replies", "services"],
-});
-const updateHandlers = onUpdate();
+	const { onGet, model, onUpdate } = useOrderModel(orderId.value);
+	const {
+		execute: getOrderExecute,
+		isLoading: getOrderIsLoading,
+		isLoaded: getOrderIsLoaded,
+		promise: getOrderPromise,
+	} = onGet({
+		with: ["services", "category", "replies"],
+		count: ["replies", "services"],
+	});
+	const updateHandlers = onUpdate();
 
-const {
-  execute: updateOrderExecute,
-  isLoading: updateOrderIsLoading,
-  isLoaded,
-} = updateHandlers;
+	const {
+		execute: updateOrderExecute,
+		isLoading: updateOrderIsLoading,
+		isLoaded,
+	} = updateHandlers;
 
-onMounted(async () => {
-  await getOrderExecute().catch(({ type }) => {
-    if (type == "validation") {
-      return;
-    }
-    if (type == "not_found") {
-      return;
-    }
-  });
-});
+	onMounted(async () => {
+		await getOrderExecute().catch(({ type }) => {
+			if (type == "validation") {
+				return;
+			}
+			if (type == "not_found") {
+				return;
+			}
+		});
+	});
 
-const title = computed(() => {
-  if (!!!model.value) {
-    return null;
-  }
-  const { name, category, services } = model.value;
-  if (!!name) {
-    return name;
-  }
-  return `${category?.name}, ${services?.[services?.length - 1]?.name}`;
-});
+	const title = computed(() => {
+		if (!!!model.value) {
+			return null;
+		}
+		const { name, category, services } = model.value;
+		if (!!name) {
+			return name;
+		}
+		return `${category?.name}, ${services?.[services?.length - 1]?.name}`;
+	});
 
-const displayedPrice = computed(() => {
-	if (!!!model.value) {
-		return null;
-	}
-	const {  price, price_min, price_max } = model.value;
-	if (!!price) {
-		return price;
-	}
-	return `${price_min?.price}, ${price_max?.price}`;
-});
+	const displayedPrice = computed(() => {
+		if (!!!model.value) return null;
+
+		const { price, price_min, price_max, is_ranged_price } = model.value;
+
+		if (!!price && !!!is_ranged_price)
+			return `<span class="text-primary">${price}</span> сум за услугу`;
+
+		if (!!price_min)
+			return `от <span class="text-primary">${price_min}</span> до <span class="text-primary">${price_max}</span> сум за услугу`;
+
+		return `до <span class="text-primary">${price_max}</span> сум за услугу`;
+	});
+
+	const workPlace = computed(() => {
+		if (!!!model.value) return null;
+
+		const { at_executor, at_customer, is_online } = model.value;
+		let text = "";
+		if (at_executor) {
+			text += "У исполнителя";
+		}
+		if (at_customer) {
+			text += at_executor ? ", у заказчика" : "У заказчика";
+		}
+		if (is_online) {
+			text += at_executor || at_customer ? ", онлайн" : "Онлайн";
+		}
+		return text;
+	});
+
+	const address = computed(() => {
+		if (!!!model.value) return null;
+
+		const { address } = model.value;
+
+		return address;
+	});
 </script>
 <template>
-  <section class="py-12">
-    <div class="container px-4 mx-auto gap-4 grid md:grid-cols-7">
-      <div class="md:col-span-2">
-        <div class="rounded-lg bg-white shadow shadow-primary/25 p-7 mb-6">
-          <a
-            class="text-lg mb-3 font-medium flex items-center justify-between"
-            href="#"
-            >Заказ
-            <span class="font-normal text-base text-gray-400"
-              >36 просмотров</span
-            ></a
-          >
-          <a
-            class="text-lg mb-3 font-medium flex items-center justify-between"
-            href="javascript:jivo_api.open()"
-            >Поддержка
-          </a>
-          <a
-            class="text-lg font-medium flex items-center justify-between"
-            href="#"
-            >Специалисты
-            <span class="font-normal text-base text-gray-400">4511</span></a
-          >
-        </div>
-        <div
-          class="rounded-lg bg-white shadow shadow-primary/25 py-7 px-5 mb-10"
-        >
-          <h2 class="text-lg mb-3 font-medium px-2">Отклики по заказу</h2>
-          <a
-            href="#"
-            class="
-              flex
-              items-center
-              space-x-4
-              mb-2
-              hover:bg-gray-100
-              p-2
-              rounded-md
-            "
-          >
-            <img
-              class="w-10 h-10 rounded-full"
-              src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"
-              alt=""
-            />
-            <div>
-              <div class="font-medium">Меринков Валерий</div>
-              <div class="text-xs m-0 flex items-center">
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  class="h-3 w-3 mr-1"
-                  fill="none"
-                  viewBox="0 0 24 24"
-                  stroke="currentColor"
-                  stroke-width="2"
-                >
-                  <path
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                    d="M11.049 2.927c.3-.921 1.603-.921 1.902 0l1.519 4.674a1 1 0 00.95.69h4.915c.969 0 1.371 1.24.588 1.81l-3.976 2.888a1 1 0 00-.363 1.118l1.518 4.674c.3.922-.755 1.688-1.538 1.118l-3.976-2.888a1 1 0 00-1.176 0l-3.976 2.888c-.783.57-1.838-.197-1.538-1.118l1.518-4.674a1 1 0 00-.363-1.118l-3.976-2.888c-.784-.57-.38-1.81.588-1.81h4.914a1 1 0 00.951-.69l1.519-4.674z"
-                  />
-                </svg>
-                <span>5.0 - 5 отзывов</span>
-              </div>
-            </div>
-          </a>
-          <a
-            href="#"
-            class="flex space-x-4 mb-2 hover:bg-gray-100 p-2 rounded-md"
-          >
-            <img
-              class="w-10 h-10 rounded-full"
-              src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"
-              alt=""
-            />
-            <div>
-              <div class="font-medium">Мубаракшин Амаль</div>
-              <div class="text-xs m-0 flex items-center">
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  class="h-3 w-3 mr-1"
-                  fill="none"
-                  viewBox="0 0 24 24"
-                  stroke="currentColor"
-                  stroke-width="2"
-                >
-                  <path
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                    d="M11.049 2.927c.3-.921 1.603-.921 1.902 0l1.519 4.674a1 1 0 00.95.69h4.915c.969 0 1.371 1.24.588 1.81l-3.976 2.888a1 1 0 00-.363 1.118l1.518 4.674c.3.922-.755 1.688-1.538 1.118l-3.976-2.888a1 1 0 00-1.176 0l-3.976 2.888c-.783.57-1.838-.197-1.538-1.118l1.518-4.674a1 1 0 00-.363-1.118l-3.976-2.888c-.784-.57-.38-1.81.588-1.81h4.914a1 1 0 00.951-.69l1.519-4.674z"
-                  />
-                </svg>
-                <span>4.7 - 7 отзывов</span>
-              </div>
-            </div>
-          </a>
-          <button class="text-center w-full flex items-center justify-center">
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              class="h-5 w-5 mr-1"
-              fill="none"
-              viewBox="0 0 24 24"
-              stroke="currentColor"
-              stroke-width="2"
-            >
-              <path
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-3 7h3m-3 4h3m-6-4h.01M9 16h.01"
-              />
-            </svg>
-            Показать все
-          </button>
-        </div>
-      </div>
-      <div class="md:col-span-5 pl-10">
-        <div class="rounded-lg bg-white shadow shadow-primary/25 p-7 mb-6">
-          <div v-if="getOrderIsLoading" class="pt-1.5 pb-0.5 mb-5">
-            <div class="h-6 w-96 bg-primary/10 rounded-md animate-pulse"></div>
-          </div>
-          <h2 class="text-2xl text-primary font-medium mb-5" v-else>
-            {{ title }}
-          </h2>
-          <div v-if="getOrderIsLoading" class="pt-1.5 pb-0.5">
-            <div
-              class="h-4 mb-4 w-full bg-primary/10 rounded-md animate-pulse"
-            ></div>
-          </div>
-          <p class="mb-4" v-else>
-            Откликнуться могут специалисты, которым вы напишете и которые уже
-            видели заказ
-          </p>
-          <accordion-container v-slot="{ expanded, onExpand }">
-            <accordion-item
-              :index="1"
-              :expanded="expanded"
-              @on-expand="onExpand"
-              title="Описание"
-            >
-              <template #subtitle>
-                <pre class="font-aeroport">{{ model?.description }}</pre>
-              </template>
-              <div class="p-4 pt-6">
-                <description-form
-                  @cancel="onExpand(null)"
-                  :default-state="model"
-                  :updateHandlers="updateHandlers"
-                  @success="onExpand(null)"
-                >
-                </description-form>
-              </div>
-            </accordion-item>
-            <accordion-item
-              :index="2"
-              :expanded="expanded"
-              @on-expand="onExpand"
-              title="Cтоимость услуги"
-            >
-              <template #subtitle>
-                <div class="font-aeroport flex">
-						<span class="mr-4">от {{ model?.price_min }}</span> 
-						<span>до {{ model?.price_max }}</span>
-					 </div>
-              </template>
-              <div class="p-4 pt-6">
-                <price-form
-                  @cancel="onExpand(null)"
-                  :default-state="model"
-                  :updateHandlers="updateHandlers"
-                  @success="onExpand(null)"
-                >
-                </price-form>
-              </div>
-            </accordion-item>
-            <accordion-item
-              :index="3"
-              :expanded="expanded"
-              @on-expand="onExpand"
-              title="Место встречи"
-            >
-              <template #subtitle>
-                <div class="font-aeroport flex">
-						meeting
-					 </div>
-              </template>
-              <div class="p-4 pt-6">
-                <meeting-form
-                  @cancel="onExpand(null)"
-                  :default-state="model"
-                  :updateHandlers="updateHandlers"
-                  @success="onExpand(null)"
-                >
-                </meeting-form>
-              </div>
-            </accordion-item>
-          </accordion-container>
-          <div>
-            <div>
-              <button
-                type="button"
-                class="
-                  flex
-                  justify-between
-                  items-center
-                  hover:bg-gray-200
-                  px-3
-                  py-5
-                  w-full
-                  font-medium
-                  text-left
-                  border-b border-gray-700
-                "
-              >
-                <div>
-                  <span>Детали</span>
-                  <div class="text-sm text-gray-600">
-                    Сверстать: газету, афишу. <br />
-                    Макета нет. <br />
-                    Нет денег на оплату.
-                  </div>
-                </div>
-              </button>
+	<section class="py-12">
+		<div class="container px-4 mx-auto gap-4 grid md:grid-cols-7">
+			<div class="md:col-span-2">
+				<div
+					class="
+						rounded-lg
+						bg-white
+						shadow shadow-primary/25
+						p-7
+						mb-6
+					"
+				>
+					<a
+						class="
+							text-lg
+							mb-3
+							font-medium
+							flex
+							items-center
+							justify-between
+						"
+						href="#"
+					>
+						Заказ
+						<span class="font-normal text-base text-gray-400">
+							36 просмотров
+						</span>
+					</a>
+					<a
+						class="
+							text-lg
+							mb-3
+							font-medium
+							flex
+							items-center
+							justify-between
+						"
+						href="javascript:jivo_api.open()"
+					>
+						Поддержка
+					</a>
+					<a
+						class="
+							text-lg
+							font-medium
+							flex
+							items-center
+							justify-between
+						"
+						href="#"
+					>
+						Специалисты
+						<span class="font-normal text-base text-gray-400">
+							4511
+						</span>
+					</a>
+				</div>
+				<div
+					class="
+						rounded-lg
+						bg-white
+						shadow shadow-primary/25
+						py-7
+						px-5
+						mb-10
+					"
+				>
+					<h2 class="text-lg mb-3 font-medium px-2">
+						Отклики по заказу
+					</h2>
+					<a
+						href="#"
+						class="
+							flex
+							items-center
+							space-x-4
+							mb-2
+							hover:bg-gray-100
+							p-2
+							rounded-md
+						"
+					>
+						<img
+							class="w-10 h-10 rounded-full"
+							src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"
+							alt=""
+						/>
+						<div>
+							<div class="font-medium">Меринков Валерий</div>
+							<div class="text-xs m-0 flex items-center">
+								<svg
+									xmlns="http://www.w3.org/2000/svg"
+									class="h-3 w-3 mr-1"
+									fill="none"
+									viewBox="0 0 24 24"
+									stroke="currentColor"
+									stroke-width="2"
+								>
+									<path
+										stroke-linecap="round"
+										stroke-linejoin="round"
+										d="M11.049 2.927c.3-.921 1.603-.921 1.902 0l1.519 4.674a1 1 0 00.95.69h4.915c.969 0 1.371 1.24.588 1.81l-3.976 2.888a1 1 0 00-.363 1.118l1.518 4.674c.3.922-.755 1.688-1.538 1.118l-3.976-2.888a1 1 0 00-1.176 0l-3.976 2.888c-.783.57-1.838-.197-1.538-1.118l1.518-4.674a1 1 0 00-.363-1.118l-3.976-2.888c-.784-.57-.38-1.81.588-1.81h4.914a1 1 0 00.951-.69l1.519-4.674z"
+									/>
+								</svg>
+								<span>5.0 - 5 отзывов</span>
+							</div>
+						</div>
+					</a>
+					<a
+						href="#"
+						class="
+							flex
+							space-x-4
+							mb-2
+							hover:bg-gray-100
+							p-2
+							rounded-md
+						"
+					>
+						<img
+							class="w-10 h-10 rounded-full"
+							src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"
+							alt=""
+						/>
+						<div>
+							<div class="font-medium">Мубаракшин Амаль</div>
+							<div class="text-xs m-0 flex items-center">
+								<svg
+									xmlns="http://www.w3.org/2000/svg"
+									class="h-3 w-3 mr-1"
+									fill="none"
+									viewBox="0 0 24 24"
+									stroke="currentColor"
+									stroke-width="2"
+								>
+									<path
+										stroke-linecap="round"
+										stroke-linejoin="round"
+										d="M11.049 2.927c.3-.921 1.603-.921 1.902 0l1.519 4.674a1 1 0 00.95.69h4.915c.969 0 1.371 1.24.588 1.81l-3.976 2.888a1 1 0 00-.363 1.118l1.518 4.674c.3.922-.755 1.688-1.538 1.118l-3.976-2.888a1 1 0 00-1.176 0l-3.976 2.888c-.783.57-1.838-.197-1.538-1.118l1.518-4.674a1 1 0 00-.363-1.118l-3.976-2.888c-.784-.57-.38-1.81.588-1.81h4.914a1 1 0 00.951-.69l1.519-4.674z"
+									/>
+								</svg>
+								<span>4.7 - 7 отзывов</span>
+							</div>
+						</div>
+					</a>
+					<button
+						class="
+							text-center
+							w-full
+							flex
+							items-center
+							justify-center
+						"
+					>
+						<svg
+							xmlns="http://www.w3.org/2000/svg"
+							class="h-5 w-5 mr-1"
+							fill="none"
+							viewBox="0 0 24 24"
+							stroke="currentColor"
+							stroke-width="2"
+						>
+							<path
+								stroke-linecap="round"
+								stroke-linejoin="round"
+								d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-3 7h3m-3 4h3m-6-4h.01M9 16h.01"
+							/>
+						</svg>
+						Показать все
+					</button>
+				</div>
+			</div>
+			<div class="md:col-span-5">
+				<div
+					class="
+						rounded-lg
+						bg-white
+						shadow shadow-primary/25
+						p-7
+						mb-6
+					"
+				>
+					<div v-if="getOrderIsLoading" class="pt-1.5 pb-0.5 mb-5">
+						<div
+							class="
+								h-6
+								w-96
+								bg-primary/10
+								rounded-md
+								animate-pulse
+							"
+						></div>
+					</div>
+					<h2 class="text-2xl text-primary font-medium mb-5" v-else>
+						{{ title }}
+					</h2>
+					<div v-if="getOrderIsLoading" class="pt-1.5 pb-0.5">
+						<div
+							class="
+								h-4
+								mb-4
+								w-full
+								bg-primary/10
+								rounded-md
+								animate-pulse
+							"
+						></div>
+					</div>
+					<p class="mb-4" v-else>
+						Откликнуться могут специалисты, которым вы напишете и
+						которые уже видели заказ
+					</p>
+					<accordion-container v-slot="{ expanded, onExpand }">
+						<accordion-item
+							:index="1"
+							:expanded="expanded"
+							@on-expand="onExpand"
+							title="Описание"
+						>
+							<template #subtitle>
+								<div class="line-clamp-2">
+									<p
+										v-for="(
+											text, index
+										) in model?.description.split('\n', 2)"
+										:key="`description-${index}`"
+									>
+										{{ text }}
+									</p>
+								</div>
+							</template>
+							<div class="p-4 pt-6">
+								<description-form
+									@cancel="onExpand(null)"
+									:default-state="model"
+									:updateHandlers="updateHandlers"
+									@success="onExpand(null)"
+								>
+								</description-form>
+							</div>
+						</accordion-item>
+						<accordion-item
+							:index="2"
+							:expanded="expanded"
+							@on-expand="onExpand"
+							title="Cтоимость услуги"
+						>
+							<template #subtitle>
+								<div v-html="displayedPrice"></div>
+							</template>
+							<div class="p-4 pt-6">
+								<price-form
+									@cancel="onExpand(null)"
+									:default-state="model"
+									:updateHandlers="updateHandlers"
+									@success="onExpand(null)"
+								>
+								</price-form>
+							</div>
+						</accordion-item>
+						<accordion-item
+							:index="3"
+							:expanded="expanded"
+							@on-expand="onExpand"
+							title="Место встречи"
+						>
+							<template #subtitle>
+								<div>
+									{{ workPlace }}
+								</div>
+							</template>
+							<div class="p-4 pt-6">
+								<work-place-form
+									@cancel="onExpand(null)"
+									:default-state="model"
+									:updateHandlers="updateHandlers"
+									@success="onExpand(null)"
+								>
+								</work-place-form>
+							</div>
+						</accordion-item>
+						<accordion-item
+							:index="4"
+							:expanded="expanded"
+							@on-expand="onExpand"
+							title="Адрес заказчика"
+							v-if="model?.at_customer"
+						>
+							<template #subtitle>
+								<div>
+									{{ address }}
+								</div>
+							</template>
+							<div class="p-4 pt-6">
+								<address-form
+									@cancel="onExpand(null)"
+									:default-state="model"
+									:updateHandlers="updateHandlers"
+									@success="onExpand(null)"
+								>
+								</address-form>
+							</div>
+						</accordion-item>
+					</accordion-container>
+					<div>
+						<div>
+							<button
+								type="button"
+								class="
+									flex
+									justify-between
+									items-center
+									hover:bg-gray-200
+									px-3
+									py-5
+									w-full
+									font-medium
+									text-left
+									border-b border-gray-700
+								"
+							>
+								<span>Информация</span>
+								<svg
+									class="w-6 h-6 shrink-0"
+									fill="currentColor"
+									viewBox="0 0 20 20"
+									xmlns="http://www.w3.org/2000/svg"
+								>
+									<path
+										fill-rule="evenodd"
+										d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
+										clip-rule="evenodd"
+									></path>
+								</svg>
+							</button>
 
-              <div>
-                <div class="py-5 border-b border-gray-700 px-3">
-                  <form>
-                    <div class="mb-4">
-                      <label
-                        for="message"
-                        class="block mb-2 text-sm font-medium text-gray-900"
-                        >Изменить данные</label
-                      >
-                      <textarea
-                        id="message"
-                        rows="4"
-                        class="
-                          block
-                          p-2.5
-                          w-full
-                          text-sm text-gray-900
-                          bg-gray-50
-                          rounded-lg
-                          border border-gray-300
-                          outline-0
-                          focus:border-blue-500
-                        "
-                        placeholder="Введите текст"
-                      ></textarea>
-                    </div>
-                    <button
-                      class="
-                        select-none
-                        text-white
-                        rounded-md
-                        px-4
-                        py-2
-                        transition-all
-                        duration-200
-                        shadow-lg
-                        transform
-                        scale-100
-                        bg-primary
-                        hover:bg-primary/80
-                        disabled:bg-primary/50
-                        shadow-primary/25
-                        active:scale-95
-                      "
-                    >
-                      <span
-                        ><svg
-                          class="w-5 h-5 inline -mt-0.5"
-                          fill="none"
-                          stroke="currentColor"
-                          viewBox="0 0 24 24"
-                          xmlns="http://www.w3.org/2000/svg"
-                        >
-                          <path
-                            stroke-linecap="round"
-                            stroke-linejoin="round"
-                            stroke-width="2"
-                            d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12"
-                          ></path>
-                        </svg>
-                        Сохранить
-                      </span>
-                    </button>
-                  </form>
-                </div>
-              </div>
-            </div>
-            <div>
-              <button
-                type="button"
-                class="
-                  flex
-                  justify-between
-                  items-center
-                  hover:bg-gray-200
-                  px-3
-                  py-5
-                  w-full
-                  font-medium
-                  text-left
-                  border-b border-gray-700
-                "
-              >
-                <span>Информация</span>
-                <svg
-                  class="w-6 h-6 shrink-0"
-                  fill="currentColor"
-                  viewBox="0 0 20 20"
-                  xmlns="http://www.w3.org/2000/svg"
-                >
-                  <path
-                    fill-rule="evenodd"
-                    d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
-                    clip-rule="evenodd"
-                  ></path>
-                </svg>
-              </button>
+							<div class="hidden">
+								<div class="py-5 border-b border-gray-700 px-3">
+									<p class="mb-2 dark:text-gray-400">
+										Lorem, ipsum dolor sit amet consectetur
+										adipisicing elit. Perferendis esse
+										beatae eos doloremque quo facere aliquam
+										odio amet inventore dignissimos?
+									</p>
+								</div>
+							</div>
+						</div>
+						<div>
+							<button
+								type="button"
+								class="
+									flex
+									justify-between
+									items-center
+									hover:bg-gray-200
+									px-3
+									py-5
+									w-full
+									font-medium
+									text-left
+									border-b border-gray-700
+								"
+							>
+								<span>Удобные дни и время</span>
+								<svg
+									class="w-6 h-6 shrink-0"
+									fill="currentColor"
+									viewBox="0 0 20 20"
+									xmlns="http://www.w3.org/2000/svg"
+								>
+									<path
+										fill-rule="evenodd"
+										d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
+										clip-rule="evenodd"
+									></path>
+								</svg>
+							</button>
 
-              <div class="hidden">
-                <div class="py-5 border-b border-gray-700 px-3">
-                  <p class="mb-2 dark:text-gray-400">
-                    Lorem, ipsum dolor sit amet consectetur adipisicing elit.
-                    Perferendis esse beatae eos doloremque quo facere aliquam
-                    odio amet inventore dignissimos?
-                  </p>
-                </div>
-              </div>
-            </div>
-            <div>
-              <button
-                type="button"
-                class="
-                  flex
-                  justify-between
-                  items-center
-                  hover:bg-gray-200
-                  px-3
-                  py-5
-                  w-full
-                  font-medium
-                  text-left
-                  border-b border-gray-700
-                "
-              >
-                <span>Удобные дни и время</span>
-                <svg
-                  class="w-6 h-6 shrink-0"
-                  fill="currentColor"
-                  viewBox="0 0 20 20"
-                  xmlns="http://www.w3.org/2000/svg"
-                >
-                  <path
-                    fill-rule="evenodd"
-                    d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
-                    clip-rule="evenodd"
-                  ></path>
-                </svg>
-              </button>
+							<div class="hidden">
+								<div class="py-5 border-b border-gray-700 px-3">
+									<p class="mb-2 dark:text-gray-400">
+										The main difference is that the core
+										components from Flowbite are open source
+										under the MIT license, whereas Tailwind
+										UI is a paid product. Another difference
+										is that Flowbite relies on smaller and
+										standalone components, whereas Tailwind
+										UI offers sections of pages.
+									</p>
+								</div>
+							</div>
+						</div>
 
-              <div class="hidden">
-                <div class="py-5 border-b border-gray-700 px-3">
-                  <p class="mb-2 dark:text-gray-400">
-                    The main difference is that the core components from
-                    Flowbite are open source under the MIT license, whereas
-                    Tailwind UI is a paid product. Another difference is that
-                    Flowbite relies on smaller and standalone components,
-                    whereas Tailwind UI offers sections of pages.
-                  </p>
-                </div>
-              </div>
-            </div>
-            <div>
-              <button
-                type="button"
-                class="
-                  flex
-                  justify-between
-                  items-center
-                  hover:bg-gray-200
-                  px-3
-                  py-5
-                  w-full
-                  font-medium
-                  text-left
-                  border-b border-gray-700
-                "
-              >
-                <span>Стоимость услуги</span>
-                <svg
-                  class="w-6 h-6 shrink-0"
-                  fill="currentColor"
-                  viewBox="0 0 20 20"
-                  xmlns="http://www.w3.org/2000/svg"
-                >
-                  <path
-                    fill-rule="evenodd"
-                    d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
-                    clip-rule="evenodd"
-                  ></path>
-                </svg>
-              </button>
+						<div>
+							<button
+								type="button"
+								class="
+									flex
+									justify-between
+									items-center
+									hover:bg-gray-200
+									px-3
+									py-5
+									w-full
+									font-medium
+									text-left
+									border-b border-gray-700
+								"
+							>
+								<span>Фотографии и файлы</span>
+								<svg
+									class="w-6 h-6 shrink-0"
+									fill="currentColor"
+									viewBox="0 0 20 20"
+									xmlns="http://www.w3.org/2000/svg"
+								>
+									<path
+										fill-rule="evenodd"
+										d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
+										clip-rule="evenodd"
+									></path>
+								</svg>
+							</button>
 
-              <div class="hidden">
-                <div class="py-5 border-b border-gray-700 px-3">
-                  <p class="mb-2 dark:text-gray-400">
-                    The main difference is that the core components from
-                    Flowbite are open source under the MIT license, whereas
-                    Tailwind UI is a paid product. Another difference is that
-                    Flowbite relies on smaller and standalone components,
-                    whereas Tailwind UI offers sections of pages.
-                  </p>
-                </div>
-              </div>
-            </div>
-            <div>
-              <button
-                type="button"
-                class="
-                  flex
-                  justify-between
-                  items-center
-                  hover:bg-gray-200
-                  px-3
-                  py-5
-                  w-full
-                  font-medium
-                  text-left
-                  border-b border-gray-700
-                "
-              >
-                <span>Где вам удобно встретиться</span>
-                <svg
-                  class="w-6 h-6 shrink-0"
-                  fill="currentColor"
-                  viewBox="0 0 20 20"
-                  xmlns="http://www.w3.org/2000/svg"
-                >
-                  <path
-                    fill-rule="evenodd"
-                    d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
-                    clip-rule="evenodd"
-                  ></path>
-                </svg>
-              </button>
-
-              <div class="hidden">
-                <div class="py-5 border-b border-gray-700 px-3">
-                  <p class="mb-2 dark:text-gray-400">
-                    The main difference is that the core components from
-                    Flowbite are open source under the MIT license, whereas
-                    Tailwind UI is a paid product. Another difference is that
-                    Flowbite relies on smaller and standalone components,
-                    whereas Tailwind UI offers sections of pages.
-                  </p>
-                </div>
-              </div>
-            </div>
-            <div>
-              <button
-                type="button"
-                class="
-                  flex
-                  justify-between
-                  items-center
-                  hover:bg-gray-200
-                  px-3
-                  py-5
-                  w-full
-                  font-medium
-                  text-left
-                  border-b border-gray-700
-                "
-              >
-                <span>Фотографии и файлы</span>
-                <svg
-                  class="w-6 h-6 shrink-0"
-                  fill="currentColor"
-                  viewBox="0 0 20 20"
-                  xmlns="http://www.w3.org/2000/svg"
-                >
-                  <path
-                    fill-rule="evenodd"
-                    d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
-                    clip-rule="evenodd"
-                  ></path>
-                </svg>
-              </button>
-
-              <div class="hidden">
-                <div class="py-5 border-b border-gray-700 px-3">
-                  <p class="mb-2 dark:text-gray-400">
-                    The main difference is that the core components from
-                    Flowbite are open source under the MIT license, whereas
-                    Tailwind UI is a paid product. Another difference is that
-                    Flowbite relies on smaller and standalone components,
-                    whereas Tailwind UI offers sections of pages.
-                  </p>
-                </div>
-              </div>
-            </div>
-            <div class="mt-10 flex items-center justify-between">
-              <div>
-                <span class="block">Номер заказа: 43844292</span>
-                <span class="block">Заказ создан: 22 ноября 2021</span>
-              </div>
-              <button
-                class="
-                  select-none
-                  text-white
-                  rounded-md
-                  px-4
-                  py-2
-                  transition-all
-                  duration-200
-                  shadow-lg
-                  transform
-                  scale-100
-                  bg-orange-500
-                  hover:bg-orange-500/80
-                  disabled:bg-orange-500/50
-                  shadow-orange-500/25
-                  active:scale-95
-                "
-              >
-                <svg
-                  class="w-5 h-5 inline -mt-0.5"
-                  fill="none"
-                  stroke="currentColor"
-                  viewBox="0 0 24 24"
-                  xmlns="http://www.w3.org/2000/svg"
-                >
-                  <path
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                    stroke-width="2"
-                    d="M6 18L18 6M6 6l12 12"
-                  ></path>
-                </svg>
-                Отменить заказ
-              </button>
-            </div>
-          </div>
-        </div>
-        <!-- <div
+							<div class="hidden">
+								<div class="py-5 border-b border-gray-700 px-3">
+									<p class="mb-2 dark:text-gray-400">
+										The main difference is that the core
+										components from Flowbite are open source
+										under the MIT license, whereas Tailwind
+										UI is a paid product. Another difference
+										is that Flowbite relies on smaller and
+										standalone components, whereas Tailwind
+										UI offers sections of pages.
+									</p>
+								</div>
+							</div>
+						</div>
+						<div class="mt-10 flex items-center justify-between">
+							<div>
+								<span class="block"
+									>Номер заказа: 43844292</span
+								>
+								<span class="block"
+									>Заказ создан: 22 ноября 2021</span
+								>
+							</div>
+							<c-button scheme="danger" class="flex items-center">
+								<h-x class="h-4 w-4 mr-2"> </h-x>
+								Удалить заказ
+							</c-button>
+						</div>
+					</div>
+				</div>
+				<!-- <div
 					class="
 						flex flex-row
 						rounded-lg
@@ -883,7 +819,7 @@ const displayedPrice = computed(() => {
 
 
 				</div> -->
-      </div>
-    </div>
-  </section>
+			</div>
+		</div>
+	</section>
 </template>
