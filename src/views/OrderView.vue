@@ -10,6 +10,9 @@
 	import PriceForm from "@/components/order/view/forms/price.vue";
 	import WorkPlaceForm from "@/components/order/view/forms/work-place.vue";
 	import AddressForm from "@/components/order/view/forms/address.vue";
+	import ServicesForm from "@/components/order/view/forms/services.vue";
+	import TimeForm from "@/components/order/view/forms/time.vue";
+
 	const props = defineProps({
 		orderId: { type: [Number, String] },
 	});
@@ -53,7 +56,34 @@
 		if (!!name) {
 			return name;
 		}
-		return `${category?.name}, ${services?.[services?.length - 1]?.name}`;
+		return `${category?.name}`;
+	});
+	const service = computed(() => {
+		if (!!!model.value) {
+			return null;
+		}
+		const { name, services } = model.value;
+		if (!!name) {
+			return name;
+		}
+		return `${services?.[services?.length - 1]?.name}`;
+	});
+
+	const displayedTime = computed(() => {
+		if (!!!model.value) {
+			return null;
+		}
+		const { started_at, ended_at } = model.value;
+
+		return `${new Date(started_at)
+			?.toLocaleString()
+			?.replace("/", ".")
+			?.replace(",", " г.")
+			?.slice(0, -3)}  ${new Date(ended_at)
+			?.toLocaleString()
+			?.replace("/", ".")
+			?.replace(",", " г.")
+			?.slice(0, -3)}`;
 	});
 
 	const displayedPrice = computed(() => {
@@ -313,6 +343,27 @@
 							:index="1"
 							:expanded="expanded"
 							@on-expand="onExpand"
+							title="Вид услуги"
+						>
+							<template #subtitle>
+								<div class="line-clamp-2">
+									{{ service }}
+								</div>
+							</template>
+							<div class="p-4 pt-6">
+								<services-form
+									@cancel="onExpand(null)"
+									:default-state="model"
+									:updateHandlers="updateHandlers"
+									@success="onExpand(null)"
+								>
+								</services-form>
+							</div>
+						</accordion-item>
+						<accordion-item
+							:index="2"
+							:expanded="expanded"
+							@on-expand="onExpand"
 							title="Описание"
 						>
 							<template #subtitle>
@@ -338,7 +389,7 @@
 							</div>
 						</accordion-item>
 						<accordion-item
-							:index="2"
+							:index="3"
 							:expanded="expanded"
 							@on-expand="onExpand"
 							title="Cтоимость услуги"
@@ -357,7 +408,7 @@
 							</div>
 						</accordion-item>
 						<accordion-item
-							:index="3"
+							:index="4"
 							:expanded="expanded"
 							@on-expand="onExpand"
 							title="Место встречи"
@@ -378,7 +429,7 @@
 							</div>
 						</accordion-item>
 						<accordion-item
-							:index="4"
+							:index="5"
 							:expanded="expanded"
 							@on-expand="onExpand"
 							title="Адрес заказчика"
@@ -399,156 +450,28 @@
 								</address-form>
 							</div>
 						</accordion-item>
+						<accordion-item
+							:index="6"
+							:expanded="expanded"
+							@on-expand="onExpand"
+							title="Время"
+						>
+							<template #subtitle>
+								<div class="flex">
+									{{ displayedTime }}
+								</div>
+							</template>
+							<div class="p-4 pt-6">
+								<TimeForm
+									@cancel="onExpand(null)"
+									:default-state="model"
+									:updateHandlers="updateHandlers"
+									@success="onExpand(null)"
+								>
+								</TimeForm>
+							</div>
+						</accordion-item>
 					</accordion-container>
-					<div>
-						<div>
-							<button
-								type="button"
-								class="
-									flex
-									justify-between
-									items-center
-									hover:bg-gray-200
-									px-3
-									py-5
-									w-full
-									font-medium
-									text-left
-									border-b border-gray-700
-								"
-							>
-								<span>Информация</span>
-								<svg
-									class="w-6 h-6 shrink-0"
-									fill="currentColor"
-									viewBox="0 0 20 20"
-									xmlns="http://www.w3.org/2000/svg"
-								>
-									<path
-										fill-rule="evenodd"
-										d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
-										clip-rule="evenodd"
-									></path>
-								</svg>
-							</button>
-
-							<div class="hidden">
-								<div class="py-5 border-b border-gray-700 px-3">
-									<p class="mb-2 dark:text-gray-400">
-										Lorem, ipsum dolor sit amet consectetur
-										adipisicing elit. Perferendis esse
-										beatae eos doloremque quo facere aliquam
-										odio amet inventore dignissimos?
-									</p>
-								</div>
-							</div>
-						</div>
-						<div>
-							<button
-								type="button"
-								class="
-									flex
-									justify-between
-									items-center
-									hover:bg-gray-200
-									px-3
-									py-5
-									w-full
-									font-medium
-									text-left
-									border-b border-gray-700
-								"
-							>
-								<span>Удобные дни и время</span>
-								<svg
-									class="w-6 h-6 shrink-0"
-									fill="currentColor"
-									viewBox="0 0 20 20"
-									xmlns="http://www.w3.org/2000/svg"
-								>
-									<path
-										fill-rule="evenodd"
-										d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
-										clip-rule="evenodd"
-									></path>
-								</svg>
-							</button>
-
-							<div class="hidden">
-								<div class="py-5 border-b border-gray-700 px-3">
-									<p class="mb-2 dark:text-gray-400">
-										The main difference is that the core
-										components from Flowbite are open source
-										under the MIT license, whereas Tailwind
-										UI is a paid product. Another difference
-										is that Flowbite relies on smaller and
-										standalone components, whereas Tailwind
-										UI offers sections of pages.
-									</p>
-								</div>
-							</div>
-						</div>
-
-						<div>
-							<button
-								type="button"
-								class="
-									flex
-									justify-between
-									items-center
-									hover:bg-gray-200
-									px-3
-									py-5
-									w-full
-									font-medium
-									text-left
-									border-b border-gray-700
-								"
-							>
-								<span>Фотографии и файлы</span>
-								<svg
-									class="w-6 h-6 shrink-0"
-									fill="currentColor"
-									viewBox="0 0 20 20"
-									xmlns="http://www.w3.org/2000/svg"
-								>
-									<path
-										fill-rule="evenodd"
-										d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
-										clip-rule="evenodd"
-									></path>
-								</svg>
-							</button>
-
-							<div class="hidden">
-								<div class="py-5 border-b border-gray-700 px-3">
-									<p class="mb-2 dark:text-gray-400">
-										The main difference is that the core
-										components from Flowbite are open source
-										under the MIT license, whereas Tailwind
-										UI is a paid product. Another difference
-										is that Flowbite relies on smaller and
-										standalone components, whereas Tailwind
-										UI offers sections of pages.
-									</p>
-								</div>
-							</div>
-						</div>
-						<div class="mt-10 flex items-center justify-between">
-							<div>
-								<span class="block"
-									>Номер заказа: 43844292</span
-								>
-								<span class="block"
-									>Заказ создан: 22 ноября 2021</span
-								>
-							</div>
-							<c-button scheme="danger" class="flex items-center">
-								<h-x class="h-4 w-4 mr-2"> </h-x>
-								Удалить заказ
-							</c-button>
-						</div>
-					</div>
 				</div>
 				<!-- <div
 					class="
