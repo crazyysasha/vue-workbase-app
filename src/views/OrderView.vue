@@ -21,6 +21,7 @@
 	const { orderId } = toRefs(props);
 
 	const { onGet, model, onUpdate, onDelete } = useOrderModel(orderId.value);
+
 	const {
 		execute: getOrderExecute,
 		isLoading: getOrderIsLoading,
@@ -51,6 +52,7 @@
 			if (type == "validation") {
 				return;
 			}
+
 			if (type == "not_found") {
 				router.replace({
 					name: "404",
@@ -490,24 +492,26 @@
 							</div>
 						</accordion-item>
 					</accordion-container>
-					<c-button
-						@click="deleteOrderExecute"
-						scheme="danger"
-						class="flex items-center"
-						:loading="
-							deleteOrderIsLoading ||
-							updateOrderIsLoading ||
-							getOrderIsLoading
-						"
-						:disabled="
-							deleteOrderIsLoading ||
-							updateOrderIsLoading ||
-							getOrderIsLoading
-						"
-					>
-						<h-x class="h-4 w-4 mr-2"> </h-x>
-						Удалить заказ
-					</c-button>
+					<div class="flex mt-4">
+						<c-button
+							@click="deleteOrderExecute"
+							scheme="danger"
+							class="flex items-center ml-auto"
+							:loading="
+								deleteOrderIsLoading ||
+								updateOrderIsLoading ||
+								getOrderIsLoading
+							"
+							:disabled="
+								deleteOrderIsLoading ||
+								updateOrderIsLoading ||
+								getOrderIsLoading
+							"
+						>
+							<h-x class="h-4 w-4 mr-2"> </h-x>
+							Удалить заказ
+						</c-button>
+					</div>
 				</div>
 				<!-- <div
 	
