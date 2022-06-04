@@ -93,11 +93,11 @@
 		}
 		const { started_at, ended_at } = model.value;
 
-		return `${new Date(started_at)
+		return `Начало: ${new Date(started_at)
 			?.toLocaleString()
 			?.replace("/", ".")
 			?.replace(",", " г.")
-			?.slice(0, -3)}  ${new Date(ended_at)
+			?.slice(0, -3)}  Завершение: ${new Date(ended_at)
 			?.toLocaleString()
 			?.replace("/", ".")
 			?.replace(",", " г.")
