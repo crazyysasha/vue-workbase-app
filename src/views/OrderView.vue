@@ -9,20 +9,21 @@
 	import DescriptionForm from "@/components/order/view/forms/description.vue";
 	import PriceForm from "@/components/order/view/forms/price.vue";
 	import WorkPlaceForm from "@/components/order/view/forms/work-place.vue";
+	import { useRoute, useRouter } from "vue-router";
 	const props = defineProps({
 		orderId: { type: [Number, String] },
 	});
 
 	const { orderId } = toRefs(props);
 
-	const { onGet, model, onUpdate } = useOrderModel(orderId.value);
+	const { onGet, model, onUpdate, onDelete } = useOrderModel(orderId.value);
 	const {
 		execute: getOrderExecute,
 		isLoading: getOrderIsLoading,
 		isLoaded: getOrderIsLoaded,
 		promise: getOrderPromise,
 	} = onGet({
-		with: ["services", "category", "replies"],
+		with: ["services", "category", "replies", "trashed"],
 		count: ["replies", "services"],
 	});
 	const updateHandlers = onUpdate();
@@ -30,16 +31,31 @@
 	const {
 		execute: updateOrderExecute,
 		isLoading: updateOrderIsLoading,
-		isLoaded,
+		isLoaded: updateOrderIsLoaded,
 	} = updateHandlers;
 
+	const {
+		execute: deleteOrderExecute,
+		isLoading: deleteOrderIsLoading,
+		isLoaded: deleteOrderIsLoaded,
+	} = onDelete();
+
+	const router = useRouter();
+	const route = useRoute();
 	onMounted(async () => {
-		await getOrderExecute().catch(({ type }) => {
+		await getOrderExecute().catch(({ type, message, description }) => {
 			if (type == "validation") {
 				return;
 			}
 			if (type == "not_found") {
-				return;
+				router.replace({
+					name: "404",
+					params: {
+						pathMatch: route.path.substring(1).split("/"),
+						message,
+						description,
+					},
+				});
 			}
 		});
 	});
@@ -64,9 +80,11 @@
 			return `<span class="text-primary">${price}</span> сум за услугу`;
 
 		if (!!price_min)
-			return `от <span class="text-primary">${price_min}</span> до <span class="text-primary">${price_max}</span> сум за услугу`;
+			return `От <span class="text-primary">${price_min}</span> до <span class="text-primary">${price_max}</span> сум за услугу`;
+		if (!!price_max)
+			return `До <span class="text-primary">${price_max}</span> сум за услугу`;
 
-		return `до <span class="text-primary">${price_max}</span> сум за услугу`;
+		return "Договорная";
 	});
 
 	const workPlace = computed(() => {
@@ -319,7 +337,7 @@
 									<p
 										v-for="(
 											text, index
-										) in model?.description.split('\n', 2)"
+										) in model?.description?.split('\n', 2)"
 										:key="`description-${index}`"
 									>
 										{{ text }}
@@ -542,7 +560,21 @@
 									>Заказ создан: 22 ноября 2021</span
 								>
 							</div>
-							<c-button scheme="danger" class="flex items-center">
+							<c-button
+								@click="deleteOrderExecute"
+								scheme="danger"
+								class="flex items-center"
+								:loading="
+									deleteOrderIsLoading ||
+									updateOrderIsLoading ||
+									getOrderIsLoading
+								"
+								:disabled="
+									deleteOrderIsLoading ||
+									updateOrderIsLoading ||
+									getOrderIsLoading
+								"
+							>
 								<h-x class="h-4 w-4 mr-2"> </h-x>
 								Удалить заказ
 							</c-button>
@@ -550,6 +582,8 @@
 					</div>
 				</div>
 				<!-- <div
+	
+	
 					class="
 						flex flex-row
 						rounded-lg
