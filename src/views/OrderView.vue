@@ -1,6 +1,7 @@
 
 <script setup>
 	import { computed, onMounted, reactive, toRefs } from "vue";
+	import { useRoute, useRouter } from "vue-router";
 	import useOrderModel from "@/composables/orders/model";
 	import AccordionContainer from "@/components/order/view/accordion/container.vue";
 	import AccordionItem from "@/components/order/view/accordion/item.vue";
@@ -19,14 +20,14 @@
 
 	const { orderId } = toRefs(props);
 
-	const { onGet, model, onUpdate } = useOrderModel(orderId.value);
+	const { onGet, model, onUpdate, onDelete } = useOrderModel(orderId.value);
 	const {
 		execute: getOrderExecute,
 		isLoading: getOrderIsLoading,
 		isLoaded: getOrderIsLoaded,
 		promise: getOrderPromise,
 	} = onGet({
-		with: ["services", "category", "replies"],
+		with: ["services", "category", "replies", "trashed"],
 		count: ["replies", "services"],
 	});
 	const updateHandlers = onUpdate();
@@ -34,16 +35,31 @@
 	const {
 		execute: updateOrderExecute,
 		isLoading: updateOrderIsLoading,
-		isLoaded,
+		isLoaded: updateOrderIsLoaded,
 	} = updateHandlers;
 
+	const {
+		execute: deleteOrderExecute,
+		isLoading: deleteOrderIsLoading,
+		isLoaded: deleteOrderIsLoaded,
+	} = onDelete();
+
+	const router = useRouter();
+	const route = useRoute();
 	onMounted(async () => {
-		await getOrderExecute().catch(({ type }) => {
+		await getOrderExecute().catch(({ type, message, description }) => {
 			if (type == "validation") {
 				return;
 			}
 			if (type == "not_found") {
-				return;
+				router.replace({
+					name: "404",
+					params: {
+						pathMatch: route.path.substring(1).split("/"),
+						message,
+						description,
+					},
+				});
 			}
 		});
 	});
@@ -95,9 +111,11 @@
 			return `<span class="text-primary">${price}</span> сум за услугу`;
 
 		if (!!price_min)
-			return `от <span class="text-primary">${price_min}</span> до <span class="text-primary">${price_max}</span> сум за услугу`;
+			return `От <span class="text-primary">${price_min}</span> до <span class="text-primary">${price_max}</span> сум за услугу`;
+		if (!!price_max)
+			return `До <span class="text-primary">${price_max}</span> сум за услугу`;
 
-		return `до <span class="text-primary">${price_max}</span> сум за услугу`;
+		return "Договорная";
 	});
 
 	const workPlace = computed(() => {
@@ -371,7 +389,7 @@
 									<p
 										v-for="(
 											text, index
-										) in model?.description.split('\n', 2)"
+										) in model?.description?.split('\n', 2)"
 										:key="`description-${index}`"
 									>
 										{{ text }}
@@ -472,8 +490,28 @@
 							</div>
 						</accordion-item>
 					</accordion-container>
+					<c-button
+						@click="deleteOrderExecute"
+						scheme="danger"
+						class="flex items-center"
+						:loading="
+							deleteOrderIsLoading ||
+							updateOrderIsLoading ||
+							getOrderIsLoading
+						"
+						:disabled="
+							deleteOrderIsLoading ||
+							updateOrderIsLoading ||
+							getOrderIsLoading
+						"
+					>
+						<h-x class="h-4 w-4 mr-2"> </h-x>
+						Удалить заказ
+					</c-button>
 				</div>
 				<!-- <div
+	
+	
 					class="
 						flex flex-row
 						rounded-lg

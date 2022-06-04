@@ -128,9 +128,13 @@ const routes = [
     component: () => import(/* webpackChunkName: "termsofuse" */ '../views/TermsOfUseView.vue'),
   },
   {
-    path: '/:pathMath(.*)*',
+    path: '/:pathMatch(.*)*',
     name: '404',
     component: () => import(/* webpackChunkName: "404" */ '../views/NotFoundView.vue'),
+    props: router => ({
+      message: router.params.message,
+      description: router.params.description,
+    }),
   },
 
 ]

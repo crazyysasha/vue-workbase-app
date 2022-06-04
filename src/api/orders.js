@@ -32,6 +32,7 @@ export const update = (id, data = { services, name, address, lat, lng, is_online
 export const deleteById = (id, params, config) => {
     return axios.delete(`crazy/freelancer/v1.0.1/orders/${id}`, { params, ...config, });
 }
+
 export const publish = (id, data = {}, config = {}) => {
     return axios.post(`crazy/freelancer/v1.0.1/orders/${id}/publish`, data, config);
 }
