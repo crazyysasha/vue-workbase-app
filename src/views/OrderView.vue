@@ -5,6 +5,8 @@
 	import useOrderModel from "@/composables/orders/model";
 	import AccordionContainer from "@/components/order/view/accordion/container.vue";
 	import AccordionItem from "@/components/order/view/accordion/item.vue";
+	import ListContainer from "@/components/order/view/list/container.vue";
+	import ListItem from "@/components/order/view/list/item.vue";
 	import useVuelidate from "@vuelidate/core";
 	import { helpers, minLength } from "@vuelidate/validators";
 	import DescriptionForm from "@/components/order/view/forms/description.vue";
@@ -595,6 +597,126 @@
 						
 					</div>
 				</div> -->
+			</div>
+			<div class="md:col-span-5">
+				<div
+					class="
+						rounded-lg
+						bg-white
+						shadow shadow-primary/25
+						p-7
+						mb-6
+					"
+				>
+					<div v-if="getOrderIsLoading" class="pt-1.5 pb-0.5 mb-5">
+						<div
+							class="
+								h-6
+								w-96
+								bg-primary/10
+								rounded-md
+								animate-pulse
+							"
+						></div>
+					</div>
+					<h2 class="text-2xl text-primary font-medium mb-5" v-else>
+						{{ title }}
+					</h2>
+					<div>
+						<list-item
+							:index="1"
+							:expanded="expanded"
+							@on-expand="onExpand"
+							title="Вид услуги"
+						>
+							<template #subtitle>
+								<div class="line-clamp-2">
+									{{ service }}
+								</div>
+							</template>
+						</list-item>
+						<list-item
+							:index="2"
+							:expanded="expanded"
+							@on-expand="onExpand"
+							title="Описание"
+						>
+							<template #subtitle>
+								<div class="line-clamp-2">
+									<p
+										v-for="(
+											text, index
+										) in model?.description?.split('\n', 2)"
+										:key="`description-${index}`"
+									>
+										{{ text }}
+									</p>
+								</div>
+							</template>
+						</list-item>
+						<list-item
+							:index="3"
+							:expanded="expanded"
+							@on-expand="onExpand"
+							title="Стоимость услуги"
+						>
+							<template #subtitle>
+								<div class="line-clamp-2">
+									<div v-html="displayedPrice"></div>
+								</div>
+							</template>
+						</list-item>
+						<list-item
+							:index="4"
+							:expanded="expanded"
+							@on-expand="onExpand"
+							title="Место встречи"
+						>
+							<template #subtitle>
+								<div class="line-clamp-2">
+									{{ workPlace }}
+								</div>
+							</template>
+						</list-item>
+						<list-item
+							:index="5"
+							:expanded="expanded"
+							@on-expand="onExpand"
+							title="Адрес заказчика"
+							v-if="model?.at_customer"
+						>
+							<template #subtitle>
+								<div class="line-clamp-2">
+									{{ address }}
+								</div>
+							</template>
+						</list-item>
+						<list-item
+							:index="6"
+							:expanded="expanded"
+							@on-expand="onExpand"
+							title="Время"
+						>
+							<template #subtitle>
+								<div class="line-clamp-2">
+									{{ displayedTime }}
+								</div>
+							</template>
+						</list-item>
+						<list-item
+							:index="7"
+							:expanded="expanded"
+							@on-expand="onExpand"
+							title="Номер заказа"
+						>
+							<template #subtitle>
+								<div class="line-clamp-2">
+									{{ orderId }}
+								</div>
+							</template>
+						</list-item>
+					</div>
+				</div>
 			</div>
 		</div>
 	</section>
