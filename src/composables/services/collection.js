@@ -1,6 +1,6 @@
 import { get } from "@/api/services";
-import { computed, readonly, ref } from "vue";
-
+import { computed, reactive, readonly, ref } from "vue";
+import useApi from "@/composables/api";
 
 export default function useServicesApi() {
 
@@ -28,6 +28,33 @@ export default function useServicesApi() {
         isLoading: readonly(isLoading),
         isLoaded: readonly(isLoaded),
         promise: readonly(promise),
+        onGet,
+    };
+}
+
+export function useServicesCollection() {
+    const collection = ref([]);
+
+    const pagination = reactive({
+        currentPage: 0,
+        lastPage: 0,
+        perPage: 0,
+        total: 0,
+        path: null,
+    });
+
+    const onGet = () => {
+        return useApi(
+            (params) => get(params),
+            (data) => {
+                collection.value = data.collection;
+                Object.assign(pagination, data.pagination);
+            });
+    }
+
+    return {
+        collection: readonly(collection),
+        pagination: readonly(pagination),
         onGet,
     };
 }

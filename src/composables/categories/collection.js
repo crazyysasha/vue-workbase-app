@@ -1,6 +1,6 @@
 import { get } from "@/api/categories";
 import { computed, reactive, readonly, ref } from "vue";
-
+import useApi from "@/composables/api";
 
 // /** @type {{id: Number, name: String}} */
 
@@ -46,6 +46,18 @@ export default function useCategoriesApi() {
         isLoaded: readonly(isLoaded),
         promise: readonly(promise),
         onGetWhenNotLoaded,
+        onGet,
+    };
+}
+
+export function useCategoriesCollection() {
+    const collection = ref([]);
+    const onGet = (params = {with: [], count: []}) => {
+        return useApi(() => get(params), (data) => collection.value = data.collection);
+    }
+
+    return {
+        collection: readonly(collection), 
         onGet,
     };
 }

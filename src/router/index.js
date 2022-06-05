@@ -68,9 +68,10 @@ const routes = [
     component: () => import(/* webpackChunkName: "faq" */ '../views/FaqView.vue'),
   },
   {
-    path: '/services',
+    path: '/:slug/services',
     name: 'services',
     component: () => import(/* webpackChunkName: "services" */ '../views/ServicesView.vue'),
+    props: true,
   },
   {
     path: '/contact',
