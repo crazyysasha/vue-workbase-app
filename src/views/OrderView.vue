@@ -27,7 +27,7 @@
 		isLoaded: getOrderIsLoaded,
 		promise: getOrderPromise,
 	} = onGet({
-		with: ["services", "category", "replies", "trashed"],
+		with: ["services", "category", "replies"], //"trashed"
 		count: ["replies", "services"],
 	});
 	const updateHandlers = onUpdate();
