@@ -1,7 +1,7 @@
 import { logout } from "@/api/auth";
 import { ref } from "vue";
+import { profile } from "../profile";
 import { token } from "./token";
-import { user } from "./user";
 
 
 const isLoading = ref(false);
@@ -18,7 +18,7 @@ export function useLogout() {
             isLoading.value = false;
             data.value = response;
             token.value = null;
-            user.value = null;
+            profile.value = null;
         }).catch(thrown => {
             isLoading.value = false;
             if (thrown?.response?.error) {
@@ -26,7 +26,7 @@ export function useLogout() {
             }
             console.log(thrown);
             token.value = null;
-            user.value = null;
+            profile.value = null;
         });
     };
 

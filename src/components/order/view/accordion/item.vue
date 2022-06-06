@@ -1,15 +1,79 @@
+
+<script setup>
+	import { computed, toRefs, watch } from "vue";
+	const props = defineProps({
+		expanded: {
+			type: Number,
+			default: null,
+		},
+		index: {
+			type: Number,
+			required: true,
+		},
+		title: {
+			type: String,
+		},
+		subtitle: {
+			type: String,
+		},
+		body: {
+			type: String,
+		},
+		disabled: {
+			type: Boolean,
+			default: false,
+		},
+	});
+	const { expanded, index, disabled } = toRefs(props);
+
+	const emit = defineEmits(["on-expand"]);
+
+	const onExpand = () => {
+		if (isExpanded.value) {
+			return emit("on-expand", null);
+		}
+		return emit("on-expand", index.value);
+	};
+
+	const isExpanded = computed(() => expanded.value == index.value);
+
+	const isDisabled = computed(() => disabled.value);
+
+	const onTransitionEnter = (el) => {
+		el.style.height = `${el.scrollHeight}px`;
+	};
+	const onBeforeTransitionEnter = (el) => {
+		el.style.height = 0;
+	};
+	const onAfterTransitionEnter = (el) => {
+		el.style.height = "auto";
+	};
+	const onTransitionLeave = (el) => {
+		el.style.height = 0;
+	};
+	const onBeforeTransitionLeave = (el) => {
+		el.style.height = `${el.scrollHeight}px`;
+	};
+	const onAfterTransitionLeave = (el) => {
+		el.style.height = `auto`;
+	};
+</script>
 <template>
 	<div
 		:class="{
-			'hover:bg-primary/10 border-transparent': !isExpanded,
+			'hover:bg-primary/10 border-transparent':
+				!isExpanded && !isDisabled,
+			'!bg-gray-50': isExpanded && isDisabled,
+			'!my-2': isExpanded,
 		}"
 		class="
 			flex flex-col
-			transition
+			transition-all
 			duration-200
 			border
 			rounded-md
 			overflow-hidden
+			my-0
 		"
 	>
 		<button
@@ -23,7 +87,7 @@
 				border-b
 				focus:outline-none
 			"
-			@click="onExpand"
+			@click="isDisabled || onExpand()"
 			:class="{
 				'hover:bg-primary/10 border-primary/50': isExpanded,
 				' border-transparent': !isExpanded,
@@ -91,57 +155,3 @@
 		</transition>
 	</div>
 </template>
-
-<script setup>
-	import { computed, toRefs, watch } from "vue";
-	const props = defineProps({
-		expanded: {
-			type: Number,
-			default: null,
-		},
-		index: {
-			type: Number,
-			required: true,
-		},
-		title: {
-			type: String,
-		},
-		subtitle: {
-			type: String,
-		},
-		body: {
-			type: String,
-		},
-	});
-	const { expanded, index } = toRefs(props);
-
-	const emit = defineEmits(["on-expand"]);
-
-	const onExpand = () => {
-		if (isExpanded.value) {
-			return emit("on-expand", null);
-		}
-		return emit("on-expand", index.value);
-	};
-
-	const isExpanded = computed(() => expanded.value == index.value);
-
-	const onTransitionEnter = (el) => {
-		el.style.height = `${el.scrollHeight}px`;
-	};
-	const onBeforeTransitionEnter = (el) => {
-		el.style.height = 0;
-	};
-	const onAfterTransitionEnter = (el) => {
-		el.style.height = "auto";
-	};
-	const onTransitionLeave = (el) => {
-		el.style.height = 0;
-	};
-	const onBeforeTransitionLeave = (el) => {
-		el.style.height = `${el.scrollHeight}px`;
-	};
-	const onAfterTransitionLeave = (el) => {
-		el.style.height = `auto`;
-	};
-</script>

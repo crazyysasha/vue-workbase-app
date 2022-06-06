@@ -12,7 +12,7 @@ export default function useApi(promise, onSerialize) {
         return promiseRef.value = promise(...args)
             .then(response => response.data)
             .then(data => {
-                isLoading.value = false;
+                isLoaded.value = true;
                 return onSerialize(data);
             }).catch((error) => {
                 try {

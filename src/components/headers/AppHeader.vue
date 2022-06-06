@@ -2,7 +2,7 @@
 	import { computed, ref } from "vue";
 	import CLogin from "@/components/auth/c-login";
 	import cRegister from "@/components/auth/c-register";
-	import { user, isAuthentificated } from "@/composables/auth";
+	import { isAuthentificated } from "@/composables/auth";
 	import cUserMenu from "@/components/userMenu/c-user-menu";
 	import cLanguage from "@/components/userMenu/c-language";
 	import { useRoute } from "vue-router";

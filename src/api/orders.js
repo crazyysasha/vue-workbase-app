@@ -36,3 +36,5 @@ export const deleteById = (id, params, config) => {
 export const publish = (id, data = {}, config = {}) => {
     return axios.post(`crazy/freelancer/v1.0.1/orders/${id}/publish`, data, config);
 }
+
+export const reply = (id, data = {}, config = {}) => axios.post(`crazy/freelancer/v1.0.1/orders/${id}/replies`, data, config);

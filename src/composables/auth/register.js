@@ -5,8 +5,8 @@ import { token as tokenRef } from "./token";
 
 const isRegistering = ref(false);
 const isRegistered = ref(false);
-export default function useRegister() {
 
+export default function useRegister() {
 
     const onRegister = async ({ name, surname, patronymic, username, email, type, password, passwordConfirmation, password_confirmation }) => {
         isRegistering.value = true;

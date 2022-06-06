@@ -5,8 +5,8 @@
 			class="w-full"
 			v-model="state.description"
 			:valid="!validator.description.$error"
-			:loading="isLoading"
-			:disabled="isLoading"
+			:loading="onUpdateOrderIsLoading"
+			:disabled="onUpdateOrderIsLoading"
 		>
 			Дополнительные пожелания
 		</c-textarea>
@@ -24,12 +24,14 @@
 				type="button"
 				scheme="secondary"
 				@click="onCancel"
-				:loading="isLoading"
-				:disabled="isLoading"
+				:loading="onUpdateOrderIsLoading"
+				:disabled="onUpdateOrderIsLoading"
 			>
 				отмена
 			</c-button>
-			<c-button :loading="isLoading" :disabled="isLoading"
+			<c-button
+				:loading="onUpdateOrderIsLoading"
+				:disabled="onUpdateOrderIsLoading"
 				>сохранить</c-button
 			>
 		</div>
@@ -39,30 +41,23 @@
 <script setup>
 	import useVuelidate from "@vuelidate/core";
 	import { helpers, minLength } from "@vuelidate/validators";
-	import { reactive, toRefs, unref, watch, watchEffect } from "vue";
-	const props = defineProps({
-		defaultState: {
-			type: Object,
-		},
-		updateHandlers: {
-			type: Object,
-			required: true,
-		},
-	});
-	const { defaultState, updateHandlers } = toRefs(props);
-	const { execute, isLoading, isLoaded, promise } = unref(updateHandlers);
+	import { reactive, watch } from "vue";
+	import useOrderModelInstance from "../../composables/model-instance";
 
 	const emit = defineEmits(["cancel", "success"]);
 
-	watch(defaultState, () => setStateWithDefaults());
+	const { model, onUpdate } = useOrderModelInstance();
+
+	watch(model, () => setStateWithDefaults());
 
 	const state = reactive({ description: "" });
 
 	const setStateWithDefaults = () => {
 		Object.assign(state, {
-			description: defaultState.value?.description || "",
+			description: model.value?.description || "",
 		});
 	};
+
 	setStateWithDefaults();
 
 	const rules = {
@@ -85,10 +80,17 @@
 
 	const validator = useVuelidate(rules, state, { $externalResults });
 
+	const {
+		onUpdateOrderIsLoading,
+		onUpdateOrderIsLoaded,
+		onUpdateOrderPromise,
+		onUpdateOrderExecute,
+	} = onUpdate();
+
 	const onSubmit = async () => {
 		if (!(await validator.value.$validate())) return;
 
-		await execute(state)
+		await onUpdateOrderExecute(model.value.id, state)
 			.then((order) => emit("success", order))
 			.catch(({ type, fields, message }) => {
 				if (type == "validation") Object.assign($externalResults, fields);

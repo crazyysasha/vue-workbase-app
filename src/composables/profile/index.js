@@ -1,6 +1,8 @@
 import { get } from "@/api/profile";
+import { useAxios } from "@vue-composable/axios";
 import { useLocalStorage } from "@vueuse/core";
 import { readonly, ref } from "vue";
+import useApi from "../api";
 
 
 export const profile = useLocalStorage('profile', null, {
@@ -19,21 +21,7 @@ const isLoaded = ref(false);
 
 
 export default function useProfile() {
-    const onGet = () => {
-        const exec = async () => {
-            isLoading.value = true;
-            await get().then(response => response.data?.profile).then(profile => {
-                data.value = profile;
-                isLoaded.value = true;
-                isLoading.value = false;
-            });
-        };
-        return {
-            isLoading,
-            isLoaded,
-            exec
-        };
-    };
+    const onGet = () => useApi((params) => get(params));
     return {
         profile: readonly(profile),
         onGet,
