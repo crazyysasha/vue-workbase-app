@@ -21,51 +21,90 @@
 	);
 </script>
 <template>
-	<div class="grid grid-cols-7 gap-4">
-		<div class="col-span-2">
-			<div>
-				<a href="#order">order</a>
-			</div>
-			<div>
-				<a href="#chat">chat</a>
+	<div class="gap-4 grid md:grid-cols-7">
+		<div class="md:col-span-2">
+			<div class="rounded-lg bg-white shadow shadow-primary/25 p-7 mb-6">
+				<a
+					class="
+						text-lg
+						mb-3
+						font-medium
+						flex
+						items-center
+						justify-between
+					"
+					href="#order"
+				>
+					Заказ
+				</a>
+				<a
+					class="
+						text-lg
+						mb-3
+						font-medium
+						flex
+						items-center
+						justify-between
+					"
+					href="javascript:jivo_api.open()"
+				>
+					Поддержка
+				</a>
+				<a
+					class="
+						text-lg
+						font-medium
+						flex
+						items-center
+						justify-between
+					"
+					href="#chat"
+				>
+					Чаты
+				</a>
 			</div>
 		</div>
 		<div class="md:col-span-5" v-show="activeTab == 'order'">
-			<div class="rounded-lg bg-white shadow shadow-primary/25 p-7 mb-6">
-				<div v-if="getOrderIsLoading" class="pt-1.5 pb-0.5 mb-5">
+			<div class="rounded-lg bg-white shadow shadow-primary/25 p-4 mb-6">
+				<!-- <div v-if="getOrderIsLoading" class="pt-1.5 pb-0.5 mb-5">
 					<div
 						class="h-6 w-96 bg-primary/10 rounded-md animate-pulse"
 					></div>
+				</div> -->
+				<div class="px-4">
+					<h2 class="text-2xl text-primary font-medium mb-5" >
+					<!-- {{ title }}  -->Образование и Репетиторство
+					</h2>
+					<p class="mb-4"> Lorem ipsum dolor sit, amet consectetur adipisicing elit. </p>
 				</div>
-				<h2 class="text-2xl text-primary font-medium mb-5" v-else>
-					<!-- {{ title }} -->
-				</h2>
+				
 				<div>
 					<list-item title="Вид услуги">
 						<template #subtitle>
 							<div class="line-clamp-2">
-								<!-- {{ service }} -->
+								{{ service }}
 							</div>
+							<div><div class="text-left"><div class="line-clamp-2">Английский язык, Общий английский</div></div></div>
 						</template>
 					</list-item>
 					<list-item title="Описание">
 						<template #subtitle>
 							<div class="line-clamp-2">
-								<!-- <p
+								 <p
 									v-for="(
 										text, index
 									) in model?.description?.split('\n', 2)"
 									:key="`description-${index}`"
 								>
 									{{ text }}
-								</p> -->
+								</p> 
 							</div>
 						</template>
 					</list-item>
 					<list-item title="Стоимость услуги">
 						<template #subtitle>
 							<div class="line-clamp-2">
-								<!-- <div v-html="displayedPrice"></div> -->
+								<div v-html="displayedPrice"></div>
 							</div>
 						</template>
 					</list-item>
@@ -361,4 +400,5 @@
 			</div>
 		</div>
 	</div>
+
 </template>

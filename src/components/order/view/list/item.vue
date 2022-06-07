@@ -1,5 +1,5 @@
 <template>
-	<div class="border-b border-primary/25 py-4">
+	<div class="border-b border-primary/25 p-4">
 		<h3
 			class="text-primary transition-all duration-200 text-left text-2xl"
 		>

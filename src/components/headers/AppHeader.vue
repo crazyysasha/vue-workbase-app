@@ -49,7 +49,7 @@ header .swiper-wrapper {
 			<swiper-slide>Сервис работает в тестовом режиме!</swiper-slide>
 		</swiper>
 		<div
-			class="container px-4 2xl:px-20 mx-auto flex items-stretchx xl:py-1"
+			class="container px-4 2xl:px-20 mx-auto flex items-stretchx xl:py-1 lg:h-[80px]"
 		>
 			<div
 				class="

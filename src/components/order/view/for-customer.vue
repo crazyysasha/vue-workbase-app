@@ -213,7 +213,7 @@
 		<div class="md:col-span-5">
 			<div class="rounded-lg bg-white shadow shadow-primary/25 p-4 mb-6">
 				<div class="px-4">
-					<!-- <div v-if="getOrderIsLoading" class="pt-1.5 pb-0.5 mb-5">
+					<div v-if="getOrderIsLoading" class="pt-1.5 pb-0.5 mb-5">
 						<div
 							class="
 								h-6
@@ -223,11 +223,11 @@
 								animate-pulse
 							"
 						></div>
-					</div> -->
+					</div>
 					<h2 class="text-2xl text-primary font-medium mb-5">
 						{{ displayedTitle }}
 					</h2>
-					<!-- <div v-if="getOrderIsLoading" class="pt-1.5 pb-0.5">
+					<div v-if="getOrderIsLoading" class="pt-1.5 pb-0.5">
 						<div
 							class="
 								h-4
@@ -238,7 +238,7 @@
 								animate-pulse
 							"
 						></div>
-					</div> -->
+					</div>
 					<p class="mb-4">
 						Откликнуться могут специалисты, которым вы напишете и
 						которые уже видели заказ
@@ -258,11 +258,11 @@
 							</div>
 						</template>
 						<div class="p-4 pt-6">
-							<!-- <services-form
+							<services-form
 								@cancel="onExpand(null)"
 								@success="onExpand(null)"
 							>
-							</services-form> -->
+							</services-form>
 						</div>
 					</accordion-item>
 					<accordion-item
@@ -292,7 +292,7 @@
 							</description-form>
 						</div>
 					</accordion-item>
-					<!-- <accordion-item
+					<accordion-item
 						:index="3"
 						:expanded="expanded"
 						@on-expand="onExpand"
@@ -372,7 +372,7 @@
 							>
 							</TimeForm> 
 						</div>
-					</accordion-item> -->
+					</accordion-item>
 				</accordion-container>
 				<div class="flex mt-4">
 					<c-button

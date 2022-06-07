@@ -29,7 +29,7 @@ import "@fancyapps/ui/dist/fancybox.css";
             <div class="flex flex-wrap ">
                 <div class="mb-10 w-5/12 border-1 rounded-lg shadow-lg mx-5">
                     <a href="http://api.workbase.uz/storage/app/media/%D0%9F%D0%B0%D1%82%D0%B5%D0%BD%D1%82/1.jpg" data-fancybox>
-                       <img src="http://api.workbase.uz/storage/app/media/%D0%9F%D0%B0%D1%82%D0%B5%D0%BD%D1%82/1.jpg" alt="">
+                       <img src="http://api.workbase.uz/storage/app/media/%D0%9F%D0%B0%D1%82%D0%B5%D0%BD%D1%82/3.jpg" alt="">
                     </a>
                 </div>
                 <div class="mb-10 w-5/12 border-1 rounded-lg shadow-lg mx-5">
@@ -39,7 +39,7 @@ import "@fancyapps/ui/dist/fancybox.css";
                 </div>
                 <div class="mb-10 w-5/12 border-1 rounded-lg shadow-lg mx-5">
                     <a href="http://api.workbase.uz/storage/app/media/%D0%9F%D0%B0%D1%82%D0%B5%D0%BD%D1%82/3.jpg" data-fancybox>
-                       <img src="http://api.workbase.uz/storage/app/media/%D0%9F%D0%B0%D1%82%D0%B5%D0%BD%D1%82/3.jpg" alt="">
+                       <img src="http://api.workbase.uz/storage/app/media/%D0%9F%D0%B0%D1%82%D0%B5%D0%BD%D1%82/1.jpg" alt="">
                     </a>
                 </div>
                <div class="mb-10 w-5/12 border-1 rounded-lg shadow-lg mx-5">

@@ -36,7 +36,7 @@
 			Например:
 		</p>
 		<div
-			class="flex gap-4 flex-wrap min-h-[2.375rem] py-3"
+			class="flex gap-4 flex-wrap min-h-[2.375rem] py-5"
 			v-if="categoryIsLoaded"
 		>
 			<c-button
