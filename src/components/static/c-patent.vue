@@ -27,22 +27,22 @@ import "@fancyapps/ui/dist/fancybox.css";
             <h2 class="text-3xl font-bold mb-6">Патент</h2>
             <p class="mb-6">Lorem ipsum dolor, sit amet consectetur adipisicing elit. Iste accusantium voluptates maiores reiciendis quaerat aut, sequi nisi. Iste eaque distinctio dolores tempore quis exercitationem impedit aliquid atque. Doloribus corrupti modi distinctio ea eos blanditiis hic ullam suscipit voluptatem consequuntur voluptates incidunt quo laboriosam, nemo laudantium. Laborum aspernatur quasi incidunt unde sequi accusamus ex. Facere unde omnis tenetur enim quia voluptatum illum ab molestiae temporibus aspernatur voluptatibus odio esse est, repudiandae dicta hic recusandae. Provident eligendi sequi aspernatur possimus, ex quae, impedit molestiae earum in accusamus iusto magni eius dolores at!</p>
             <div class="flex flex-wrap ">
-                <div class="mb-10 w-5/12 border-1 rounded-lg shadow-lg mx-5">
-                    <a href="http://api.workbase.uz/storage/app/media/%D0%9F%D0%B0%D1%82%D0%B5%D0%BD%D1%82/1.jpg" data-fancybox>
+                <div class="mb-10 md:w-5/12 w-full border-1 rounded-lg shadow-lg mx-5">
+                    <a href="http://api.workbase.uz/storage/app/media/%D0%9F%D0%B0%D1%82%D0%B5%D0%BD%D1%82/3.jpg" data-fancybox>
                        <img src="http://api.workbase.uz/storage/app/media/%D0%9F%D0%B0%D1%82%D0%B5%D0%BD%D1%82/3.jpg" alt="">
                     </a>
                 </div>
-                <div class="mb-10 w-5/12 border-1 rounded-lg shadow-lg mx-5">
+                <div class="mb-10 md:w-5/12 w-full border-1 rounded-lg shadow-lg mx-5">
                     <a href="http://api.workbase.uz/storage/app/media/%D0%9F%D0%B0%D1%82%D0%B5%D0%BD%D1%82/2.jpg" data-fancybox>
                        <img src="http://api.workbase.uz/storage/app/media/%D0%9F%D0%B0%D1%82%D0%B5%D0%BD%D1%82/2.jpg" alt="">
                     </a>
                 </div>
-                <div class="mb-10 w-5/12 border-1 rounded-lg shadow-lg mx-5">
-                    <a href="http://api.workbase.uz/storage/app/media/%D0%9F%D0%B0%D1%82%D0%B5%D0%BD%D1%82/3.jpg" data-fancybox>
+                <div class="mb-10 md:w-5/12 w-full border-1 rounded-lg shadow-lg mx-5">
+                    <a href="http://api.workbase.uz/storage/app/media/%D0%9F%D0%B0%D1%82%D0%B5%D0%BD%D1%82/1.jpg" data-fancybox>
                        <img src="http://api.workbase.uz/storage/app/media/%D0%9F%D0%B0%D1%82%D0%B5%D0%BD%D1%82/1.jpg" alt="">
                     </a>
                 </div>
-               <div class="mb-10 w-5/12 border-1 rounded-lg shadow-lg mx-5">
+               <div class="mb-10 md:w-5/12 w-full border-1 rounded-lg shadow-lg mx-5">
                     <a href="http://api.workbase.uz/storage/app/media/%D0%9F%D0%B0%D1%82%D0%B5%D0%BD%D1%82/4.jpg" data-fancybox>
                        <img src="http://api.workbase.uz/storage/app/media/%D0%9F%D0%B0%D1%82%D0%B5%D0%BD%D1%82/4.jpg" alt="">
                     </a>

@@ -126,7 +126,7 @@ header .swiper-wrapper {
 			>
 				<router-link
 					to="/"
-					class="inline-block my-4 mx-3 md:hidden h-8 z-40"
+					class="inline-block mt-4 mx-3 md:hidden h-8 z-40"
 				>
 					<img
 						class="w-full h-full object-contain"
@@ -137,7 +137,8 @@ header .swiper-wrapper {
 					v-if="isAuthentificated"
 					class="
 						block
-						mt-4
+						mt-0
+						md:mt-4
 						xl:mt-0 xl:flex
 						items-center
 						px-3
@@ -349,7 +350,8 @@ header .swiper-wrapper {
 				<ul
 					class="
 						block
-						mt-4
+						mt-0
+						md:mt-4
 						xl:mt-0 xl:flex
 						items-center
 						px-3
@@ -544,6 +546,7 @@ header .swiper-wrapper {
 						<c-language></c-language>
 					</li>
 				</ul>
+				<!-- <h3 class="text-center">Бесплатное мобильное приложение</h3> -->
 				<div
 					class="
 						xl:hidden
@@ -552,9 +555,10 @@ header .swiper-wrapper {
 						w-full
 						justify-center
 						py-3
-						mt-6
+						mt-4
 					"
 				>
+					
 					<a class="mx-auto" href="#">
 						<img
 							class="w-32"

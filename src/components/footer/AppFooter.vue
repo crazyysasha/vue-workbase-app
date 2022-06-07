@@ -7,19 +7,19 @@ import { ref } from "vue";
 <template>
     <footer class="bg-gray-700 py-6 flex w-full items-center justify-center">
         <div class="container px-4 2xl:px-20 mx-auto">
-            <!-- <div class="flex flex-col md:flex-row items-center text-center md:text-left md:justify-between border-b border-2-gray-200 pb-6">
-                <h3 class="text-gray-200 text-sm ms:text-md md:text-lg lg:text-xl font-semibold">
+            <div class="flex flex-col md:flex-row items-center text-center md:text-left md:justify-between border-b border-2-gray-200 pb-6 mb-5">
+                <h3 class="text-gray-200 text-xl font-semibold mb-2">
                     Скачайте наше бесплатное приложение на смартфон!
                 </h3>
-                <div class="md:flex first:mr-5"  >
+                <div class="flex first:mr-5"  >
                     <a href="{{ this.theme.Android }}" class="mr-2">
-                        <img class="" src="{{'assets/images/app.png' | theme}}" alt="">
+                        <img class="" src="@/assets/images/app.png" alt="">
                     </a>
                     <a href="{{ this.theme.Ios }}" class="">
-                        <img class="" src="{{'assets/images/play.png' | theme}}" alt="">
+                        <img class="" src="@/assets/images/play.png" alt="">
                     </a>
                 </div>
-            </div> -->
+            </div>
             <div
                 class="
                     grid
