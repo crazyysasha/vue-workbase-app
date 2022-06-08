@@ -3,7 +3,7 @@
 	import ForExecutor from "@/components/order/view/for-executor.vue";
 	import ForCustomer from "@/components/order/view/for-customer.vue";
 	import SkeletonLoader from "@/components/order/view/skeleton-loader.vue";
-	import { computed, onMounted, reactive, toRefs } from "vue";
+	import { computed, onMounted, reactive, toRefs, watch } from "vue";
 	import { useRoute, useRouter } from "vue-router";
 	import useOrderModelInstance from "@/components/order/composables/model-instance";
 	import useProfile from "@/composables/profile";
@@ -141,11 +141,24 @@
 
 		return model.value?.customer?.id == profile.value?.id;
 	});
+
+	watch(isMyOrder,  (val) => {
+		console.log(val);
+	});
 </script>
 <template>
 	<section class="py-12 container px-4 mx-auto">
-		<skeleton-loader v-if="onGetOrderIsLoading"></skeleton-loader>
-		<for-customer v-if="isMyOrder && onGetOrderIsLoaded"></for-customer>
-		<for-executor v-if="!isMyOrder && onGetOrderIsLoaded"></for-executor>
+		<skeleton-loader v-if="onGetOrderIsLoading" key="loader-view">
+		</skeleton-loader>
+		<for-customer
+			v-if="isMyOrder && onGetOrderIsLoaded"
+			key="customer-view"
+		>
+		</for-customer>
+		<for-executor
+			v-if="!isMyOrder && onGetOrderIsLoaded"
+			key="executor-view"
+		>
+		</for-executor>
 	</section>
 </template>
