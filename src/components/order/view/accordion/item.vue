@@ -61,8 +61,8 @@
 <template>
 	<div
 		:class="{
-			'hover:bg-primary/10 border-transparent':
-				!isExpanded && !isDisabled,
+			'hover:bg-primary/10': isDisabled || !isExpanded,
+			'border-transparent': !isExpanded,
 			'!bg-gray-50': isExpanded && isDisabled,
 			'!my-2': isExpanded,
 		}"
@@ -73,13 +73,14 @@
 			border
 			rounded-md
 			overflow-hidden
-			my-0
+			my-1
 		"
 	>
 		<button
 			class="
 				flex
-				p-4
+				px-4
+				py-2
 				transition
 				duration-200
 				justify-between

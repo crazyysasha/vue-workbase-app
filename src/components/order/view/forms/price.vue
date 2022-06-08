@@ -8,8 +8,8 @@
 					class="w-full"
 					v-model="state.price_min"
 					:valid="!validator.price_min.$error"
-					:loading="isLoading"
-					:disabled="isLoading"
+					:loading="onUpdateOrderIsLoading"
+					:disabled="onUpdateOrderIsLoading"
 				>
 					Укажите минимальную стоимость услуги
 					<template #prefix>От:</template>
@@ -31,8 +31,8 @@
 					class="w-full"
 					v-model="state.price_max"
 					:valid="!validator.price_max.$error"
-					:loading="isLoading"
-					:disabled="isLoading"
+					:loading="onUpdateOrderIsLoading"
+					:disabled="onUpdateOrderIsLoading"
 				>
 					Укажите максимальную стоимость услуги
 					<template #prefix>До:</template>
@@ -53,12 +53,15 @@
 				type="button"
 				scheme="secondary"
 				@click="onCancel"
-				:loading="isLoading"
-				:disabled="isLoading"
+				:loading="onUpdateOrderIsLoading"
+				:disabled="onUpdateOrderIsLoading"
 			>
 				отмена
 			</c-button>
-			<c-button :loading="isLoading" :disabled="isLoading">
+			<c-button
+				:loading="onUpdateOrderIsLoading"
+				:disabled="onUpdateOrderIsLoading"
+			>
 				сохранить
 			</c-button>
 		</div>
@@ -74,22 +77,24 @@
 		requiredIf,
 	} from "@vuelidate/validators";
 	import { reactive, toRefs, unref, watch, watchEffect } from "vue";
-	
-	const { defaultState, updateHandlers } = toRefs(props);
-	const { execute, isLoading, isLoaded, promise } = unref(updateHandlers);
+	import useOrderModelInstance from "../../composables/model-instance";
 
 	const emit = defineEmits(["cancel", "success"]);
 
-	watch(defaultState, () => setStateWithDefaults());
+	const { model, onUpdate } = useOrderModelInstance();
+
+	watch(model, () => setStateWithDefaults());
 
 	const state = reactive({ price_min: "", price_max: "" });
 
 	const setStateWithDefaults = () => {
+		console.log(model.value);
 		Object.assign(state, {
-			price_min: defaultState.value?.price_min || "",
-			price_max: defaultState.value?.price_max || "",
+			price_min: model.value?.price_min || "",
+			price_max: model.value?.price_max || "",
 		});
 	};
+
 	setStateWithDefaults();
 
 	const rules = {
@@ -118,10 +123,17 @@
 
 	const validator = useVuelidate(rules, state, { $externalResults });
 
+	const {
+		onUpdateOrderIsLoading,
+		onUpdateOrderIsLoaded,
+		onUpdateOrderPromise,
+		onUpdateOrderExecute,
+	} = onUpdate();
+
 	const onSubmit = async () => {
 		if (!(await validator.value.$validate())) return;
 
-		await execute({
+		await onUpdateOrderExecute(model.value.id, {
 			price_min: state.price_min || 0,
 			price_max: state.price_max || 0,
 		})

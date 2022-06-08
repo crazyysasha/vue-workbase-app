@@ -26,10 +26,11 @@
 	const { onDeleteOrderIsLoading, onDeleteOrderExecute } = onDelete();
 
 	const onDeleteOrder = async () => {
-		await onDeleteOrderExecute(model.value);
+		await onDeleteOrderExecute(model.value.id);
 		router.push({ name: "orders" });
 	};
 
+	// computed properties
 	const isLoading = computed(
 		() =>
 			onGetOrderIsLoading.value ||
@@ -58,7 +59,22 @@
 		}
 		return services.map((service) => service.name).join(", ");
 	});
-	console.log("customer");
+
+	const displayedPrice = computed(() => {
+		if (!!!model.value) return null;
+
+		const { price, price_min, price_max, is_ranged_price } = model.value;
+
+		if (!!price && !!!is_ranged_price)
+			return `<span class="text-primary">${price}</span> сум за услугу`;
+
+		if (!!price_min)
+			return `От <span class="text-primary">${price_min}</span> до <span class="text-primary">${price_max}</span> сум за услугу`;
+		if (!!price_max)
+			return `До <span class="text-primary">${price_max}</span> сум за услугу`;
+
+		return "Договорная";
+	});
 </script>
 
 <template>
@@ -298,16 +314,17 @@
 						:expanded="expanded"
 						@on-expand="onExpand"
 						title="Cтоимость услуги"
+						:disabled="isLoading"
 					>
 						<template #subtitle>
 							<div v-html="displayedPrice"></div>
 						</template>
 						<div class="p-4 pt-6">
-							 <!-- <price-form
+							<price-form
 								@cancel="onExpand(null)"
 								@success="onExpand(null)"
 							>
-							</price-form> -->
+							</price-form>
 						</div>
 					</accordion-item>
 					<accordion-item
@@ -344,7 +361,7 @@
 							</div>
 						</template>
 						<div class="p-4 pt-6">
-							 <!-- <address-form
+							<!-- <address-form
 								@cancel="onExpand(null)"
 								:default-state="model"
 								:updateHandlers="updateHandlers"
@@ -365,7 +382,7 @@
 							</div>
 						</template>
 						<div class="p-4 pt-6">
-							 <!-- <TimeForm
+							<!-- <TimeForm
 								@cancel="onExpand(null)"
 								:default-state="model"
 								:updateHandlers="updateHandlers"
