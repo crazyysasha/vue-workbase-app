@@ -58,6 +58,7 @@
 		}
 		return services.map((service) => service.name).join(", ");
 	});
+	console.log("customer");
 </script>
 
 <template>
@@ -302,11 +303,11 @@
 							<div v-html="displayedPrice"></div>
 						</template>
 						<div class="p-4 pt-6">
-							 <price-form
+							 <!-- <price-form
 								@cancel="onExpand(null)"
 								@success="onExpand(null)"
 							>
-							</price-form>
+							</price-form> -->
 						</div>
 					</accordion-item>
 					<accordion-item
@@ -321,13 +322,13 @@
 							</div>
 						</template>
 						<div class="p-4 pt-6">
-							<work-place-form
+							<!-- <work-place-form
 								@cancel="onExpand(null)"
 								:default-state="model"
 								:updateHandlers="updateHandlers"
 								@success="onExpand(null)"
 							>
-							</work-place-form>
+							</work-place-form> -->
 						</div>
 					</accordion-item>
 					<accordion-item
@@ -343,13 +344,13 @@
 							</div>
 						</template>
 						<div class="p-4 pt-6">
-							 <address-form
+							 <!-- <address-form
 								@cancel="onExpand(null)"
 								:default-state="model"
 								:updateHandlers="updateHandlers"
 								@success="onExpand(null)"
 							>
-							</address-form>
+							</address-form> -->
 						</div>
 					</accordion-item>
 					<accordion-item
@@ -364,13 +365,13 @@
 							</div>
 						</template>
 						<div class="p-4 pt-6">
-							 <TimeForm
+							 <!-- <TimeForm
 								@cancel="onExpand(null)"
 								:default-state="model"
 								:updateHandlers="updateHandlers"
 								@success="onExpand(null)"
 							>
-							</TimeForm> 
+							</TimeForm>  -->
 						</div>
 					</accordion-item>
 				</accordion-container>

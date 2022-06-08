@@ -74,15 +74,7 @@
 		requiredIf,
 	} from "@vuelidate/validators";
 	import { reactive, toRefs, unref, watch, watchEffect } from "vue";
-	const props = defineProps({
-		defaultState: {
-			type: Object,
-		},
-		updateHandlers: {
-			type: Object,
-			required: true,
-		},
-	});
+	
 	const { defaultState, updateHandlers } = toRefs(props);
 	const { execute, isLoading, isLoaded, promise } = unref(updateHandlers);
 
