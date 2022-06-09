@@ -75,6 +75,14 @@
 
 		return "Договорная";
 	});
+
+	const isDeleted = computed(() => {
+		if (!!!model.value) return false;
+
+		const { deleted_at: deletedAt } = model.value;
+
+		return !!deletedAt;
+	});
 </script>
 
 <template>
@@ -399,7 +407,7 @@
 						class="flex items-center ml-auto"
 						:loading="isLoading"
 						:disabled="isLoading"
-						v-if="!!!model.deleted_at"
+						v-if="!isDeleted"
 					>
 						<h-x class="h-4 w-4 mr-2"> </h-x>
 						Удалить заказ
