@@ -1,12 +1,22 @@
 import { readonly, ref, warn } from "vue";
 
+/**
+ * @callback onSerialize
+ * @param {Object} data
+ */
 
-export default function useApi(promise, onSerialize) {
+/**
+ * 
+ * @param {Promise} promise 
+ * @param {onSerialize} onSerialize 
+ * @returns 
+ */
+export default function useApi(promise, onSerialize = (data) => data) {
 
     const isLoading = ref(false);
     const isLoaded = ref(false);
     const promiseRef = ref();
-
+    
     const execute = (...args) => {
         isLoading.value = true;
         return promiseRef.value = promise(...args)

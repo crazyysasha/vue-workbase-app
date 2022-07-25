@@ -11,9 +11,12 @@
 	import useVuelidate from "@vuelidate/core";
 	import { helpers, minLength } from "@vuelidate/validators";
 
-	import { computed } from "vue";
+	import { computed, onMounted } from "vue";
 	import useOrderModelInstance from "../composables/model-instance";
 	import { useRouter } from "vue-router";
+	import useConversations from "@/composables/chat/conversations/collection";
+	import { ConversiableTypes } from "@/utils/enums";
+	import useProfile from "@/composables/profile";
 
 	const router = useRouter();
 
@@ -83,6 +86,25 @@
 
 		return !!deletedAt;
 	});
+
+	console.log(model.value);
+	const { onGet: onGetConversations, conversations } = useConversations(
+		`${ConversiableTypes.order}:${model.value.id}`
+	);
+
+	const {
+		isLoading: onGetConversationsIsLoading,
+		isLoaded: onGetConversationsIsLoaded,
+		promise: onGetConversationsPromise,
+		execute: onGetConversationsExecute,
+	} = onGetConversations({
+		with: ["participants", "participants.particiantable"],
+	});
+
+	onMounted(() => {
+		onGetConversationsExecute();
+	});
+	const { profile } = useProfile();
 </script>
 
 <template>
@@ -156,6 +178,8 @@
 						p-2
 						rounded-md
 					"
+					v-for="{ model } in conversations"
+					:key="model.id"
 				>
 					<img
 						class="w-10 h-10 rounded-full"
@@ -163,7 +187,30 @@
 						alt=""
 					/>
 					<div>
-						<div class="font-medium">Меринков Валерий</div>
+						<div class="font-medium">
+							<span
+								v-for="(
+									participant, index
+								) in model.participants.filter(
+									(participant) =>
+										participant.particiantable_id !=
+										profile.id
+								)"
+								:key="participant.id"
+							>
+								{{ participant.particiantable.name
+								}}{{
+									index + 1 <
+									model.participants.filter(
+										(participant) =>
+											participant.particiantable_id !=
+											profile.id
+									).length
+										? ", "
+										: ""
+								}}
+							</span>
+						</div>
 						<div class="text-xs m-0 flex items-center">
 							<svg
 								xmlns="http://www.w3.org/2000/svg"
@@ -183,36 +230,7 @@
 						</div>
 					</div>
 				</a>
-				<a
-					href="#"
-					class="flex space-x-4 mb-2 hover:bg-gray-100 p-2 rounded-md"
-				>
-					<img
-						class="w-10 h-10 rounded-full"
-						src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"
-						alt=""
-					/>
-					<div>
-						<div class="font-medium">Мубаракшин Амаль</div>
-						<div class="text-xs m-0 flex items-center">
-							<svg
-								xmlns="http://www.w3.org/2000/svg"
-								class="h-3 w-3 mr-1"
-								fill="none"
-								viewBox="0 0 24 24"
-								stroke="currentColor"
-								stroke-width="2"
-							>
-								<path
-									stroke-linecap="round"
-									stroke-linejoin="round"
-									d="M11.049 2.927c.3-.921 1.603-.921 1.902 0l1.519 4.674a1 1 0 00.95.69h4.915c.969 0 1.371 1.24.588 1.81l-3.976 2.888a1 1 0 00-.363 1.118l1.518 4.674c.3.922-.755 1.688-1.538 1.118l-3.976-2.888a1 1 0 00-1.176 0l-3.976 2.888c-.783.57-1.838-.197-1.538-1.118l1.518-4.674a1 1 0 00-.363-1.118l-3.976-2.888c-.784-.57-.38-1.81.588-1.81h4.914a1 1 0 00.951-.69l1.519-4.674z"
-								/>
-							</svg>
-							<span>4.7 - 7 отзывов</span>
-						</div>
-					</div>
-				</a>
+
 				<button
 					class="text-center w-full flex items-center justify-center"
 				>

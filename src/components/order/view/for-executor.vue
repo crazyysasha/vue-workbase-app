@@ -1,7 +1,7 @@
 <script setup>
 	import ListContainer from "@/components/order/view/list/container.vue";
 	import ListItem from "@/components/order/view/list/item.vue";
-	import ReplyForm from "@/components/order/view/forms/reply.vue";
+	import CreateConversationForm from "@/components/order/view/forms/create-conversation.vue";
 	import { computed, ref, watch } from "vue";
 	import { useRoute } from "vue-router";
 	import useOrderModelInstance from "../composables/model-instance";
@@ -14,7 +14,7 @@
 
 	const { model, onCreateReply } = useOrderModelInstance();
 	const { profile } = useProfile();
-	const replyFormIsOpen = ref(false);
+	const CreateConversationFormIsOpen = ref(false);
 
 	const myReply = computed(() =>
 		model.value?.replies?.find?.((r) => r.user_id == profile.value.id)
@@ -72,32 +72,41 @@
 					></div>
 				</div> -->
 				<div class="px-4">
-					<h2 class="text-2xl text-primary font-medium mb-5" >
-					<!-- {{ title }}  -->Образование и Репетиторство
+					<h2 class="text-2xl text-primary font-medium mb-5">
+						<!-- {{ title }}  -->Образование и Репетиторство
 					</h2>
-					<p class="mb-4"> Lorem ipsum dolor sit, amet consectetur adipisicing elit. </p>
+					<p class="mb-4">
+						Lorem ipsum dolor sit, amet consectetur adipisicing
+						elit.
+					</p>
 				</div>
-				
+
 				<div>
 					<list-item title="Вид услуги">
 						<template #subtitle>
 							<div class="line-clamp-2">
 								{{ service }}
 							</div>
-							<div><div class="text-left"><div class="line-clamp-2">Английский язык, Общий английский</div></div></div>
+							<div>
+								<div class="text-left">
+									<div class="line-clamp-2">
+										Английский язык, Общий английский
+									</div>
+								</div>
+							</div>
 						</template>
 					</list-item>
 					<list-item title="Описание">
 						<template #subtitle>
 							<div class="line-clamp-2">
-								 <p
+								<p
 									v-for="(
 										text, index
 									) in model?.description?.split('\n', 2)"
 									:key="`description-${index}`"
 								>
 									{{ text }}
-								</p> 
+								</p>
 							</div>
 						</template>
 					</list-item>
@@ -139,19 +148,19 @@
 					</list-item>
 				</div>
 				<div class="flex flex-col mt-4" v-if="!!!myReply">
-					<div class="flex" v-show="!replyFormIsOpen">
+					<div class="flex" v-show="!CreateConversationFormIsOpen">
 						<c-button
 							class="ml-auto"
-							@click="replyFormIsOpen = true"
+							@click="CreateConversationFormIsOpen = true"
 						>
 							Откликнутся
 						</c-button>
 					</div>
-					<reply-form
-						v-show="replyFormIsOpen"
-						@success="replyFormIsOpen = false"
-						@cancel="replyFormIsOpen = false"
-					></reply-form>
+					<CreateConversationForm
+						v-show="CreateConversationFormIsOpen"
+						@success="CreateConversationFormIsOpen = false"
+						@cancel="CreateConversationFormIsOpen = false"
+					></CreateConversationForm>
 				</div>
 				<div class="mt-4" v-else>
 					Вы оставили отклик в
@@ -400,5 +409,4 @@
 			</div>
 		</div>
 	</div>
-
 </template>

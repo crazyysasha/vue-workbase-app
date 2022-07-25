@@ -17,3 +17,11 @@ export const Gender = readonly({
     man: "man",
     woman: "woman",
 });
+
+/**
+ * ConversiableTypes
+ * @enum {String}
+ */
+export const ConversiableTypes = readonly({
+    order: '\\Crazy\\FreeLancer\\Models\\Order',
+});

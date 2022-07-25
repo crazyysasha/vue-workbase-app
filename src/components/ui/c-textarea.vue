@@ -133,7 +133,7 @@
 		if (autofocus.value) {
 			textarea.value.focus();
 		}
-		textarea.value.addEventListener("keyup", function () {
+		textarea.value.addEventListener("keydown", function () {
 			if (textarea.value.scrollTop > 0) {
 				textarea.value.style.height = textarea.value.scrollHeight + "px";
 			}

@@ -3,7 +3,7 @@ import { inject } from "vue";
 
 export function usePusher() {
     /**
-     * @var {Pusher} pusher
+     * @type {Pusher} pusher
      */
     const pusher = inject('pusher');
 

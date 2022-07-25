@@ -1,10 +1,12 @@
 <script setup>
+	import useConversations from "@/composables/chat/conversations/collection";
 	import useVuelidate from "@vuelidate/core";
 	import { helpers, minLength, required } from "@vuelidate/validators";
-	import { reactive } from "vue";
+	import { computed, reactive } from "vue";
 	import useOrderModelInstance from "../../composables/model-instance";
 	const emit = defineEmits(["success", "cancel"]);
 	const state = reactive({ content: "" });
+
 	const rules = {
 		content: {
 			required: helpers.withMessage(
@@ -21,18 +23,18 @@
 
 	const validator = useVuelidate(rules, state, { $externalResults });
 
-	const { model, onCreateReply } = useOrderModelInstance();
-
+	const { model } = useOrderModelInstance();
+	const { onCreate } = useConversations();
 	const {
-		onCreateReplyToOrderIsLoading,
-		onCreateReplyToOrderIsLoaded,
-		onCreateReplyToOrderPromise,
-		onCreateReplyToOrderExecute,
-	} = onCreateReply();
+		isLoading: onCreateConversationIsLoading,
+		isLoaded: onCreateConversationIsLoaded,
+		execute: onCreateConversationExecute,
+		promise: onCreateConversationPromise,
+	} = onCreate();
 
 	const onSubmit = async () => {
 		if (!(await validator.value.$validate())) return;
-		await onCreateReplyToOrderExecute(model.value?.id, state).catch(
+		const conversation = await onCreateConversationExecute().catch(
 			({ type, message, fields }) => {
 				if (type == "validation") {
 					return Object.assign($externalResults, {
@@ -42,10 +44,15 @@
 				throw { type, message, fields };
 			}
 		);
+
 		emit("success");
 	};
 	console.log(model.value);
 	const onCancel = () => emit("cancel");
+
+	const isLoading = computed(() => {
+		return onCreateConversationIsLoading.value;
+	});
 </script>
 
 <template>
@@ -57,6 +64,8 @@
 				name="content"
 				class="w-full"
 				:valid="!validator.content.$error"
+				:loading="isLoading"
+				:disabled="isLoading"
 			>
 				Ваше сообщение
 			</c-textarea>
@@ -73,15 +82,12 @@
 				scheme="secondary"
 				type="button"
 				@click="onCancel"
-				:loading="onCreateReplyToOrderIsLoading"
-				:disabled="onCreateReplyToOrderIsLoading"
+				:loading="isLoading"
+				:disabled="isLoading"
 			>
 				отмена
 			</c-button>
-			<c-button
-				:loading="onCreateReplyToOrderIsLoading"
-				:disabled="onCreateReplyToOrderIsLoading"
-			>
+			<c-button :loading="isLoading" :disabled="isLoading">
 				откликнуться
 			</c-button>
 		</div>
